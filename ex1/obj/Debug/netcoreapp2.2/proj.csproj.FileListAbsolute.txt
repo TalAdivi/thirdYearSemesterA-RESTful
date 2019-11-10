@@ -1,0 +1,60 @@
+C:\Users\Adivi\Documents\New folder\proj\bin\Debug\netcoreapp2.2\proj.deps.json
+C:\Users\Adivi\Documents\New folder\proj\bin\Debug\netcoreapp2.2\proj.runtimeconfig.json
+C:\Users\Adivi\Documents\New folder\proj\bin\Debug\netcoreapp2.2\proj.runtimeconfig.dev.json
+c:\Users\Adivi\Documents\New folder\proj\bin\Debug\netcoreapp2.2\proj.dll
+c:\Users\Adivi\Documents\New folder\proj\bin\Debug\netcoreapp2.2\proj.pdb
+C:\Users\Adivi\Documents\New folder\proj\bin\Debug\netcoreapp2.2\proj.Views.dll
+c:\Users\Adivi\Documents\New folder\proj\bin\Debug\netcoreapp2.2\proj.Views.pdb
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.csprojAssemblyReference.cache
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.csproj.CoreCompileInputs.cache
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.RazorAssemblyInfo.cache
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.RazorAssemblyInfo.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.AssemblyInfoInputs.cache
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.AssemblyInfo.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.TagHelpers.input.cache
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.TagHelpers.output.cache
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.RazorCoreGenerate.cache
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.g.cshtml.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.RazorTargetAssemblyInfo.cache
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.RazorTargetAssemblyInfo.cs
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.Views.pdb
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.dll
+c:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.pdb
+C:\Users\Adivi\Documents\New folder\proj\obj\Debug\netcoreapp2.2\proj.csproj.CopyComplete
+C:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\bin\Debug\netcoreapp2.2\proj.deps.json
+C:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\bin\Debug\netcoreapp2.2\proj.runtimeconfig.json
+C:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\bin\Debug\netcoreapp2.2\proj.runtimeconfig.dev.json
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\bin\Debug\netcoreapp2.2\proj.dll
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\bin\Debug\netcoreapp2.2\proj.pdb
+C:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\bin\Debug\netcoreapp2.2\proj.Views.dll
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\bin\Debug\netcoreapp2.2\proj.Views.pdb
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.csprojAssemblyReference.cache
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.csproj.CoreCompileInputs.cache
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.RazorAssemblyInfo.cache
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.RazorAssemblyInfo.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.AssemblyInfoInputs.cache
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.AssemblyInfo.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.TagHelpers.input.cache
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.TagHelpers.output.cache
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.RazorCoreGenerate.cache
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\Razor\Views\Home\Index.g.cshtml.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_Layout.g.cshtml.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\Razor\Views\_ViewStart.g.cshtml.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.RazorTargetAssemblyInfo.cache
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.RazorTargetAssemblyInfo.cs
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.Views.pdb
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.dll
+c:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.pdb
+C:\Users\Adivi\Documents\GitHub\thirdYearSemesterA-RESTful\obj\Debug\netcoreapp2.2\proj.csproj.CopyComplete
