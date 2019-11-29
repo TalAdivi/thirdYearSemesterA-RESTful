@@ -1,22 +1,18 @@
-const handler = require('./handler')
-const logger = handler()
-const http = require('http')
-// const url = require('url')
+// const { addToLog } = require('./handler')
+const { addTicketHandler, addToLog, loger } = require('./handler')
+
 const tiketsForGaga = require('./allTickets')
 const eventsConfig = require('./config').events
 // const users = require('./authentications')
 const ticketObj = tiketsForGaga()
-const port = 3031
-console.log(logger)
 // const { parse } = require('querystring')
+let count = 1
 
-http.createServer((req, res) => {
-  // const urlObj = url.parse(req.url, true, false)
-
-  // console.log(url)
+module.exports = (req, res) => {
   switch (req.method) {
     // show all reservations
     // get log of all printed things
+
     case 'GET':
       // res.write('into GET')
       if (req.url === '/getAllUsers') {
@@ -27,14 +23,14 @@ http.createServer((req, res) => {
       }
 
       if (req.url === '/getLog') {
-        res.write(`log details:
-        ${logger.getLogText()}`)
-        console.log(logger.getLogText())
+        res.write()
+
         res.end()
       }
       break
 
     case 'POST':
+      console.log('URL IS ' + req.url)
       res.write('into POST ')
       if (req.url === '/addNewReservation') {
         let body = ''
@@ -45,17 +41,24 @@ http.createServer((req, res) => {
           // console.log(body)
           const jsonObj = JSON.parse(body)
           ticketObj.addTicket(jsonObj.name, jsonObj.amount)
-          // console.log(jsonObj.name)
 
-          res.end('ok')
+          // addToLog(`ticket added - name = ${jsonObj.name} \t ticket amount = ${jsonObj.amount}`)
+          // console.log(jsonObj.name)
+          res.end(`\nSuccess ${count++}`)
         })
       }
-      // ticketObj.addTicket('Tal', 1)
 
       break
     default:
       res.write('default')
   }
-  ticketObj.on(eventsConfig.addTicket, logger.funky)
-  // res.end()
-}).listen(port, () => `listining on port ${port}..`)
+  ticketObj.once(eventsConfig.addTicket, (name, ticketsAmount, newTicketID) => {
+    loger.addToLog(name)
+    console.log(loger.getLogText())
+  })
+  // ticketObj.on(eventsConfig.addTicket, (name, ticketsAmount, newTicketID) => {
+  //   addTicketHandler(name, ticketsAmount, newTicketID)
+  // })
+
+  // ticketObj.on(eventsConfig.addTicket, (name, ticketsAmount, newTicketID) => { res.write(`your reservation id is: ${newTicketID}`); res.end('\nSuccess') })
+}

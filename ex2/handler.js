@@ -1,39 +1,11 @@
-// let logText = ''
+const loger = require('./loger')()
+const addToLog = loger.addToLog
 
-// const funky = () => {
-//   console.log('obj added-----------')
-//   logText += 'new ticket added'
-//   console.log(logText)
-// }
-
-// // function funky () {
-// //   console.log('obj added-----------')
-// // //   console.log(ticketObj.getTicketsAmount())
-// // }
-
-// // module.exports = {
-// //   funky
-// // }
-// exports.logText = logText
-// exports.funky = funky
-
-class Logger {
-  constructor () {
-    this.logText = 'BLA'
-  }
-
-  funky () {
-    console.log('obj added-----------')
-    console.log(this.logText)
-    this.logText += 'new ticket added'
-  }
-
-  getLogText () {
-    return this.logText
-  }
+const addTicketHandler = (name, amout, id) => {
+  console.log(`name: ${name} amount: ${amout} ID: ${id}`)
 }
-
-module.exports = () => {
-  const myLogger = new Logger()
-  return myLogger
+module.exports = {
+  loger,
+  addToLog,
+  addTicketHandler
 }

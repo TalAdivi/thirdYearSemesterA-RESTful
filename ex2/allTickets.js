@@ -6,27 +6,29 @@ const oneTicket = require('./tickets')
 class ReservationManager extends EventEmitter {
   constructor () {
     super()
-    this.allTikets = []
+    this.allTikets = new Map()
   }
 
-  reduceTicket () {
+  reduceTicket (name) {
     if (TOTAL_TICKETS_AMOUNT <= 0) {
-    //   this.emit('noMoreTickets')
       this.emit(eventsConfig.noMoreTicket)
+    } else {
+      // have thigs to do here
+      this.emit(eventsConfig.removeTicket)
     }
-
-    // this.emit('ticketReduced')
-    this.emit(eventsConfig.removeTicket)
   }
 
   addTicket (name, ticketsAmount) {
     if (TOTAL_TICKETS_AMOUNT < 10) {
-      this.allTikets.push(oneTicket(name, ticketsAmount))
+      const newTicket = oneTicket(name, ticketsAmount)
+
+      this.allTikets.set(newTicket.id, newTicket)
+      console.log(this.allTikets)
 
       TOTAL_TICKETS_AMOUNT += ticketsAmount
       //   this.emit('ticketIncreased')
       //   console.log(this.allTikets)
-      this.emit(eventsConfig.addTicket, name, ticketsAmount)
+      this.emit(eventsConfig.addTicket, name, ticketsAmount, newTicket.id)
     } else {
     //   this.emit('noMoreTickets')
       this.emit(eventsConfig.noMoreTicket)
