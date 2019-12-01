@@ -1,13 +1,11 @@
 const Moment = require('moment')
 class Loger {
   constructor () {
-    this.logText = 'Starting to Log... \n'
+    this.logText = ''
   }
 
   addToLog (event) {
-    // console.log('obj added-----------')
-    // this.logText += `new ticket added at ${Date.now()}`
-    this.logText += `'\n'  ${event} at ${new Moment().format()} `
+    this.logText += `'\n'${new Moment().format()}:\t  ${event}`
   }
 
   getLogText () {
@@ -17,5 +15,6 @@ class Loger {
 
 module.exports = () => {
   const myLogger = new Loger()
+
   return myLogger
 }

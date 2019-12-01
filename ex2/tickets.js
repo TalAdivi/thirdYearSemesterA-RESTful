@@ -12,6 +12,22 @@ class ReservationForGaga {
   getID () {
     return this.id
   }
+
+  getName () {
+    return this.name
+  }
+
+  getAmount () {
+    return this.ticketsAmount
+  }
+
+  setName (name) {
+    this.name = name
+  }
+
+  setTicketsAmount (ticketAmount) {
+    this.ticketsAmount = ticketAmount
+  }
 }
 
 module.exports = (name, tiketsAmount) => {
