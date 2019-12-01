@@ -8,6 +8,10 @@ class ReservationForGaga {
     this.ticketsAmount = tiketsAmout
     this.id = ID_COUNT++
   }
+
+  getID () {
+    return this.id
+  }
 }
 
 module.exports = (name, tiketsAmount) => {

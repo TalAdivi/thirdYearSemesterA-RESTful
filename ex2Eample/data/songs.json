@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "song": "Never gonna give you up",
+        "artist": "Rick Astley"
+    },
+    {
+        "id": 2,
+        "song": "Go west",
+        "artist": "Pet Shop Boys"
+    },
+    {
+        "id": 3,
+        "song": "Heaven",
+        "artist": "Bryan Adams"
+    }
+]

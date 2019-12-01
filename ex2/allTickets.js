@@ -29,6 +29,7 @@ class ReservationManager extends EventEmitter {
       //   this.emit('ticketIncreased')
       //   console.log(this.allTikets)
       this.emit(eventsConfig.addTicket, name, ticketsAmount, newTicket.id)
+      return newTicket.getID()
     } else {
     //   this.emit('noMoreTickets')
       this.emit(eventsConfig.noMoreTicket)

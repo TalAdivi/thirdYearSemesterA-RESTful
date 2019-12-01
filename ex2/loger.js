@@ -7,7 +7,7 @@ class Loger {
   addToLog (event) {
     // console.log('obj added-----------')
     // this.logText += `new ticket added at ${Date.now()}`
-    this.logText += `'\n' ${event} at ${new Moment().format('MMMM Do YYYY, h:mm:ss a')} `
+    this.logText += `'\n'  ${event} at ${new Moment().format()} `
   }
 
   getLogText () {

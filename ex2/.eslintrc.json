@@ -1,7 +1,6 @@
 {
     "env": {
         "browser": true,
-        "es6": true,
         "node": true
     },
     "extends": [
@@ -12,9 +11,11 @@
         "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
-        "ecmaVersion": 2018,
+        "ecmaVersion": 6,
         "sourceType": "module"
     },
     "rules": {
+        // "disable-next-line"
+        "no-extra-semi" :"off"
     }
 }
