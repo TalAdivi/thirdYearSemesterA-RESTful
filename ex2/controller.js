@@ -3,16 +3,14 @@ const { getAllTickets, addTicket, getLog, deleteAllReservations, deleteOneReserv
 const deleteOneRsrvtionPattern = /deleteReservation/g
 const updateRsrvtionPattern = /updateReservation/g
 module.exports = (req, res) => {
-  console.log(req.url)
   switch (req.method) {
     case 'GET':
-      if (req.url === '/getAllUsers') { getAllTickets(req, res) }
+      if (req.url === '/getAllTickets') { getAllTickets(req, res) }
 
       if (req.url === '/getLog') { getLog(req, res) }
       break
 
     case 'POST':
-      res.write('into POST ')
       if (req.url === '/addNewReservation') { addTicket(req, res) }
       break
 

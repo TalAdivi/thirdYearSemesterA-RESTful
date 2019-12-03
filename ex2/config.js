@@ -5,6 +5,7 @@ module.exports = {
     noMoreTicket: 'noMoreTickets',
     getAllTickets: 'getAllTickets',
     deleteAll: 'deleteAllReservations',
-    updateTicket: 'UpdateTicket'
+    updateTicket: 'UpdateTicket',
+    notEnoughTickets: 'notEnoughTickets'
   }
 }

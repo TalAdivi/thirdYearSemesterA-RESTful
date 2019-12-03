@@ -16,6 +16,7 @@
     },
     "rules": {
         // "disable-next-line"
-        "no-extra-semi" :"off"
+        // "no-extra-semi" :"off"
+        "semi":"off"
     }
 }

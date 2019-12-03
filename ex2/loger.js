@@ -9,12 +9,12 @@ class Loger {
   }
 
   getLogText () {
+    console.log('*get log fired*')
     return this.logText
   }
 }
 
 module.exports = () => {
   const myLogger = new Loger()
-
   return myLogger
 }
