@@ -28,11 +28,9 @@ const getAllTickets = (req, res) => {
     if (jsonBodyHaveUsrNamePass(bodyJson)) {
       if (userIsAdmin(bodyJson)) {
         res.write(`All tickets list: ${ticketObj.getAllTickets(loger)}`)
-        // res.writeHeader(200)
         res.end('\nsuccess')
       } else {
         res.write('Not authorized - Code 401')
-        // res.writeHeader(401)
         res.end('\nfail')
       }
     } else {
@@ -46,15 +44,12 @@ const getLog = (req, res) => {
   req.on('data', chunk => { body += chunk });
   req.on('end', () => {
     const bodyJson = JSON.parse(body);
-
     if (jsonBodyHaveUsrNamePass(bodyJson)) {
       if (userIsAdmin(bodyJson)) {
         res.write(`Log -------------------\n${loger.getLogText()}`)
-        // res.writeHeader(200)
         res.end('\nsuccess')
       } else {
         res.write('Not authorized - Code 401')
-        // res.writeHeader(401)
         res.end('\nfail')
       }
     } else {
@@ -72,18 +67,15 @@ const deleteAllReservations = (req, res) => {
       if (userIsAdmin(bodyJson)) {
         res.write('Deleting all reservations')
         ticketObj.deleteAllReservations(loger)
-        // res.writeHeader(200)
         res.end('\nAll reservations has been deleted successfuly\nsuccess')
       } else {
         res.write('Not authorized - Code 401')
-        // res.writeHeader(401)
         res.end('\nfail')
       }
     } else {
       res.end('Bad body\nfaild')
     }
   })
-
 }
 
 const deleteOneReservation = (req, res) => {

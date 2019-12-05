@@ -1,4 +1,3 @@
-// const { addToLog } = require('./handler')
 const { getAllTickets, addTicket, getLog, deleteAllReservations, deleteOneReservation, updateTicket } = require('./handler')
 const deleteOneRsrvtionPattern = /deleteReservation/g
 const updateRsrvtionPattern = /updateReservation/g
@@ -30,13 +29,3 @@ module.exports = (req, res) => {
       res.write('default')
   }
 }
-
-/**
-  *   const header = req.headers.authorization || '' // get the header
-  const token = header.split(/\s+/).pop() || '' // and the encoded auth token
-  const auth = Buffer.from(token, 'base64').toString()
-  const parts = auth.split(/:/) // split on colon
-  const username = parts[0]
-  // eslint-disable-next-line semi
-  const password = parts[1];
-*/

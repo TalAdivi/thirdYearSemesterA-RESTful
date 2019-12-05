@@ -1,4 +1,3 @@
-// const loger = require('./loger')()
 let TOTAL_TICKETS_AMOUNT = 0
 const { EventEmitter } = require('events')
 const eventsConfig = require('./config').events
