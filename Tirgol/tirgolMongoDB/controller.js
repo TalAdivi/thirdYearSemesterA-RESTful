@@ -2,6 +2,7 @@ const { user, order, restaurant } = require('./data');
 
 exports.restaurantController = {
     get(req, res) {
+       
         if (req.params && req.params.id) {
             const { id } = req.params;
             console.log('single data requested');
