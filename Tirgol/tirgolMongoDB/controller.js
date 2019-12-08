@@ -1,8 +1,9 @@
+const fs = require('fs')
 const { user, order, restaurant } = require('./data');
+
 
 exports.restaurantController = {
     get(req, res) {
-       
         if (req.params && req.params.id) {
             const { id } = req.params;
             console.log('single data requested');
@@ -15,10 +16,13 @@ exports.restaurantController = {
     post(req, res) {
         console.log('new entity saved!');
         const { body } = req;
+        // body = JSON.parse(body)
+        console.log(body)
         restaurant.push(body);
         res.send('new entity saved!');
     },
 };
+
 
 exports.userController = {
     get(req, res) { },
