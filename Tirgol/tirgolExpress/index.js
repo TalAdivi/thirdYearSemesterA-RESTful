@@ -4,9 +4,8 @@ const url = require('url')
 const http = require('http')
 const app = express()
 const port = process.env.PORT || 3000
-const pug = require('pug')
-const ejs = require('ejs')
 const jsonBody = require('./data/music.json')
+const exphbs  = require('express-handlebars');
 dotenv.config()
 
 // app.get('/a?b?cd', (req,res,next) => {res.sendFile(`${__dirname}/public/index.html`)})
@@ -35,7 +34,7 @@ dotenv.config()
 // })
 
 
-app.use(express.urlencoded())
+// app.use(express.urlencoded())
 app.use(express.json())
 // app.get('/playmusic/:music_id', (req, res) => {
 //     const {music_id} = req.params
@@ -100,25 +99,48 @@ app.use(express.json())
 //     })
 
 
-const router = express.Router();
+// const router = express.Router();
 
-app.use('/api',router)
+// app.use('/api',router)
 
-router.use((req,res,next) => {
-    console.log('/' + req.method)
-    next()
-})
+// router.use((req,res,next) => {
+//     console.log('/' + req.method)
+//     next()
+// })
 
-router.get('/',(req,res) => {
-    res.json({"hello": "world"})
-})
+// router.get('/',(req,res) => {
+//     res.json({"hello": "world"})
+// })
 
-router.get('/songs',(req,res) => {
-    res.json({"message" : "songs route"})
-})
-
-
-app.listen(port);
+// router.get('/songs',(req,res) => {
+//     res.json({"message" : "songs route"})
+// })
 
 
+
+
+// app.engine('handlebars', exphbs());
+// app.set('view engine', 'handlebars');
+
+// app.get('/', function (req, res) {
+//     res.render('home');
+// });
+
+
+
+// app.listen(port);
+let myOb = {
+    "tal" : "adivi",
+    "bla" : "blabla"
+}
+
+let arr = [1, 2, 3];
+console.log(arr.length)
+
+arr.__proto__ = myOb
+arr = new arr
+console.log(arr.length)
+
+// it inherits from Array.prototype?
+// console.log( arr.__proto__ === Array.prototype ); // true
 
