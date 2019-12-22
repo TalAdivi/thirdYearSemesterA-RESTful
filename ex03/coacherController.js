@@ -17,8 +17,9 @@ class CoacherController {
               .catch(err => {
                 res.status(400).send(err.message);
               })
-
-            res.status(200).send('new coacher added');
+              .then(() => {
+                res.status(200).send('new coacher added');
+              })
           } else {
             res.status(500).send('cant save coacher');
           }
