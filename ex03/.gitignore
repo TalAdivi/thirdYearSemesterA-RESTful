@@ -1,2 +1,5 @@
 node_modules
-dataEnter
+dataEnter.json
+_controller.js
+_posts.js
+_users.js
