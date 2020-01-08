@@ -5,7 +5,8 @@ io.on('connection', function (socket) {
     console.log('a user connected');
     socket.on('disconnect', function () {
         console.log('user disconnected');
-    });    socket.on('chat message', function (msg, from, topic) {
+    });
+    socket.on('chat message', function (msg, from, topic) {
         console.log(`topic: ${topic} ${from}: ${msg}`);
         io.emit('chat message', msg, from, topic);
     });
@@ -15,4 +16,5 @@ io.on('connection', function (socket) {
 http.listen(3001, function () {
     console.log('listening on *:3001');
 });
+
 
