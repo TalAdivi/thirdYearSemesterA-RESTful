@@ -1,3 +1,12 @@
+/**                         google auth
+ * 
+ * need to check : https://www.npmjs.com/package/google-auth-library 
+ * maybe this one : https://medium.com/@jackrobertscott/how-to-use-google-auth-api-with-node-js-888304f7e3a0
+ * maybe this : https://medium.com/@jackrobertscott/how-to-use-google-auth-api-with-node-js-888304f7e3a0
+ * 
+ */
+  
+  
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);

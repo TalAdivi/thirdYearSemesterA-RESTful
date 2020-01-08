@@ -32,7 +32,8 @@ user: {
 
     id:,
     name:,
-    avatar:
+    avatar:,
+    isAdmin:
 
 
 }
