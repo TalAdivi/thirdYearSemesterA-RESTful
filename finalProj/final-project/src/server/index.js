@@ -16,4 +16,3 @@ http.listen(3001, function () {
     console.log('listening on *:3001');
 });
 
-var adivu = "adfadfda";
