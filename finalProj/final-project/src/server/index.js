@@ -2,7 +2,7 @@
 var tal = null;
 
 var app = require('express')();
-var bkakbkab = 'bkabkab';
+var datyeee=1;
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
