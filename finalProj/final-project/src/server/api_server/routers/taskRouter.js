@@ -1,11 +1,7 @@
 const express = require('express');
 const url = require("url");
 const router = express.Router();
-const controller = require('./controller');
-
-// router.get('/getSubjects', (req, res) => {
-//     controller.getSubjects(req, res);
-// });
+const controller = require('../controllers/taskController');
 
 
 router.get('/getTasksByUID', (req, res) => {
@@ -45,7 +41,8 @@ router.delete('/deleteTask', (req, res) => {
 // defult route 
 router.all('*', (req, res) => {
     res.status(404).json({
-        err: "Wrong route",
+        status:404,
+        message: "Wrong route",
         action: "Unknown",
         data: null
     })

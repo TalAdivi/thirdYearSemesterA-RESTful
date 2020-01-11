@@ -1,25 +1,27 @@
-const dal = require('./dal')
+const model = require('../Schemes/taskSchema');
 
 
 async function getTasksUser(req, res) {
     try {
-        const data = await dal.findTasksUser(req.userID);
+        const data = await model.findTasksUser(req.userID);
         if (data.length == 0) {
             res.status(200).json({
                 status:200,
-                message: 'success',
+                message:"No tasks was found for this user ID",
                 action: "Read",
-                data: "No tasks was found for this user ID"
+                data: null
             });
         } else {
             res.status(200).json({
-                message: null,
+                status:200,
+                message: "success",
                 action: "Read",
                 data: data
             })
         }
     } catch (err) {
         res.status(500).json({
+            status:500,
             message: err.message,
             action: "Read",
             data: null
@@ -29,23 +31,26 @@ async function getTasksUser(req, res) {
 
 async function getTasksCompany(req, res) {
     try {
-        const data = await dal.findTasksCompany(req.companyID);
+        const data = await model.findTasksCompany(req.companyID);
         if (data.length == 0) {
             res.status(200).json({
-                err: null,
+                status:200,
+                message: "No tasks was found for this company ID",
                 action: "Read",
-                data: "No tasks was found for this company ID"
+                data: null
             });
         } else {
             res.status(200).json({
-                err: null,
+                status:200,
+                message: "success",
                 action: "Read",
                 data: data
             })
         }
     } catch (err) {
         res.status(500).json({
-            err: err.message,
+            status:500,
+            message: err.message,
             action: "Read",
             data: null
         })
@@ -56,17 +61,18 @@ async function getTasksCompany(req, res) {
 
 async function createNewTask(req, res) {
     try {
-        const data = await dal.insertNewTask(req.body);
-        console.log(data);
+        const data = await model.insertNewTask(req.body);
         res.status(200).json({
-            err: null,
+            status:200,
+            message: "success",
             action: "Create",
             data: data
         })
 
     } catch (err) {
         res.status(500).json({
-            err: err.message,
+            status:500,
+            message: err.message,
             action: "Create",
             data: null
         })
@@ -75,23 +81,26 @@ async function createNewTask(req, res) {
 
 async function updateStatusTask(req, res) {
     try {
-        const data = await dal.updateStatus(req.taskID);
+        const data = await model.updateStatus(req.taskID);
         if (data == null) {
             res.status(200).json({
-                err: null,
+                status:200,
+                message: "No task / task with status active was found for this task ID",
                 action: "Update",
-                data: "No task / task with status active was found for this task ID"
+                data: null
             });
         } else {
             res.status(200).json({
-                err: null,
+                status:200,
+                message: "success",
                 action: "Update",
                 data: data
             })
         }
     } catch (err) {
         res.status(500).json({
-            err: err.message,
+            status:500,
+            message: err.message,
             action: "Update",
             data: null
         })
@@ -101,23 +110,26 @@ async function updateStatusTask(req, res) {
 
 async function updateChatTask(req, res) {
     try {
-        const data = await dal.updateChat(req);
+        const data = await model.updateChat(req);
         if (data == null) {
             res.status(200).json({
-                err: null,
+                status:200,
+                message: "No task was found for this task ID",
                 action: "Update",
-                data: "No task was found for this task ID"
+                data: null
             });
         } else {
             res.status(200).json({
-                err: null,
+                status:200,
+                message: "success",
                 action: "Update",
                 data: data
             })
         }
     } catch (err) {
         res.status(500).json({
-            err: err.message,
+            status:500,
+            message: err.message,
             action: "Update",
             data: null
         })
@@ -126,23 +138,26 @@ async function updateChatTask(req, res) {
 
 async function deleteTask(req, res) {
     try {
-        const data = await dal.deleteTaskFromDb(req.taskID);
+        const data = await model.deleteTaskFromDb(req.taskID);
         if (data == null) {
             res.status(200).json({
-                err: null,
+                status:200,
+                message: "No task / task with status active was found for this task ID",
                 action: "Delete",
-                data: "No task / task with status active was found for this task ID"
+                data: null
             });
         } else {
             res.status(200).json({
-                err: null,
+                status:200,
+                message: "success",
                 action: "Delete",
                 data: data
             })
         }
     } catch (err) {
         res.status(500).json({
-            err: err.message,
+            status:500,
+            message: err.message,
             action: "Delete",
             data: null
         })

@@ -1,12 +1,18 @@
 const express = require('express')
 const morgan = require('morgan')
 const app = express()
-const apiRoute = require('./router');
+
+const taskApi = require('./routers/taskRouter');
+const subjectApi = require('./routers/subjectRouter');
+const companyApi = require('./routers/companyRouter');
+const userApi = require('./routers/userRouter');
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 
-app.use('/Help4U/task', apiRoute);
-app.use('/Help4U/subject', apiRoute);
-app.use('/Help4U/task', apiRoute);
+app.use('/Help4U/task', taskApi);
+// app.use('/Help4U/subject', subjectApi);
+app.use('/Help4U/company', companyApi);
+// app.use('/Help4U/user', userApi);
 module.exports = app;
