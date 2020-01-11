@@ -28,11 +28,17 @@ coacherSchema.statics.isExist = async function (id) {
     if (err) { throw err; }
   });
 }
+
 coacherSchema.statics.getAll = async function () {
   return this.find({}, (err) => {
     if (err) { throw err; }
   });
 }
+/**
+ *
+ *
+ *
+ */
 
 const Coacher = model('coacher', coacherSchema, 'coachers');
 module.exports = Coacher;

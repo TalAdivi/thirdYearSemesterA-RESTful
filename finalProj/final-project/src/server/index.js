@@ -4,6 +4,9 @@
  * maybe this one : https://medium.com/@jackrobertscott/how-to-use-google-auth-api-with-node-js-888304f7e3a0
  * maybe this : https://medium.com/@jackrobertscott/how-to-use-google-auth-api-with-node-js-888304f7e3a0
  * 
+ * we will get the Google user Token from them, the token is not secret
+ * then, in the DB we save the token as a string and a bool "isAdmin".
+ * 
  */
   
   
