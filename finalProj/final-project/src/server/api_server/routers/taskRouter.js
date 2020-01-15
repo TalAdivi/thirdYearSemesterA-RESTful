@@ -7,6 +7,9 @@ const controller = require('../controllers/taskController');
 router.get('/getTasksByUID', (req, res) => {
     const urlObject = url.parse(req.url, true, false);
     req.userID = urlObject.query.userID;
+    // console.log('req!!!!!!',req.userID);
+    
+    
     controller.getTasksUser(req, res);
 });
 

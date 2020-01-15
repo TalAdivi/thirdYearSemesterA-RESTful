@@ -3,7 +3,10 @@ const model = require('../Schemes/taskSchema');
 
 async function getTasksUser(req, res) {
     try {
+        // console.log('req-->',req);
+        
         const data = await model.findTasksUser(req.userID);
+     
         if (data.length == 0) {
             res.status(200).json({
                 status:200,
@@ -12,12 +15,14 @@ async function getTasksUser(req, res) {
                 data: null
             });
         } else {
+            console.log('dataa\n',data);
+            // res.send(data);        
             res.status(200).json({
                 status:200,
                 message: "success",
                 action: "Read",
                 data: data
-            })
+            }).end();
         }
     } catch (err) {
         res.status(500).json({

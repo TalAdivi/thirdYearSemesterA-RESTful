@@ -8,20 +8,16 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import {CTX} from "./store"
+import { CTX } from "./store"
 import { blue } from '@material-ui/core/colors';
+// import urlGoogle  from '../server/google-util';
+import Link from '@material-ui/core/Link';
+// const urlGoogle = require('../server/google-util');
 
 const useStyles = makeStyles(theme => ({
     root: {
-
-
-        // display: 'flex',
         '& > *': {
-            // margin: theme.spacing(10),
-            // width: theme.spacing(160),
-            // height: theme.spacing(16),
             padding: theme.spacing(3, 2)
-            
         },
     },
 
@@ -55,17 +51,17 @@ export default function Dashboard() {
 
 
     // CTX store
-    const {user, allChats, sendChatAction} = React.useContext(CTX);
+    const { user, allChats, sendChatAction } = React.useContext(CTX);
     const topics = Object.keys(allChats);
     console.log(allChats);
-    
+
     // console.log(allChats);
     //local state
     //the current state    //call it, will change to current state 
     const [textValue, changeTextValue] = React.useState('');
     const [activeTopic, chageActiveTopic] = React.useState(topics[0]);
 
-    
+
     return (
         <div>
             <Paper variant="outlined" className={classes.root} >
@@ -74,12 +70,15 @@ export default function Dashboard() {
                     <Typography variant="h5" component="h5"> {activeTopic} </Typography>
                 </Typography>
 
+                {/* <Link href={urlGoogle()}>    Link  </Link> */}
+
+
                 <div className={classes.flex}>
                     <div className={classes.topicWindow}>
                         <List>
                             {
                                 topics.map(topic => (
-                                    <ListItem onClick={() => {chageActiveTopic(topic)}} key={topic} button>
+                                    <ListItem onClick={() => { chageActiveTopic(topic) }} key={topic} button>
                                         <ListItemText primary={topic} />
                                     </ListItem>
 
@@ -89,12 +88,12 @@ export default function Dashboard() {
                     </div>
                     <div className={classes.chatWindow}>
                         {
-                           allChats[activeTopic].map((chat, i) => (
-                               //
+                            allChats[activeTopic].map((chat, i) => (
+                                //
                                 <div className={classes.flex} key={i}>
-                                    <Chip label={chat.from} style={chat.from === user ? {backgroundColor: 'blue'} : {backgroundColor: 'grey'} } />
+                                    <Chip label={chat.from} style={chat.from === user ? { backgroundColor: 'blue' } : { backgroundColor: 'grey' }} />
                                     <Typography variant='body1' gutterBottom style={{ paddingLeft: "8px" }}> {chat.msg} </Typography>
-                               </div>
+                                </div>
 
                             ))
                         }
@@ -106,20 +105,21 @@ export default function Dashboard() {
                         label="send a chat"
                         className={classes.chatBox}
                         helperText="💻 🎆🎆¯\(°_o)/¯"
-                        value = {textValue}
-                        onChange= {e => {changeTextValue(e.target.value); 
+                        value={textValue}
+                        onChange={e => {
+                            changeTextValue(e.target.value);
                             // console.log('e.target.value ' + e.target.value); console.log('textValue ' + textValue)
                         }}
                     />
                     <Button variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            onClick= {() => {
-                                sendChatAction({ from: user, msg:textValue, topic:activeTopic})
-                                changeTextValue('');
-                            }}
-                            
-                            >
+                        color="primary"
+                        className={classes.button}
+                        onClick={() => {
+                            sendChatAction({ from: user, msg: textValue, topic: activeTopic })
+                            changeTextValue('');
+                        }}
+
+                    >
                         SEND
                     </Button>
                 </div>

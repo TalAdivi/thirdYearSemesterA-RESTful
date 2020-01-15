@@ -89,7 +89,7 @@ export default function Store(props) {
     const [allChats, dispatch] = React.useReducer(reducer, initState);
 
     if (!socket) {
-        socket = io(':3001');
+        socket = io(':3030');
         socket.on('chat message', function(msg, from, topic) {
             // sending veluse to reduce func above
             dispatch({type: 'RECEIVE_MESSAGE', payload: { msg: msg, from: from, topic: topic } })
@@ -104,7 +104,7 @@ export default function Store(props) {
     return (
         <CTX.Provider value={{ user, allChats, sendChatAction }}>
             {props.children}
-            {console.log(props.children)}
+            {/* {console.log('props.children',props.children)} */}
         </CTX.Provider>
     )
 }

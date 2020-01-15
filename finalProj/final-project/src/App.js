@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import  Dashboard  from "./Components/deshboard";
+import Dashboard from "./Components/deshboard";
 import Store from "./Components/store"
+import ResponsiveDrawer from "./Components/responsiveDrawer";
+
 
 /**   clip:
  *    https://youtu.be/hiiaHyhhwBU?t=1930
@@ -13,13 +15,58 @@ import Store from "./Components/store"
  * 
  * 
  */
+// const state = {
+//   isSigendIn: false,
+// }
 
+
+// function getContent() {
+//   if (state.isSigendIn) {
+//     return <p>hello user, you're signed in </p>
+//   } else {
+//     return (
+//       <div>
+//         <p>You are not signed in. Click here to sign in.</p>
+//         <button id="loginButton">Login with Google</button>
+//       </div>
+//     )
+//   }
+
+// }
+
+
+// function componentDidMount() {
+//   window.gapi.load('auth2', () => {
+//     auth2 = gapi.auth2.init({
+//       client_id: '260896681708-o8bddcaipuisksuvb5u805vokq0fg2hc.apps.googleusercontent.com',
+//     })
+//   })
+// }
 function App() {
+
+  //  function componentDidMount() {
+  //     window.gapi.load('auth2', () => {
+  //       this.auth2 = gapi.auth2.init({
+  //         client_id: '260896681708-o8bddcaipuisksuvb5u805vokq0fg2hc.apps.googleusercontent.com',
+  //       })
+  //     })
+  //   }
+
+
+  {/* <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h2>Sample App.</h2>
+
+        {getContent()}
+      </header> */}
   return (
     <div className="App">
-      <Store>
-      <Dashboard/>
-      </Store>
+
+      <ResponsiveDrawer>
+        <Store>
+          <Dashboard />
+        </Store>
+      </ResponsiveDrawer>
     </div>
   );
 }
