@@ -4,12 +4,20 @@ const Sequilize = require('sequelize');
 const sequilize = new Sequilize('cUQ20WshXc','cUQ20WshXc','cjReENTNWC',{dialect:'mysql',host:'remotemysql.com'})
 const {Model, DataTypes} = require('sequelize');
 
+
+class User extends Model {}
+
+
 sequilize
-    .authenticate()
-    .then(() => {
-        console.log('connection success')
-    })
-    .catch(err => {console.error('connection lost',err)})
+.authenticate()
+.then(() => {
+    console.log('connection success')
+    Model.init(User);
+    User.findAll().then(users => {
+        console.log("All users:", JSON.stringify(users, null, 4));
+      });
+})
+.catch(err => {console.error('connection lost',err)})
 
 
 
