@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{{ subject }}</title>
+    <link href="../styles/main.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <table class="body">
+        <tr>
+            <td></td>
+            <td class="container">
+                <div class="content">
+                    {{!-- START TEMPLATE --}}
+                    {{> header title='Hello from Geosurf :)' }}
+                    <table class="main">
+                        <tr>
+                            <td class="wrapper">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h3> Hi Team, </h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                This is a confirmation that account id: {{ account_id}} 
+                                                </br> password was changed at {{ time }}(UTC) at {{ date }}.
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>
+                                                New password: <b>{{ password }}</b>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            {{> divider }}
+                                        </td>
+                                    </tr>
+                                    {{> cheers sender='Geobot'}}
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    {{> footer }}
+                    {{!-- END --}}
+                </div>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

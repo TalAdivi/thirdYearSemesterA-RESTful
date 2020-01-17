@@ -6,6 +6,7 @@ import ResponsoveDrawer from "./responsiveDrawer";
 import ChartBar from "../Components/chartBar";
 import Chat from "../Components/chat";
 import Task from "../Components/task";
+import ComposeChart from '../Components/composed-chart';
 
 
 const useStyles = makeStyles(theme => ({
@@ -37,9 +38,13 @@ const mainWindow = () => {
                     <Grid item xs={8}   >
                         <Route path="/chat" component={Chat}  />
                         <Route exact path="/" component={Task}  />
+                        {/* another option to show chart from Bit */}
+                        {/* <Route exact path="/" component={ComposeChart}  /> */}
+                        
                     </Grid>
                     <Grid item xs={4}>
-                        <ChartBar />
+                        {/* another option to show chart from Bit */}
+                        <ComposeChart />
                     </Grid>
                 </Grid>
 

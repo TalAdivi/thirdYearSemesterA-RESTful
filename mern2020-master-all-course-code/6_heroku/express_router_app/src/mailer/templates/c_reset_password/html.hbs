@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>{{ subject }}</title>
+	<link href="../styles/main.css" media="all" rel="stylesheet" type="text/css" />
+	{{!-- <link href="../styles/{{style}}.less" media="all" rel="stylesheet" type="text/css" /> --}}
+</head>
+
+<body>
+
+	<table class="body">
+		<tr>
+			<td></td>
+			<td class="container">
+				<div class="content">
+{{!-- START TEMPLATE --}}
+					{{> header title='Hello from Geosurf :)' }}
+					<table class="main">
+						<tr>
+							<td class="wrapper">
+								<table>
+									<tr>
+										<td>
+											<h3> Hi {{ name }}, </h3>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>Your password has been changed.</p>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>
+					
+												This is a confirmation that your password for account id {{ account_id }} </br> was changed at {{ time }}(UTC) at {{ date }}.
+					
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											{{> divider }}
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<p>
+												Didn't change your password?
+												<a href="mailto:residential@geosurf.com" style="box-sizing: border-box; color: #348eda; text-decoration: underline;">Please
+													contact us</a>
+												or reply to this email.
+											</p>
+										</td>
+									</tr>
+									{{> cheers sender='GeoSurf team'}}
+								</table>
+							</td>
+						</tr>
+					</table>
+					
+					{{> footer sender='Geoteam' }}
+{{!-- END --}}
+					</div>
+			</td>
+			<td></td>
+		</tr>
+	</table>
+
+</body>
+
+</html>

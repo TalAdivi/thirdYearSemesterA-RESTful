@@ -1,0 +1,26 @@
+{
+    "songs": [
+        {
+            "id": 1,
+            "name": "All around the world - James Morisson"
+        },
+        {
+            "id": 2,
+            "name": "Diggin' my grave - Bradley Cooper & Lady Gaga"
+        },
+        {
+            "id": 3,
+            "name": "City of stars - Gavin James"
+        }
+        ,
+        {
+            "id": 4,
+            "name": "Por fin - Pablo Alboran"
+        }
+        ,
+        {
+            "id": 5,
+            "name": "Only human - Jonas brothers"
+        }
+    ]
+}

@@ -5,21 +5,28 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import red from '@material-ui/core/colors/red';
+import { get } from 'mongoose';
 
 async function fetchData() {
-    console.log('be4');
     
     try{
 
-        const res = await fetch('http://localhost:3030/Help4U/task/getTasksByUID?userID=305171159');
+        const res = await fetch('http://localhost:3030/Help4U/task/getTasksByUID?userID=305171159',{
+           headers:{
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+        // const res = await fetch('https://api.taboola.com/1.2/json/apitestaccount/recommendations.get?app.type=web&app.apikey=7be65fc78e52c11727793f68b06d782cff9ede3c&source.id=/digiday-publishing-summit/&source.url=https%3A//blog.taboola.com/digiday-publishing-summit/&source.type=text&placement.organic-type=mix&placement.visible=true&placement.available=true&placement.rec-count=6&placement.name=BelowArticleThumbnails&placement.thumbnail.width=640&placement.thumbnail.height=480&user.session=init');
         const data = await res.json();
-        console.log( 'full data\n',data)
+   
     }
     catch(e) {
         
         console.log(e);
         
     }
+    
 
     // res.then(data => {
     //     console.log('data!\n',data);
@@ -80,6 +87,8 @@ const useStyles = makeStyles({
 
 export default function OutlinedCard() {
 
+    const colorr = red[100];
+    
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
     fetchData();
@@ -87,7 +96,7 @@ export default function OutlinedCard() {
     return (
         <Card className={classes.card} variant="outlined">
             <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
+                <Typography className={classes.title} color="textSecondary" gutterBottom style={{color:colorr}}>
                     Word of the Day
                     {/* {res.then((data) => {
                         console.log(data);

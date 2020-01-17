@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import io from "socket.io-client"
 
 export const CTX = React.createContext();
@@ -48,10 +48,10 @@ function reducer(state, action) {
 
     const { from, msg, topic } = action.payload;
 
-    console.log('from',from);
-    console.log('msg',msg);
-    console.log('topic',topic);
-    
+    console.log('from', from);
+    console.log('msg', msg);
+    console.log('topic', topic);
+
 
     switch (action.type) {
         case 'RECEIVE_MESSAGE':
@@ -81,20 +81,25 @@ function sendChatAction(value) {
 
 }
 
+
 // need to bring the name if the sender... 
 const user = "Adivi" + Math.random(100).toFixed(2) * 100;
 
 export default function Store(props) {
 
+    //maybe here we can send the new chats to DB
+    
+
+
     const [allChats, dispatch] = React.useReducer(reducer, initState);
 
     if (!socket) {
         socket = io(':3030');
-        socket.on('chat message', function(msg, from, topic) {
+        socket.on('chat message', function (msg, from, topic) {
             // sending veluse to reduce func above
-            dispatch({type: 'RECEIVE_MESSAGE', payload: { msg: msg, from: from, topic: topic } })
+            dispatch({ type: 'RECEIVE_MESSAGE', payload: { msg: msg, from: from, topic: topic } })
             console.log(allChats);
-            
+
         });
     }
 

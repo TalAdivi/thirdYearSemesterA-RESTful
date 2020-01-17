@@ -26,6 +26,11 @@
 
 .App-link {
   color: #61dafb;
+  /* color: #ec0000; */
+}
+
+.Hidden {
+  visibility: hidden;
 }
 
 @keyframes App-logo-spin {
