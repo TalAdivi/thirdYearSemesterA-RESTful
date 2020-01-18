@@ -1,0 +1,27 @@
+{
+    "company-name": "D.W",
+    "client-id": 775,
+    "jobs": [
+        {
+            "id": 54,
+            "cat": "se",
+            "subject": "Full stack developer",
+            "experience": 1,
+            "status": "open"
+        },
+        {
+            "id": 57,
+            "cat": "se",
+            "subject": "Front end developer",
+            "experience": 2,
+            "status": "open"
+        },
+        {
+            "id": 86,
+            "cat": "is",
+            "subject": "System designer",
+            "experience": 5,
+            "status": "closed"
+        }
+    ]
+}

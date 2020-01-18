@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>get data page</title>
+    <script 
+        src="https://code.jquery.com/jquery-3.3.1.min.js" 
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section class="result">Result: </section>
+    <script>
+        (function () {
+            //    POST:
+            $.post("http://localhost:8888/school_dcs/tar1/index3.php", {
+                    func: "sum",
+                    num1: 10,
+                    num2: 15,
+                    num3: 20
+                },
+                function (data) {
+
+                    $(".result").append(data.retVal);
+                    console.log("Return data: " + data.retVal);
+                });
+
+        })();
+    </script>
+</body>
+
+</html>

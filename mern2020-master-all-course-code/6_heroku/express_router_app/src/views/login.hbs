@@ -1,0 +1,41 @@
+
+
+
+<div class="container">
+    <div class="log-form">
+        <h2>
+            <b class="agent">Hello Agent! </b>Please login to get your API key</h2>
+        <form>
+            <input type="text" id="email" title="email" name="email" placeholder="email" required />
+            <input type="password" id="password" title="password" name="password" placeholder="password" required />
+            <button type="submit" class="btn">Login & Get Token</button>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalBox" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Your Token is: </h4>
+                </div>
+                <div class="modal-body center">
+                    <pre id="copy-input"></pre>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="copy-button" data-toggle="tooltip" title="Copy to Clipboard" type="button" class="btn btn-info" data-dismiss="modal-copy">Copy</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--end log form -->

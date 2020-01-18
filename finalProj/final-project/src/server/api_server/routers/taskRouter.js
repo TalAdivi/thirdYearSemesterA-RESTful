@@ -3,7 +3,11 @@ const url = require("url");
 const router = express.Router();
 const controller = require('../controllers/taskController');
 
-
+router.all('*', (req, res,next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
 router.get('/getTasksByUID', (req, res) => {
     const urlObject = url.parse(req.url, true, false);
     req.userID = urlObject.query.userID;

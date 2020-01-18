@@ -1,0 +1,244 @@
+{
+  "env": {
+  "es6": true,
+    "node": true,
+    "mocha": true
+},
+  "extends": "eslint:recommended",
+  "rules": {
+  "indent": [
+    "error",
+    2,
+    {
+      "SwitchCase": 1
+    }
+  ],
+    "linebreak-style": [
+    "error",
+    "unix"
+  ],
+    "quotes": [
+    "error",
+    "single"
+  ],
+    "semi": [
+    "error",
+    "always"
+  ],
+    "no-inner-declarations": [
+    "error"
+  ],
+    "no-multiple-empty-lines": [
+    "error",
+    {
+      "max": 1,
+      "maxEOF": 0,
+      "maxBOF": 0
+    }
+  ],
+    "lines-between-class-members": [
+    "error",
+    "always"
+  ],
+    "curly": [
+    "error",
+    "multi-or-nest",
+    "consistent"
+  ],
+    "quote-props": [
+    "error",
+    "as-needed"
+  ],
+    "comma-dangle": [
+    "error",
+    {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "never"
+    }
+  ],
+    "newline-per-chained-call": [
+    "warn",
+    {
+      "ignoreChainWithDepth": 5
+    }
+  ],
+    "brace-style": [
+    "error"
+  ],
+    "arrow-parens": [
+    "error",
+    "as-needed"
+  ],
+    "spaced-comment": [
+    "error",
+    "always"
+  ],
+    "no-unused-vars": [
+    "warn"
+  ],
+    "padded-blocks": [
+    "error",
+    {
+      "blocks": "never",
+      "classes": "always",
+      "switches": "never"
+    }
+  ],
+    "eol-last": [
+    "error",
+    "always"
+  ],
+    "no-trailing-spaces": "error",
+    "object-curly-spacing": [
+    "error",
+    "always"
+  ],
+    "array-bracket-spacing": [
+    "error",
+    "never"
+  ],
+    "no-lonely-if": "warn",
+    "no-else-return": [
+    "error",
+    {
+      "allowElseIf": false
+    }
+  ],
+    "consistent-return": [
+    "error",
+    {
+      "treatUndefinedAsUnspecified": false
+    }
+  ],
+    "padding-line-between-statements": [
+    "error",
+    {
+      "blankLine": "always",
+      "prev": "*",
+      "next": [
+        "class",
+        "function",
+        "const",
+        "let",
+        "var",
+        "return",
+        "throw",
+        "if",
+        "for",
+        "while",
+        "switch",
+        "break",
+        "try",
+        "do",
+        "cjs-import"
+      ]
+    },
+    {
+      "blankLine": "always",
+      "prev": [
+        "class",
+        "function",
+        "const",
+        "let",
+        "var",
+        "return",
+        "throw",
+        "if",
+        "for",
+        "while",
+        "switch",
+        "try",
+        "do",
+        "cjs-import"
+      ],
+      "next": "*"
+    },
+    {
+      "blankLine": "any",
+      "prev": [
+        "const",
+        "let",
+        "var"
+      ],
+      "next": [
+        "const",
+        "let",
+        "var"
+      ]
+    }
+  ],
+    "nonblock-statement-body-position": [
+    "error",
+    "below"
+  ],
+    "prefer-const": "warn",
+    "no-var": "error",
+    "keyword-spacing": "error",
+    "space-infix-ops": "error",
+    "arrow-spacing": "error",
+    "comma-spacing": [
+    "error",
+    {
+      "before": false,
+      "after": true
+    }
+  ],
+    "comma-style": [
+    "error",
+    "last"
+  ],
+    "object-curly-newline": [
+    "error",
+    {
+      "multiline": true,
+      "consistent": true
+    }
+  ],
+    "object-property-newline": [
+    "error",
+    {
+      "allowAllPropertiesOnSameLine": true
+    }
+  ],
+    "key-spacing": [
+    "error",
+    {
+      "afterColon": true
+    }
+  ],
+    "object-shorthand": [
+    "error",
+    "properties"
+  ],
+    "space-before-function-paren": [
+    "error",
+    {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }
+  ],
+    "space-in-parens": [
+    "error",
+    "never"
+  ],
+    "space-before-blocks": [
+    "error",
+    "always"
+  ],
+    "func-call-spacing": [
+    "error",
+    "never"
+  ],
+    "no-multi-spaces": "error"
+},
+  "parserOptions": {
+  "ecmaVersion": 2018
+},
+  "plugins": [
+  "json"
+]
+}

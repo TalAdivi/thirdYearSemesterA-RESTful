@@ -1,0 +1,51 @@
+[{
+  "id": 1,
+  "price": 13,
+  "dishId": "639dc474-df65-454a-88fa-721c8374516b",
+  "resturantId": 1
+}, {
+  "id": 2,
+  "price": 63,
+  "dishId": "2bedf1ee-1b19-4875-9555-2f4a5b0ef440",
+  "resturantId": 2
+}, {
+  "id": 3,
+  "price": 86,
+  "dishId": "a7faf6dc-c1c6-4146-bb65-9a6a635d8e7c",
+  "resturantId": 3
+}, {
+  "id": 4,
+  "price": 61,
+  "dishId": "1f00bc7b-b2b1-4a9d-81f8-7d048a01d2d6",
+  "resturantId": 4
+}, {
+  "id": 5,
+  "price": 57,
+  "dishId": "754701e9-a38e-457f-820d-1794608845b1",
+  "resturantId": 5
+}, {
+  "id": 6,
+  "price": 1,
+  "dishId": "42864b47-64f9-45fb-baf0-8a88f10c8bc1",
+  "resturantId": 6
+}, {
+  "id": 7,
+  "price": 69,
+  "dishId": "a1899525-79db-400d-9732-980cd6320421",
+  "resturantId": 7
+}, {
+  "id": 8,
+  "price": 66,
+  "dishId": "80af420d-d825-40c0-b7c9-cd2a9b716963",
+  "resturantId": 8
+}, {
+  "id": 9,
+  "price": 80,
+  "dishId": "a12ed897-b40e-468a-af4a-bceaf5be6945",
+  "resturantId": 9
+}, {
+  "id": 10,
+  "price": 17,
+  "dishId": "8586061d-2339-4e6a-8a34-e967d468364a",
+  "resturantId": 10
+}]
