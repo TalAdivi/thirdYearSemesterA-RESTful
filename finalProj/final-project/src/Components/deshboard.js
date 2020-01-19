@@ -46,20 +46,21 @@ const useStyles = makeStyles(theme => ({
 
 // every time we type, we change the state via ChangeTextValue, and because of that we reRender the component and will see all things be4 the return ? ? 
 export default function Dashboard() {
+    console.log('desh');
 
     const classes = useStyles();
 
 
     // CTX store
-    const { user, allChats, sendChatAction } = React.useContext(CTX);
-    const topics = Object.keys(allChats);
-    console.log(allChats);
+    const { user, chats, sendChatAction } = React.useContext(CTX);
+    // const topics = Object.keys(allChats);
+    // console.log(allChats);
 
     // console.log(allChats);
     //local state
     //the current state    //call it, will change to current state 
     const [textValue, changeTextValue] = React.useState('');
-    const [activeTopic, chageActiveTopic] = React.useState(topics[0]);
+    // const [activeTopic, chageActiveTopic] = React.useState(topics[0]);
 
 
     return (
@@ -67,14 +68,14 @@ export default function Dashboard() {
             <Paper variant="outlined" className={classes.root} >
 
                 <Typography variant="h4" component="h4">Chat app
-                    <Typography variant="h5" component="h5"> {activeTopic} </Typography>
+                    {/* <Typography variant="h5" component="h5"> {activeTopic} </Typography> */}
                 </Typography>
 
-                {/* <Link href={urlGoogle()}>    Link  </Link> */}
 
 
+                {/*  */}
                 <div className={classes.flex}>
-                    <div className={classes.topicWindow}>
+                    {/* <div className={classes.topicWindow}>
                         <List>
                             {
                                 topics.map(topic => (
@@ -85,11 +86,25 @@ export default function Dashboard() {
                                 ))
                             }
                         </List>
-                    </div>
-                    <div className={classes.chatWindow}>
+                    </div> */}
+                    {/* <div className={classes.chatWindow}>
                         {
                             allChats[activeTopic].map((chat, i) => (
-                                //
+                                
+                                <div className={classes.flex} key={i}>
+                                    <Chip label={chat.from} style={chat.from === user ? { backgroundColor: 'blue' } : { backgroundColor: 'grey' }} />
+                                    <Typography variant='body1' gutterBottom style={{ paddingLeft: "8px" }}> {chat.msg} </Typography>
+                                </div>
+
+                            ))
+                        }
+                    </div> */}
+
+
+                    <div className={classes.chatWindow}>
+                        {
+                            chats.map((chat, i) => (
+                                
                                 <div className={classes.flex} key={i}>
                                     <Chip label={chat.from} style={chat.from === user ? { backgroundColor: 'blue' } : { backgroundColor: 'grey' }} />
                                     <Typography variant='body1' gutterBottom style={{ paddingLeft: "8px" }}> {chat.msg} </Typography>
@@ -100,6 +115,8 @@ export default function Dashboard() {
                     </div>
 
                 </div>
+
+
                 <div className={classes.flex}>
                     <TextField
                         label="send a chat"
@@ -115,7 +132,7 @@ export default function Dashboard() {
                         color="primary"
                         className={classes.button}
                         onClick={() => {
-                            sendChatAction({ from: user, msg: textValue, topic: activeTopic })
+                            sendChatAction({ from: user, msg: textValue, topic: 'activeTopic' },chats)
                             changeTextValue('');
                         }}
 

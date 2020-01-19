@@ -2,6 +2,8 @@ import React from 'react';
 import Store from "./store";
 import Deshboard from "./deshboard";
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import  {queryRes}  from "./task";
+
 
 const useStyles = makeStyles(theme => ({
     chatStyle: {
@@ -10,11 +12,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Chat = () => {
-
+    const res = React.useContext(queryRes);
+    console.log('x!!',res);
+    
     return (
         // <React.Fragment>
         <div className={useStyles.chatStyle}>
-            <Store>
+            <Store >
                 <Deshboard />
             </Store>
         </div>

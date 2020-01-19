@@ -11,11 +11,11 @@ export default function IdeasList() {
       let data = [];
 
       try {
-        data = await fetch ('http://localhost:3001/final-ideas/getAllIdeas').then(res => res.json());
+        data = await fetch('http://localhost:3001/final-ideas/getAllIdeas').then(res => res.json());
       }
-      catch(err) {
-        console.log('error while fetch data\n',err);
-        
+      catch (err) {
+        console.log('error while fetch data\n', err);
+
       }
       const loadIdeas = data.map(item => ({ id: item.id, idea: item.idea, group: item.group }));
 
@@ -41,48 +41,48 @@ export default function IdeasList() {
   const addIdea = ({ event = null, id = null, txt = 'default title', group = 'default group' }) => {
     console.log(event, id, txt, group);
     setIdeas(prevState => ([
-        ...prevState, {
-          id: id !== null ? id : nextID(prevState),
-          idea: txt,
-          group: group,
-        }])
+      ...prevState, {
+        id: id !== null ? id : nextID(prevState),
+        idea: txt,
+        group: group,
+      }])
     )
   };
 
   const renderEachIdea = (item, i) => {
     return (
       <div
-        key={ `container${item.id}` }
+        key={`container${item.id}`}
         className="card"
-        style={ { width: '18rem', marginBottom: '7px' } }
+        style={{ width: '18rem', marginBottom: '7px' }}
       >
         <div className="card-body">
           <Idea
-            index={ item.id }
-            onChange={ updateIdea }
-            onDelete={ deleteIdea }
+            index={item.id}
+            onChange={updateIdea}
+            onDelete={deleteIdea}
           >
-            { console.log(item) }
-            <h5 className="card-title">{ item.idea }</h5>
-            <p className="card-text">{ item.group }</p>
+            {console.log(item)}
+            <h5 className="card-title">{item.idea}</h5>
+            <p className="card-text">{item.group}</p>
           </Idea>
         </div>
       </div>
     );
   };
 
-    return (
-      <div className="ideasList">
-        { ideas.map(renderEachIdea) }
-        <button
-          id="add"
-          onClick={ addIdea }
-          className="btn btn-primary"
-          style={ { marginRight: '7px' } }
-        >
-          <MdAdd />
-        </button>
-      </div>
-    );
+  return (
+    <div className="ideasList">
+      {ideas.map(renderEachIdea)}
+      <button
+        id="add"
+        onClick={addIdea}
+        className="btn btn-primary"
+        style={{ marginRight: '7px' }}
+      >
+        <MdAdd />
+      </button>
+    </div>
+  );
 
 }

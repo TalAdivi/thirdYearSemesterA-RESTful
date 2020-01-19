@@ -5,9 +5,11 @@ import MainWindow from "../Components/mainWindow";
 // import ChartBar from "../Components/chartBar";
 
 const ReactRouter = () => {
+    
     return (
            
         <React.Fragment>
+            
             <MainWindow>
             {/* <Route path="/chat" component={Chat}/> */}
 

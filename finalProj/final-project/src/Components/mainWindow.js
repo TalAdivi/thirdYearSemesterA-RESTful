@@ -36,6 +36,7 @@ const mainWindow = () => {
             <ResponsoveDrawer>
                 <Grid container spacing={2}>
                     <Grid item xs={8}   >
+                        
                         <Route path="/chat" component={Chat}  />
                         <Route exact path="/" component={Task}  />
                         {/* another option to show chart from Bit */}
