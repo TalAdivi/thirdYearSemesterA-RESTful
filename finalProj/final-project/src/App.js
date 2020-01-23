@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Dashboard from "./Components/deshboard";
+import Dashboard from "./Components/dashboard";
 import Store from "./Components/store"
 import ResponsiveDrawer from "./Components/responsiveDrawer";
 

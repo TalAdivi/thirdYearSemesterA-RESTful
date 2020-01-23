@@ -1,10 +1,9 @@
 const model = require('../dal/userSchema');
 
-// check if the user exists in our system by google id_token, if yes send in the data the authorization of the user
+// check if user exists in our system by google id_token, if yes send in the data the authorization of the user
 async function checkUser(req, res) {
     try {
         const data = await model.findUser(req.body.id_token);
-        console.log(data.id_token);
         if (data.length == 0) {
             res.status(200).json({
                 status: 200,

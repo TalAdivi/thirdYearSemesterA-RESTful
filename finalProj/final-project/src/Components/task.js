@@ -9,9 +9,10 @@ import amber from '@material-ui/core/colors/amber';
 import { get } from 'mongoose';
 import { Chip, List, ListItem } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+export let queryRes = React.createContext();
 let res ;
 
-export const queryRes = React.createContext();
+
 
 // the show the user only y/m/d
 function formatDate(date) {
@@ -58,40 +59,38 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function OutlinedCard() {
+export default function OutlinedCard(props) {
+
+const {
+    allTasks
+} = props;
+    // const [allTasks, setAllTasks] = React.useState([]);
+
+    // useEffect(() => {
+
+    //     async function fetchChatDetails() {
 
 
-    const [allTasks, setAllTasks] = React.useState([]);
+    //         try {
+    //             res = await fetch('http://localhost:3000/Help4U/task/getTasksByUID?userID=305171159').then(res => res.json())
+    //             queryRes = React.createContext(res);
+    //             console.log('res\n', res);
+    //         }
+    //         catch (e) {
+    //             console.log(e);
+    //         }
 
-    useEffect(() => {
+    //         if (res.data != null) {
 
-        async function fetchChatDetails() {
+    //             let tasks = res.data;
+    //             setAllTasks(tasks)
 
+    //         }
+    //     }
 
-            try {
-                res = await fetch('http://localhost:3000/Help4U/task/getTasksByUID?userID=305171159').then(res => res.json())
+    //     fetchChatDetails();
 
-                console.log('res\n', res);
-            }
-            catch (e) {
-                console.log(e);
-            }
-
-            if (res.data != null) {
-
-                let tasks = res.data;
-                // console.log('tasksssssssssssss\n', tasks);
-
-                setAllTasks(tasks)
-
-            }
-
-
-        }
-
-        fetchChatDetails();
-
-    }, [])
+    // }, [])
 
 
     console.log('allTasks after featChatData\n', allTasks);
@@ -103,16 +102,15 @@ export default function OutlinedCard() {
     // here we have to send the userID and create cards for each one
 
     return (
-        <queryRes.Provider value= {res} >
-                {console.log('res inside TASK\n',res)
+        <queryRes.Provider >
+                {/* {console.log('res inside TASK\n',res) */}
                 }
 
             <List className={classes.list}>
 
                 {
                     allTasks.map((task, i) => (
-                        <ListItem dense="true">
-
+                        <ListItem dense="true" key={i}>
 
                             <NavLink exact to={"/chat/" + task.taskID} className={classes.navLinks}>
 

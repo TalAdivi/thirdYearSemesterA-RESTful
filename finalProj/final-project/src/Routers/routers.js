@@ -7,16 +7,8 @@ import MainWindow from "../Components/mainWindow";
 const ReactRouter = () => {
     
     return (
-           
-        <React.Fragment>
-            
             <MainWindow>
-            {/* <Route path="/chat" component={Chat}/> */}
-
             </MainWindow>
-
-            {/* <Route path="/MyIdeas" component={MyIdeas}/> */}
-        </React.Fragment>
     )
 }
 

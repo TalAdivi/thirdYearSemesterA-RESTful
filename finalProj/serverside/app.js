@@ -10,8 +10,7 @@ const userApi = require('./routers/userRouter');
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
-// app.set('port', port);
-// app.use('/', express.static('./public')); // for API
+
 app.use(
  (req, res, next) => {
    res.header('Access-Control-Allow-Origin', '*');
@@ -21,7 +20,7 @@ app.use(
    next();
  });
 
-// routes for all the api services
+// routes for all api services
 app.use('/Help4U/task', taskApi);
 app.use('/Help4U/subject', subjectApi);
 app.use('/Help4U/company', companyApi);

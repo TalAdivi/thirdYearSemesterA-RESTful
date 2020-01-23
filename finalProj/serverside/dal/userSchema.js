@@ -14,7 +14,7 @@ userSchema.statics.findUser = function (id_token) {
     });
 }
 
-// create client user by sending id_token , authorization set to client by defult
+// create client user by sending id_token , authorization set to client by default
 userSchema.statics.createNewClientUser = async function (body) {
     let userObj = new this({
         id_token: body.id_token

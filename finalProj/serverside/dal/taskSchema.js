@@ -42,7 +42,11 @@ const taskSchema = new Schema({
     chat: [messageSchema]
 });
 
-// create task by sending paramters in the body request, status && datesend && taskID create by the server
+/**
+ * Schema logic
+ */
+
+// create task by sending parameters in the body request, status && date send && taskID create by the server
 taskSchema.statics.insertNewTask = async function (body) {
     let taskObj = new this({
         userID: body.userID,
@@ -79,6 +83,7 @@ taskSchema.statics.updateStatus = async function (taskID) {
 
 // update chat array by task ID , updated chat sent to request body
 taskSchema.statics.updateChat = async function (req) {
+    console.log('req.taskID\n\n',req.taskID);
     return await this.findOneAndUpdate({ taskID: req.taskID }, { $set: { chat: req.body.chat } }, { new: true });
 }
 

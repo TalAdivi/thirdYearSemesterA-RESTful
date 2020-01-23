@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 // every time we type, we change the state via ChangeTextValue, and because of that we reRender the component and will see all things be4 the return ? ? 
 export default function Dashboard() {
-    console.log('desh');
+ 
 
     const classes = useStyles();
 
@@ -64,7 +64,7 @@ export default function Dashboard() {
 
 
     return (
-        <div>
+        <div >
             <Paper variant="outlined" className={classes.root} >
 
                 <Typography variant="h4" component="h4">Chat app
@@ -105,9 +105,11 @@ export default function Dashboard() {
                         {
                             chats.map((chat, i) => (
                                 
+                                
                                 <div className={classes.flex} key={i}>
+                                    {/* {console.log('one chat at deshboard\n',chat)} */}
                                     <Chip label={chat.from} style={chat.from === user ? { backgroundColor: 'blue' } : { backgroundColor: 'grey' }} />
-                                    <Typography variant='body1' gutterBottom style={{ paddingLeft: "8px" }}> {chat.msg} </Typography>
+                                    <Typography variant='body1' gutterBottom style={{ paddingLeft: "8px" }}> {chat.message} </Typography>
                                 </div>
 
                             ))
@@ -132,7 +134,7 @@ export default function Dashboard() {
                         color="primary"
                         className={classes.button}
                         onClick={() => {
-                            sendChatAction({ from: user, msg: textValue, topic: 'activeTopic' },chats)
+                            sendChatAction({ from: user, message: textValue},chats)
                             changeTextValue('');
                         }}
 

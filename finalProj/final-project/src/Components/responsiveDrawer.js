@@ -19,7 +19,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 
 import Store from "./store";
-import Dashboard from "./deshboard";
+import Dashboard from "./dashboard";
 
 const drawerWidth = 240;
 
@@ -60,9 +60,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-// function showCaht() {
-//    return props.children;
-// }
 
 function ResponsiveDrawer(props) {
     const { container } = props;
@@ -85,7 +82,7 @@ function ResponsiveDrawer(props) {
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem button key={text} >
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />} </ListItemIcon>
-                        <NavLink exact to="/chat" className = {classes.navLinks}>
+                        <NavLink exact to="/" className = {classes.navLinks}>
 
                         <ListItemText primary={text}/> 
                         </NavLink>
@@ -176,10 +173,6 @@ function ResponsiveDrawer(props) {
 }
 
 ResponsiveDrawer.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
     container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
 };
 

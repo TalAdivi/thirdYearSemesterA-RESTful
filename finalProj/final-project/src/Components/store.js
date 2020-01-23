@@ -1,201 +1,133 @@
 import React, { useEffect } from "react";
 import io from "socket.io-client"
-
-
+import { queryRes } from "./task";
+import { Redirect } from 'react-router-dom'
 
 
 export const CTX = React.createContext();
-
-// async function fetchChatDetails() {
-//     let res;
-
-//     try {
-
-//         res = await fetch('http://localhost:3000/Help4U/task/getTasksByUID?userID=305171159').then(res => res.json())
-
-
-//         console.log('res\n', res.data[0].chat[0]);
-
-
-
-//     }
-//     catch (e) {
-
-//         console.log(e);
-
-//     }
-
-//     return res.data[0].chat[0];
-
-// }
-
-
-// const initState = {
-//     general: [
-//         // { from: 'Adivi', msg: 'prevMsg' },
-//         // { from: 'Adivi', msg: 'prevMsg2' },
-//         // { from: 'Adivi', msg: 'prevMsg3' },
-//         // {_id: "5e19af8666cff380482167b2", from: "Tomer Bar", message: "Hello, my TV doesn't work, i need technician ASAP."}
-//     ],
-
-
-
-//     // topic2: [
-//     //     { from: 'Tomer', msg: 'prevMsg' },
-//     //     { from: 'Tomer', msg: 'prevMsg2' },
-//     //     { from: 'Tomer', msg: 'prevMsg3' }
-//     // ]
-
-// }
-
-// function reducer(state, action) {
-
-//     console.log('reducer State!\n', state);
-
-//     const { from, msg, topic } = action.payload;
-
-//     console.log('from', from);
-//     console.log('msg', msg);
-//     console.log('topic', topic);
-
-
-//     switch (action.type) {
-//         case 'RECEIVE_MESSAGE':
-//             return {
-//                 ...state,
-//                 [topic]: [
-//                     ...state[topic],
-//                     {
-//                         from,
-//                         msg
-//                     }
-//                 ]
-//             }
-
-//         default:
-//             return state;
-//     }
-// }
-
-
 let socket;
 
-function sendChatAction(value, chats) {
 
-    socket.emit('chat message', value.msg, value.from, value.topic, chats);
+
+
+
+function sendChatAction(value) {
+
+    socket.emit('chat message', value.message, value.from);
     // socket.emit('chat message', value.from);
 
 }
 
-// async function loadPrevMessages() {
 
-//     fetchChatDetails().then((val) => {
-//         console.log('val inside load prev', val);
 
-//         return val
-//     })
-// }
+
+
 
 
 // need to bring the name if the sender... 
-const user = "Adivi" + Math.random(100).toFixed(2) * 100;
+let user = "Tomer Bar"
+let currTask;
+
 
 export default function Store(props) {
 
+    const { tasks } = props;
+
+    // const resultt = React.useContext(queryRes);
+
+    const [chats, setChats] = React.useState([]);
+    const [toTask, setToTask] = React.useState(false);
+    // const [task, setTask] = React.useState();
+    // const [redirect, setRedirect] = React.useState(false)
 
 
-    //maybe here we can send the new chats to DB
-    // console.log('checkReturnVal\n', loadPrevMessages());
-
-
-
-
-    const [chats, setChats] = React.useState([])
 
 
     useEffect(() => {
-        async function fetchChatDetails() {
+
+        async function getCurrTask() {
+
+            // if (resultt === undefined) {
+            //     console.log('resultt\n', resultt);
+            //     setRedirect(true);
+            // }
 
             // taking the index of the chat the user click on
-            let currChatIndex = window.location.pathname.split("/")[2];
-
-            console.log('props.result!\n', props.result);
+            let currTaskId = window.location.pathname.split("/")[2];
 
 
+            currTask = await tasks.find(task => {
+                if (currTaskId == task.taskID)
+                    return task;
+            });
 
-            // try {
+            // in cases we didnt pass tasks be4 rendering this component, we will redirect to mainWindow and then currTask will get value
+            if (currTask !== undefined) {
+                // we send to server the current task of the chat, to update the chat when user disconnected
+                socket.emit("update task", currTask);
 
-
-            //     console.log('res!!!!!!\n', res);
-            // }
-            // catch (e) {
-            //     console.log(e);
-            // }
-
-            // if (res.data != null) {
-
-            //     let messages = res.data[0].chat.map(item => ({ from: item.from, msg: item.message }))
-            //     // console.log('messagessss\n', messages);
-
-            //     setChats(messages);
-            //     // return res;
-            // }
+                console.log('currChat&&&&\n', currTask);
+                setChats(currTask.chat);
+            } else {
+                setToTask(true)
+                return;
+            }
 
 
 
 
+
+
+            /**
+             * 
+             * now we have the userID, now we need to bring the name with another request to DB
+             * 
+             */
         }
 
-        // window.addEventListener("beforeunload", (ev) => {
-        //     ev.preventDefault();
-        //     return ev.returnValue = 'Are you sure you want to close?';
-        // });
 
-        fetchChatDetails();
 
+        getCurrTask();
 
 
     }, [])
 
 
+    useEffect(() => {
+        return () => {
+            console.log('inside unMount!');
+            
+            socket.emit('disconnect');
+        }
+    })
+
     //every time chats state chages, we send to the serever the updated state, when user disconnect the updated state of chat will be at the server
     useEffect(() => {
-        console.log('chat been changed\n');
+        // console.log('chat been changed\n');
         socket.emit('update chat', chats);
 
     }, [chats])
 
 
-
-    console.log('chatssss\n', chats)
-    // const [allChats, dispatch] = React.useReducer(reducer, chats);
-    // console.log('ALLCHATSSS\n',allChats)
-
-
     if (!socket) {
         socket = io(':3000');
-        socket.on('chat message', function (msg, from, topic) {
+        socket.on('chat message', function (message, from) {
             setChats(prevChats => ([
                 ...prevChats, {
                     from: from,
-                    msg: msg
+                    message: message
                 }])
 
             )
         });
 
-
-
-
     }
 
-
-
-    // console.log( reducerHook);\
 
     return (
 
         <CTX.Provider value={{ user, chats, sendChatAction }}>
+            {toTask ? <Redirect to="/"/> : null}
             {props.children}
 
             {/* {console.log('props.children',props.children)} */}

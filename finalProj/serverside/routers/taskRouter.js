@@ -38,7 +38,7 @@ router.delete('/deleteTask', (req, res) => {
     controller.deleteTask(req, res);
 });
 
-// defult route 
+// default route 
 router.all('*', (req, res) => {
     res.status(404).json({
         status:404,

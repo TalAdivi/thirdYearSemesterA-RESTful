@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Route } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,39 +9,57 @@ import Task from "../Components/task";
 import ComposeChart from '../Components/composed-chart';
 
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-    chat: {
-        height: '1%',
-    }
-}));
-
-const chat = {
-    height: '10px',
-    backgroundColor: "#fff"
-}
 
 
-const mainWindow = () => {
+let res;
+let queryRes;
+
+
+const MainWindow = props => {
+
+    // const [allTasks, setAllTasks] = React.useState([])
+
+    const [allUsersTasks, setAllUsersTasks] = React.useState([])
+
+    useEffect(() => {
+    
+        async function fetchChatDetails() {
+    
+    
+            try {
+                res = await fetch('http://localhost:3000/Help4U/task/getTasksByUID?userID=305171159').then(res => res.json())
+                // queryRes = React.createContext(res);
+                console.log('res MAIN WINDOW\n', res);
+            }
+            catch (e) {
+                console.log(e);
+            }
+    
+            if (res.status == 200 && res.data != null ) {
+    
+                // let tasks = res.data;
+                setAllUsersTasks(res.data)
+    
+            }
+        }
+    
+        fetchChatDetails();
+        console.log('useEffect of mainWIndow!');
+        
+    
+    }, []);
 
     return (
         <div >
             <ResponsoveDrawer>
                 <Grid container spacing={2}>
                     <Grid item xs={8}   >
-                        
-                        <Route path="/chat" component={Chat}  />
-                        <Route exact path="/" component={Task}  />
+
+                        <Route exact path="/" component={() => <Task allTasks = {allUsersTasks} />} />
+                        <Route path="/chat" component={() => <Chat allTasks={allUsersTasks} />} />
                         {/* another option to show chart from Bit */}
                         {/* <Route exact path="/" component={ComposeChart}  /> */}
-                        
+
                     </Grid>
                     <Grid item xs={4}>
                         {/* another option to show chart from Bit */}
@@ -56,4 +74,4 @@ const mainWindow = () => {
 
 
 
-export default mainWindow;
+export default MainWindow;

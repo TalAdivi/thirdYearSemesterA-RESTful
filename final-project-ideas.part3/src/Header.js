@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
+import MyIdeas from './Components/MyIdeas'
 
 class Header extends Component {
     active  = {
