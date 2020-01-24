@@ -49,6 +49,7 @@ export default function Dashboard() {
  
 
     const classes = useStyles();
+    
 
 
     // CTX store
@@ -108,7 +109,7 @@ export default function Dashboard() {
                                 
                                 <div className={classes.flex} key={i}>
                                     {/* {console.log('one chat at deshboard\n',chat)} */}
-                                    <Chip label={chat.from} style={chat.from === user ? { backgroundColor: 'blue' } : { backgroundColor: 'grey' }} />
+                                    <Chip label={chat.from} style={chat.from === user ? { backgroundColor: '#5c6bc0' } : { backgroundColor: '#7e57c2' }} />
                                     <Typography variant='body1' gutterBottom style={{ paddingLeft: "8px" }}> {chat.message} </Typography>
                                 </div>
 

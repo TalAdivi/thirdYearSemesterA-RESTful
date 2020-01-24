@@ -1,4 +1,4 @@
-const taskModel = require('./dal/taskSchema');
+const taskModel = require('./taskSchema');
 
 
 /**

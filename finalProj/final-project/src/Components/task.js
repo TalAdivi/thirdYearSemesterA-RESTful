@@ -64,47 +64,14 @@ export default function OutlinedCard(props) {
 const {
     allTasks
 } = props;
-    // const [allTasks, setAllTasks] = React.useState([]);
-
-    // useEffect(() => {
-
-    //     async function fetchChatDetails() {
-
-
-    //         try {
-    //             res = await fetch('http://localhost:3000/Help4U/task/getTasksByUID?userID=305171159').then(res => res.json())
-    //             queryRes = React.createContext(res);
-    //             console.log('res\n', res);
-    //         }
-    //         catch (e) {
-    //             console.log(e);
-    //         }
-
-    //         if (res.data != null) {
-
-    //             let tasks = res.data;
-    //             setAllTasks(tasks)
-
-    //         }
-    //     }
-
-    //     fetchChatDetails();
-
-    // }, [])
-
-
-    console.log('allTasks after featChatData\n', allTasks);
-
-    // const colorr = amber[400];
 
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
     // here we have to send the userID and create cards for each one
 
     return (
         <queryRes.Provider >
                 {/* {console.log('res inside TASK\n',res) */}
-                }
+                
 
             <List className={classes.list}>
 

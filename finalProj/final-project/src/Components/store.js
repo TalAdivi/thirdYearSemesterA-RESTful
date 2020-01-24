@@ -12,15 +12,9 @@ let socket;
 
 
 function sendChatAction(value) {
-
     socket.emit('chat message', value.message, value.from);
-    // socket.emit('chat message', value.from);
 
 }
-
-
-
-
 
 
 
@@ -47,11 +41,6 @@ export default function Store(props) {
 
         async function getCurrTask() {
 
-            // if (resultt === undefined) {
-            //     console.log('resultt\n', resultt);
-            //     setRedirect(true);
-            // }
-
             // taking the index of the chat the user click on
             let currTaskId = window.location.pathname.split("/")[2];
 
@@ -61,7 +50,7 @@ export default function Store(props) {
                     return task;
             });
 
-            // in cases we didnt pass tasks be4 rendering this component, we will redirect to mainWindow and then currTask will get value
+            // in cases we didn't pass tasks be4 rendering this component, we will redirect to mainWindow and then currTask will get value
             if (currTask !== undefined) {
                 // we send to server the current task of the chat, to update the chat when user disconnected
                 socket.emit("update task", currTask);
@@ -73,11 +62,6 @@ export default function Store(props) {
                 return;
             }
 
-
-
-
-
-
             /**
              * 
              * now we have the userID, now we need to bring the name with another request to DB
@@ -85,15 +69,13 @@ export default function Store(props) {
              */
         }
 
-
-
         getCurrTask();
-
 
     }, [])
 
 
     useEffect(() => {
+
         return () => {
             console.log('inside unMount!');
             
@@ -101,7 +83,7 @@ export default function Store(props) {
         }
     })
 
-    //every time chats state chages, we send to the serever the updated state, when user disconnect the updated state of chat will be at the server
+    //every time chats state changed, we send to the server the updated state, when user disconnect the updated state of chat will be at the server
     useEffect(() => {
         // console.log('chat been changed\n');
         socket.emit('update chat', chats);
@@ -117,10 +99,8 @@ export default function Store(props) {
                     from: from,
                     message: message
                 }])
-
             )
         });
-
     }
 
 

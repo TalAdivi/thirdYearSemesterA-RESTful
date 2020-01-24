@@ -18,7 +18,7 @@ const http = require('http').createServer(app);
 const dbCon = require('./dal/db_connection')
 const port = process.env.PORT || 3000;
 const io = require('socket.io')(http);
-const { updateChatFromSocket } = require('./updateChat');
+const { updateChatFromSocket } = require('./dal/updateChat');
 
 // chat logic
 io.on('connection', function (socket) {
@@ -27,7 +27,6 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         console.log('user disconnected');
         updateChatFromSocket(socket.taskID, socket.chat);
-
 
     });
     socket.on('chat message', function (msg, from) {
@@ -48,8 +47,6 @@ io.on('connection', function (socket) {
         socket.chat = chat;
 
     })
-
-
 });
 
 // connect to server and then to db
