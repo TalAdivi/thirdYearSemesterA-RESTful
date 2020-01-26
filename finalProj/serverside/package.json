@@ -1,11 +1,10 @@
 {
-    "name": "ex3_node",
+    "name": "serverside",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node index.js"
+        "start": "node ./server.js"
     },
     "author": "",
     "license": "ISC",
@@ -19,6 +18,10 @@
         "socket.io": "^2.3.0"
     },
     "devDependencies": {
+        "eslint": "^6.8.0",
         "nodemon": "^2.0.2"
+    },
+    "engines": {
+        "node": "12.8.1"
     }
 }
