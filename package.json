@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
 	"start": "npm ./finalProj/serverside/server.js
   },
-  "repository": {
+  "repository":{
     "type": "git",
     "url": "git+https://github.com/TalAdivi/thirdYearSemesterA-RESTful.git"
   },
