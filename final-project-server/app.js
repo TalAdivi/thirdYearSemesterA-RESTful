@@ -10,6 +10,7 @@ const userApi = require('./routers/userRouter');
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
+app.use((req,res) => res.sendFile("/index.html",{root:__dirname}))
 
 app.use(
  (req, res, next) => {
