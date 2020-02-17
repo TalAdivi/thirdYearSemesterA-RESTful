@@ -7,15 +7,10 @@ import { Redirect } from 'react-router-dom'
 export const CTX = React.createContext();
 let socket;
 
-
-
-
-
 function sendChatAction(value) {
     socket.emit('chat message', value.message, value.from);
 
 }
-
 
 
 // need to bring the name if the sender... 
@@ -107,7 +102,7 @@ export default function Store(props) {
     return (
 
         <CTX.Provider value={{ user, chats, sendChatAction }}>
-            {toTask ? <Redirect to="/"/> : null}
+            {/* {toTask ? <Redirect to="/"/> : null} */}
             {props.children}
 
             {/* {console.log('props.children',props.children)} */}

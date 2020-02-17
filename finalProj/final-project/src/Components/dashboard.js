@@ -10,9 +10,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { CTX } from "./store"
 import { blue } from '@material-ui/core/colors';
-// import urlGoogle  from '../server/google-util';
 import Link from '@material-ui/core/Link';
-// const urlGoogle = require('../server/google-util');
 
 const useStyles = makeStyles(theme => ({
     root: {
