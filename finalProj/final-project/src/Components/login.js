@@ -15,18 +15,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import SocialImg from '../Images/successfully-network-event-001.jpg'
 import {GoogleAuth, GoogleOut, isAuthenticated} from '../Authentication/googleAuth';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-      </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+// function Copyright() {
+//     return (
+//         <Typography variant="body2" color="textSecondary" align="center">
+//             {'Copyright © '}
+//             <Link color="inherit" href="https://material-ui.com/">
+//                 Your Website
+//       </Link>{' '}
+//             {new Date().getFullYear()}
+//             {'.'}
+//         </Typography>
+//     );
+// }
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -73,15 +73,10 @@ export default function SignInSide() {
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
                     <Box display="flex">
-
                     <Typography component="h1" variant="h2" className={classes.spaceBottom}>
 
                         Here4U
           </Typography>
-          {/* <Typography component="h1" variant="h3" className={classes.h1}>
-
-                        Welcome
-          </Typography> */}
                     </Box>
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
@@ -94,63 +89,6 @@ export default function SignInSide() {
               isAuthenticated() ?  <GoogleOut/> :  <GoogleAuth/>
           }
           
-          
-
-
-                    {/* <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form> */}
-
-
                 </div>
             </Grid>
         </Grid>

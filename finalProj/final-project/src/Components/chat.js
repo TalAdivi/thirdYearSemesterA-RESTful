@@ -14,11 +14,10 @@ const useStyles = makeStyles(theme => ({
 
 const Chat = (props) => {
     // const res = React.useContext(queryRes);
-    console.log('x!!');
+    // console.log('x!!');
 
     return (
         <div className={useStyles.chatStyle}>
-            
             <Store tasks = {props.allTasks}>
                 <Dashboard/>
             </Store>

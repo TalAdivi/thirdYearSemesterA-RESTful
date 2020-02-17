@@ -14,7 +14,7 @@ function sendChatAction(value) {
 
 
 // need to bring the name if the sender... 
-let user = "Tomer Bar"
+let user = localStorage.getItem('user_name');
 let currTask;
 
 
@@ -26,6 +26,7 @@ export default function Store(props) {
 
     const [chats, setChats] = React.useState([]);
     const [toTask, setToTask] = React.useState(false);
+    const [task, setTask] = React.useState([]);
     // const [task, setTask] = React.useState();
     // const [redirect, setRedirect] = React.useState(false)
 
@@ -37,7 +38,9 @@ export default function Store(props) {
         async function getCurrTask() {
 
             // taking the index of the chat the user click on
-            let currTaskId = window.location.pathname.split("/")[2];
+            let currTaskId = window.location.pathname.split("/")[3];
+            // console.log("window.location.pathname.split('/')",window.location.pathname.split("/"));
+            
 
 
             currTask = await tasks.find(task => {
@@ -51,6 +54,7 @@ export default function Store(props) {
                 socket.emit("update task", currTask);
 
                 console.log('currChat&&&&\n', currTask);
+                setTask(currTask);
                 setChats(currTask.chat);
             } else {
                 setToTask(true)
@@ -101,7 +105,7 @@ export default function Store(props) {
 
     return (
 
-        <CTX.Provider value={{ user, chats, sendChatAction }}>
+        <CTX.Provider value={{ user, chats, sendChatAction, task }}>
             {/* {toTask ? <Redirect to="/"/> : null} */}
             {props.children}
 

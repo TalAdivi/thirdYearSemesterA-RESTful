@@ -44,7 +44,7 @@ const MainWindow = props => {
         }
     
         fetchChatDetails();
-        console.log('useEffect of mainWIndow!');
+        // console.log('useEffect of mainWIndow!');
         
     
     }, []);
@@ -54,11 +54,11 @@ const MainWindow = props => {
             <ResponsoveDrawer>
                 <Grid container spacing={2}>
                     <Grid item xs={8}   >
+                    {/* <Chat allTasks={allUsersTasks} /> */}
+                    {/* <Task allTasks = {allUsersTasks} /> */}
                     
-                    <Task allTasks = {allUsersTasks} />
-                    
-                        {/* <Route path="/" component={() => <Task allTasks = {allUsersTasks} />} /> */}
-                        <Route path="/chat" component={() => <Chat allTasks={allUsersTasks} />} />
+                        <Route exact path="/home"  > <Task allTasks = {allUsersTasks} /> </Route>
+                        <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
                         {/* another option to show chart from Bit */}
                         {/* <Route exact path="/" component={ComposeChart}  /> */}
 
