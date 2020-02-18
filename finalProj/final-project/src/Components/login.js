@@ -13,7 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SocialImg from '../Images/successfully-network-event-001.jpg'
-import {GoogleAuth, GoogleOut, isAuthenticated} from '../Authentication/googleAuth';
+import {GoogleAuth, GoogleOut, isAuthenticated, Here4uSigunup} from '../Authentication/googleAuth';
+import history from '../Authentication/history';
 
 // function Copyright() {
 //     return (
@@ -63,8 +64,12 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function SignInSide() {
+export default function SignInSide(props) {
     const classes = useStyles();
+
+    const { message, newUser } = props;
+    // console.log('pathh\n',path);
+    
 
     return (
         <Grid container component="main" className={classes.root}>
@@ -86,8 +91,10 @@ export default function SignInSide() {
           </Typography>
 
           {
-              isAuthenticated() ?  <GoogleOut/> :  <GoogleAuth/>
+                isAuthenticated() ?  <GoogleOut message={message}/> :  newUser == true ? <Here4uSigunup message={message} /> : <GoogleAuth message={message}/>
+              // isAuthenticated() ?   history.replace(path) :  <GoogleAuth/>
           }
+
           
                 </div>
             </Grid>

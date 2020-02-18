@@ -8,20 +8,18 @@ import SignInSide from '../Components/login';
 
 const Home = (props) => {
 
+    const {message, newUser} = props
+    console.log('newUser\n', newUser);
+    
 
     return (
         <div>
-            {
-                isAuthenticated() &&
-                <div className="container column">
-                    <SignInSide/>
-                </div>
-            }
-            {
-                !isAuthenticated() && (
-                <SignInSide/>
-                )
-            }
+
+            {isAuthenticated() && <SignInSide message = {"please reconnect again"} newUser={newUser}/>}
+
+            {!isAuthenticated() && <SignInSide message = {message} newUser={newUser}/>}
+
+
         </div>
     );
 

@@ -2,9 +2,12 @@ import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import Typography from '@material-ui/core/Typography';
 // import { createBrowserHistory } from 'history';
+import axios from 'axios';
 import history from './history'
 
 let isUser = false;
+
+
 
 const successGoogle = (response) => {
 
@@ -17,48 +20,51 @@ const successGoogle = (response) => {
 
 
         try {
-            setSession(response, true);
-            history.replace('/home');
+            // setSession(response, true);
+            // history.replace('/home');
 
-            // const user = await fetch(`http://localhost:3000/Help4U/user/check`, {
-            //     method: 'POST',
-            //     headers: new Headers({
-            //         // 'Content-Type': 'application/json',
-            //         // 'Accept': 'application/json',
-            //         'Content-Type': 'application/x-www-form-urlencoded',
-            //     }),
-            //     mode: 'cors',
-            //     // credentials: true,
-            //     body: JSON.stringify({google_id : response.googleId})
+            const user = await fetch(`http://localhost:3000/Help4U/user/check`, {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=utf-8',
+                }),
+                mode: 'cors',
+                body: JSON.stringify({ google_id: response.googleId })
 
 
-            // }).then(user => user.json());
+            }).then(user => user.json());
 
-            // console.log("user\n", user);
+            console.log("user\n", user);
 
-            // if (user.status === 200 && user.data !== null) {
+            // use exist, see if Admin or user
+            if (user.status === 200 && user.data !== null) {
+                let isAdmin = false;
 
-            //     console.log('inside if 25');
-            //     isUser = true;
-            //     setSession(response, user.isAdmin);
-            //     history.replace('/home');
-            // }
+                if (user.data === true) {
+                    isAdmin = true;
+                }
 
-            // if (user.status === 200 && user.data === null) {
+                setSession(response, isAdmin);
+                history.replace('/home');
+                return;
+            }
 
-            //     console.log('inside if 33');
+            // user not exist, signup with google account? 
+            if (user.status === 200 && user.data === null) {
 
-            //     // setSession(response,user.isAdmin);
-            //     history.replace('/home');
-            // }
+                // setSession(response,user.isAdmin);
+                history.replace('/signup');
+                return;
+            }
 
 
-            // history.replace('/homePage')
+            history.replace('/homePage')
 
             // return res
 
         } catch (e) {
-            console.log('inside catch');
+            console.log('inside catch', e.message);
+            history.replace('/error')
 
             return e.message;
         }
@@ -83,20 +89,22 @@ const setSession = (response, isAdmin) => {
 
 
     // let expiresAt = JSON.stringify(10000 + new Date().getTime());
+    console.log('response.tokenObj.access_token\n', response.uc.access_token);
 
-    localStorage.setItem('access_token', response.tokenObj.access_token);
-    localStorage.setItem('id_token', response.tokenObj.id_token);
+    // localStorage.setItem('access_token', response.uc.access_token);
+    // localStorage.setItem('id_token', response.uc.id_token);
     localStorage.setItem('expires_at', expiresAt);
-    localStorage.setItem('isAdmin', isAdmin)
-    localStorage.setItem('user_name',response.Rt.Ad)
+    localStorage.setItem('isAdmin', isAdmin);
+    localStorage.setItem('user_name', response.Rt.Ad);
+    localStorage.setItem('user_id',response.googleId);
     // navigate to the home route
 
 }
 
 const logout = () => {
     // Clear access token and ID token from local storage
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
+    // localStorage.removeItem('access_token');
+    // localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('user_name');
@@ -111,6 +119,38 @@ const isAuthenticated = () => {
     return new Date().getTime() < expiresAt;
 }
 
+const signupUser = (response) => {
+
+    async function signup() {
+        try {
+
+            const user = await fetch(`http://localhost:3000/Help4U/user/create`, {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json; charset=utf-8',
+                }),
+                mode: 'cors',
+                body: JSON.stringify({ google_id: response.googleId })
+
+
+            }).then(user => user.json());
+
+            console.log("newUser\n", user);
+
+            setSession(response,false)
+
+            history.replace('/home')
+        }
+        catch (e) {
+            console.log('inside catch', e.message);
+            history.replace('/error')
+        }
+    }
+
+    signup()
+
+}
+
 
 
 
@@ -120,7 +160,7 @@ const failGoogle = (response) => {
 }
 
 const GoogleAuth = (props) => {
-    const message = "Loginnn"
+    const { message } = props
 
     return (
         <>
@@ -142,11 +182,13 @@ const GoogleAuth = (props) => {
 
 }
 
-const GoogleOut = () => {
+const GoogleOut = (props) => {
+    const { message } = props
     return (
         <>
             <Typography component="h5" variant="h6" style={{ marginBottom: "50px" }}>
-                you already logged in, please logout to continue
+                {/* you already logged in, please logout to continue */}
+                {message}
 
             </Typography>
             <GoogleLogout
@@ -159,6 +201,31 @@ const GoogleOut = () => {
     )
 }
 
+const Here4uSigunup = (props) => {
+    const { message } = props
+    console.log('inside here4uSignin');
+    
+
+    return (
+        <>
+            <Typography component="h5" variant="h6" style={{ marginBottom: "50px" }}>
+                {message}
+            </Typography>
+            <GoogleLogin
+                clientId="838325310419-ink7dovlmgeoff0urhtdk16boctkqra8.apps.googleusercontent.com"
+                // render={renderProps => (
+                //     <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
+                // )}
+                buttonText="Signin via Google"
+                onSuccess={signupUser}
+                onFailure={failGoogle}
+                cookiePolicy={'single_host_origin'}
+            />
+        </>
+    )
+
+}
+
 
 
 
@@ -168,5 +235,6 @@ export {
     isAuthenticated,
     logout,
     GoogleOut,
-    isUser
+    isUser,
+    Here4uSigunup
 }

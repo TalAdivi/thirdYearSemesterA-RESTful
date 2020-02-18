@@ -21,7 +21,7 @@ const ReactRouter = () => {
     <Router history={history} component={Home}>
         
         <div>
-            <Route exact path="/" component={() => <Home />} />
+            <Route exact path="/" component={() => <Home message={"Please login"}/>} />
             {/* <Route path="/home" render={(props) => <Home />} /> */}
 
             {/* <Route path="/callback" render={(props) => {
@@ -29,7 +29,11 @@ const ReactRouter = () => {
                 return <Loading {...props} />
             }} /> */}
 
-            <Route path ="/home" component={() => isAuthenticated() ? <MainWindow/> : <Home/> } />
+            {/* here every route need to check fire if isAuth.... */}
+
+            <Route path ="/home" component={() => isAuthenticated() ? <MainWindow/> : <Home message={"Not authenticated, Please login again"} newUser={false}/> } />
+            <Route path ="/error" component={() =>  <Home message={"Error occur, please try again"} newUser={false}/> } />
+            <Route path ="/signup" component={() =>  <Home message={"Please signup first"} newUser={true}/> } />
 
 
             {/* <Route  */}

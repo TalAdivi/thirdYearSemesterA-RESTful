@@ -8,8 +8,8 @@ import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
+        margin: theme.spacing(0),
+        minWidth: 140,
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
@@ -39,13 +39,11 @@ export default function StatusSelect() {
                 displayEmpty
                 className={classes.selectEmpty}
             >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
+
                 <MenuItem value={"Active"}>Active</MenuItem>
                 <MenuItem value={"Complete"}>Complete</MenuItem>
             </Select>
-            <FormHelperText>Label + placeholder</FormHelperText>
+            {/* <FormHelperText>choose to change status</FormHelperText> */}
         </FormControl>
     );
 }
