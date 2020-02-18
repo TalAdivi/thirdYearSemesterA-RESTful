@@ -27,7 +27,7 @@ const MainWindow = props => {
     
     
             try {
-                res = await fetch('http://localhost:3000/Help4U/task/getTasksByUID?userID=305171159').then(res => res.json())
+                res = await fetch('http://localhost:3000/Help4U/task/user/305171159').then(res => res.json())
                 // queryRes = React.createContext(res);
                 console.log('res MAIN WINDOW\n', res);
             }
@@ -44,7 +44,7 @@ const MainWindow = props => {
         }
     
         fetchChatDetails();
-        console.log('useEffect of mainWIndow!');
+        // console.log('useEffect of mainWIndow!');
         
     
     }, []);
@@ -54,9 +54,11 @@ const MainWindow = props => {
             <ResponsoveDrawer>
                 <Grid container spacing={2}>
                     <Grid item xs={8}   >
-
-                        <Route exact path="/" component={() => <Task allTasks = {allUsersTasks} />} />
-                        <Route path="/chat" component={() => <Chat allTasks={allUsersTasks} />} />
+                    {/* <Chat allTasks={allUsersTasks} /> */}
+                    {/* <Task allTasks = {allUsersTasks} /> */}
+                    
+                        <Route exact path="/home"  > <Task allTasks = {allUsersTasks} /> </Route>
+                        <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
                         {/* another option to show chart from Bit */}
                         {/* <Route exact path="/" component={ComposeChart}  /> */}
 

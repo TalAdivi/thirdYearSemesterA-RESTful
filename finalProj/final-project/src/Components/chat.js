@@ -8,23 +8,20 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
     chatStyle: {
         height: '1%',
+
     }
 }));
 
 const Chat = (props) => {
     // const res = React.useContext(queryRes);
-    // console.log('x!!', res);
+    // console.log('x!!');
 
     return (
-        // <React.Fragment>
         <div className={useStyles.chatStyle}>
-            
             <Store tasks = {props.allTasks}>
-            {/* {console.log('props.blabla',props.blabla)} */}
                 <Dashboard/>
             </Store>
         </div>
-        // </React.Fragment>
     )
 }
 

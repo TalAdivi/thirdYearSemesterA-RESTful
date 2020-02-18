@@ -9,6 +9,7 @@ import amber from '@material-ui/core/colors/amber';
 import { get } from 'mongoose';
 import { Chip, List, ListItem } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import Grow from '@material-ui/core/Grow';
 export let queryRes = React.createContext();
 let res ;
 
@@ -77,9 +78,12 @@ const {
 
                 {
                     allTasks.map((task, i) => (
+                        <Grow in={true}>
+
+                        
                         <ListItem dense="true" key={i}>
 
-                            <NavLink exact to={"/chat/" + task.taskID} className={classes.navLinks}>
+                            <NavLink exact to={"/home/chat/" + task.taskID} className={classes.navLinks}>
 
                                 <Card className={classes.card} variant="outlined" key={i}>
 
@@ -104,6 +108,7 @@ const {
                             </NavLink>
 
                         </ListItem>
+                        </Grow>
                     ))
 
 

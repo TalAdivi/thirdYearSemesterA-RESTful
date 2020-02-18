@@ -19,7 +19,7 @@ async function updateChatFromSocket(taskID, chat) {
     }
     try{
 
-       await taskModel.updateChat(partialReq)
+       await taskModel.updateChat(partialReq);
     }
     catch(e) {
         console.log(e);       
@@ -27,4 +27,4 @@ async function updateChatFromSocket(taskID, chat) {
 }  
 module.exports = {
     updateChatFromSocket
-} 
+};

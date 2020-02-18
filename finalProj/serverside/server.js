@@ -15,7 +15,7 @@ require('dotenv').config();
 // api 
 const app = require('./app');
 const http = require('http').createServer(app);
-const dbCon = require('./dal/db_connection')
+const dbCon = require('./dal/db_connection');
 const port = process.env.PORT || 3000;
 const io = require('socket.io')(http);
 const { updateChatFromSocket } = require('./dal/updateChat');
@@ -53,10 +53,10 @@ io.on('connection', function (socket) {
 http.listen(port, () => {
     console.log(`listening on port ${port}`);
     dbCon.then(() => {
-        console.log('connected to db')
+        console.log('connected to db');
     })
         .catch(err => {
-            console.log('fail to connect db', err.message)
+            console.log('fail to connect db', err.message);
         });
 });
 
