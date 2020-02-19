@@ -19,60 +19,34 @@ const MainWindow = props => {
 
     // const [allTasks, setAllTasks] = React.useState([])
 
-    const [allUsersTasks, setAllUsersTasks] = React.useState([])
-
-    useEffect(() => {
     
-        async function fetchChatDetails() {
-    
-    
-            try {
-                res = await fetch('http://localhost:3000/Help4U/task/user/305171159').then(res => res.json())
-                // queryRes = React.createContext(res);
-                console.log('res MAIN WINDOW\n', res);
-            }
-            catch (e) {
-                console.log(e);
-            }
-    
-            if (res.status == 200 && res.data != null ) {
-    
-                // let tasks = res.data;
-                setAllUsersTasks(res.data)
-    
-            }
-        }
-    
-        fetchChatDetails();
-        // console.log('useEffect of mainWIndow!');
-        
-    
-    }, []);
 
     return (
         <div >
             <ResponsoveDrawer>
-                <Grid container spacing={2}>
-                    <Grid item xs={8}   >
-                    {/* <Chat allTasks={allUsersTasks} /> */}
-                    {/* <Task allTasks = {allUsersTasks} /> */}
-                    
-                        <Route exact path="/home"  > <Task allTasks = {allUsersTasks} /> </Route>
-                        <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
-                        {/* another option to show chart from Bit */}
-                        {/* <Route exact path="/" component={ComposeChart}  /> */}
 
-                    </Grid>
-                    <Grid item xs={4}>
-                        {/* another option to show chart from Bit */}
-                        <ComposeChart />
-                    </Grid>
-                </Grid>
 
             </ResponsoveDrawer>
         </div>
     )
 }
+
+//  <Grid container spacing={2}>
+// <Grid item xs={8}   >
+// <Chat allTasks={allUsersTasks} />
+// <Task allTasks = {allUsersTasks} />
+
+//     <Route exact path="/home"  > <Task allTasks = {allUsersTasks} /> </Route>
+//     <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
+//     another option to show chart from Bit
+//     <Route exact path="/" component={ComposeChart}  />
+
+// </Grid>
+// <Grid item xs={4}>
+//     another option to show chart from Bit
+//     <ComposeChart />
+// </Grid> 
+//  </Grid>
 
 
 

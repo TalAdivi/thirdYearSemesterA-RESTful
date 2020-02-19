@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,16 +7,26 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import HomeIcon from '@material-ui/icons/Home';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import ContactsIcon from '@material-ui/icons/Contacts';
+import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import Box from '@material-ui/core/box';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
+import Chat from "../Components/chat";
+import Task from "../Components/task";
+import ComposeChart from '../Components/composed-chart';
+import Grid from '@material-ui/core/Grid';
 
 import Store from "./store";
 import Dashboard from "./dashboard";
@@ -63,30 +73,89 @@ const useStyles = makeStyles(theme => ({
 
 function ResponsiveDrawer(props) {
     const { container } = props;
+    let res;
     const classes = useStyles();
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [linksArr, setLinksArry] = React.useState([]);
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
+    const [allUsersTasks, setAllUsersTasks] = React.useState([])
+
+    // let linksArr = []
+    const userLinksArr = [
+        { 'name': 'Home', 'icon': <HomeIcon /> },
+        { 'name': 'Create', 'icon': <ListAltIcon /> },
+        // { 'name': 'Task Chat', 'icon': <MailIcon /> },
+    ];
+
+    const adminLinksArr = [
+        { 'name': 'Home', 'icon': <HomeIcon /> },
+        { 'name': 'Tasks', 'icon': <ViewListIcon /> },
+        { 'name': 'Contacts', 'icon': <ContactsIcon /> },
+        // { 'name': 'Chat', 'icon': <InboxIcon /> },
+    ];
+
+    const profile = (
+        <Box mx="auto" mt='10px'>
+            <Avatar alt="Adivi Sharp" src="../images/successfully-network-event-001.jpg" />
+        <Typography style={{marginTop:"20px"} }>
+            Tal Adivi
+        </Typography>
+        </Box>
+    ) 
+    
 
 
-    const drawer = (
+    useEffect(() => {
+
+        async function fetchChatDetails() {
+
+
+            try {
+                res = await fetch(`http://localhost:3000/Help4U/task/user/${localStorage.getItem('user_id')}`).then(res => res.json())
+                // queryRes = React.createContext(res);
+                console.log('res MAIN WINDOW\n', res);
+            }
+            catch (e) {
+                console.log(e);
+            }
+
+            if (res.status == 200 && res.data != null) {
+
+                // let tasks = res.data;
+                setAllUsersTasks(res.data)
+
+            }
+        }
+
+        fetchChatDetails();
+
+        console.log("localStorage.getItem('isAdmin')\n", typeof localStorage.getItem('isAdmin'));
+
+        JSON.parse(localStorage.getItem('isAdmin')) ? setLinksArry(adminLinksArr) : setLinksArry(userLinksArr);
+
+    }, []);
+
+
+
+    const sideBarCreator = (
         <div>
             {/* {console.log('propsChildren', props.children)} */}
-            <div className={classes.toolbar} />
+            {/* <div className={classes.toolbar} /> */}
             <Divider />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text} >
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />} </ListItemIcon>
-                        <NavLink exact to="/" className = {classes.navLinks}>
+                {linksArr.map((obj, index) => (
+                    <ListItem button key={obj.name} >
+                        {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />} </ListItemIcon> */}
+                        <ListItemIcon> {obj.icon} </ListItemIcon>
+                        <NavLink exact to={`/${obj.name.toLowerCase()}`} className={classes.navLinks}>
 
-                        <ListItemText primary={text}/> 
+                            <ListItemText primary={obj.name} />
                         </NavLink>
-                                                
 
                     </ListItem>
                 ))}
@@ -123,11 +192,14 @@ function ResponsiveDrawer(props) {
                     <Typography variant="h6" noWrap>
                         Here4U POC
           </Typography>
+          
                 </Toolbar>
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                
                 <Hidden smUp implementation="css">
+                    
                     <Drawer
                         container={container}
                         variant="temporary"
@@ -141,7 +213,8 @@ function ResponsiveDrawer(props) {
                             keepMounted: true, // Better open performance on mobile.
                         }}
                     >
-                        {drawer}
+                        blablaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        {sideBarCreator}
                     </Drawer>
                 </Hidden>
                 <Hidden xsDown implementation="css">
@@ -152,17 +225,36 @@ function ResponsiveDrawer(props) {
                         variant="permanent"
                         open
                     >
-                        {drawer}
+                        
+
+
+                        {profile}
+
+
+                        {sideBarCreator}
                     </Drawer>
                 </Hidden>
             </nav>
             <main className={classes.content}>
 
                 <div className={classes.toolbar} />
-                <Typography paragraph>
-                    Welcome
-        </Typography>
-                {props.children}
+
+
+                <Grid container spacing={2}>
+                    <Grid item xs={8}   >
+                        <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
+                        <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
+                    </Grid>
+                    <Grid item xs={4}>
+
+                        <ComposeChart />
+                    </Grid>
+                </Grid>
+
+
+
+                {/* {props.children} */}
+
             </main>
         </div>
 

@@ -108,6 +108,8 @@ const logout = () => {
     localStorage.removeItem('expires_at');
     localStorage.removeItem('isAdmin');
     localStorage.removeItem('user_name');
+    localStorage.removeItem('user_id');
+
     // navigate to the home route
     history.replace('/');
 }
@@ -195,6 +197,7 @@ const GoogleOut = (props) => {
                 clientId="838325310419-ink7dovlmgeoff0urhtdk16boctkqra8.apps.googleusercontent.com"
                 buttonText="Logout"
                 onLogoutSuccess={logout}
+                onFailure={failGoogle}
             >
             </GoogleLogout>
         </>

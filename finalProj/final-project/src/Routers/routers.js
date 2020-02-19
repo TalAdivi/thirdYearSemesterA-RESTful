@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Router } from "react-router-dom";
 import Chat from "../Components/chat";
 import MainWindow from "../Components/mainWindow";
+import ResponsiveDrawer from "../Components/responsiveDrawer";
 import Home from '../Authentication/home';
 import Loading from '../Authentication/loading';
 import { GoogleAuth, successGoogle, isAuthenticated } from '../Authentication/googleAuth';
@@ -31,7 +32,7 @@ const ReactRouter = () => {
 
             {/* here every route need to check fire if isAuth.... */}
 
-            <Route path ="/home" component={() => isAuthenticated() ? <MainWindow/> : <Home message={"Not authenticated, Please login again"} newUser={false}/> } />
+            <Route path ="/home" component={() => isAuthenticated() ? <ResponsiveDrawer/> : <Home message={"Not authenticated, Please login again"} newUser={false}/> } />
             <Route path ="/error" component={() =>  <Home message={"Error occur, please try again"} newUser={false}/> } />
             <Route path ="/signup" component={() =>  <Home message={"Please signup first"} newUser={true}/> } />
 
