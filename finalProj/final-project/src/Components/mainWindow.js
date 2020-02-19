@@ -20,6 +20,7 @@ const MainWindow = props => {
 
     // const [allTasks, setAllTasks] = React.useState([])
 
+<<<<<<< HEAD
     const [allUsersTasks, setAllUsersTasks] = React.useState([])
 
     useEffect(() => {
@@ -50,10 +51,14 @@ const MainWindow = props => {
         
     
     }, []);
+=======
+    
+>>>>>>> upstream/master
 
     return (
         <div >
             <ResponsoveDrawer>
+<<<<<<< HEAD
                 <Grid container spacing={2}>
                     <Grid item xs={8}   >
                     {/* <Chat allTasks={allUsersTasks} /> */}
@@ -71,11 +76,31 @@ const MainWindow = props => {
                         <ComposeChart />
                     </Grid>
                 </Grid>
+=======
+
+>>>>>>> upstream/master
 
             </ResponsoveDrawer>
         </div>
     )
 }
+
+//  <Grid container spacing={2}>
+// <Grid item xs={8}   >
+// <Chat allTasks={allUsersTasks} />
+// <Task allTasks = {allUsersTasks} />
+
+//     <Route exact path="/home"  > <Task allTasks = {allUsersTasks} /> </Route>
+//     <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
+//     another option to show chart from Bit
+//     <Route exact path="/" component={ComposeChart}  />
+
+// </Grid>
+// <Grid item xs={4}>
+//     another option to show chart from Bit
+//     <ComposeChart />
+// </Grid> 
+//  </Grid>
 
 
 
