@@ -8,22 +8,6 @@ import SignInSide from '../Components/login';
 
 const Home = (props) => {
 
-<<<<<<< HEAD
-
-    return (
-        <div>
-            {
-                isAuthenticated() &&
-                <div className="container column">
-                    <SignInSide/>
-                </div>
-            }
-            {
-                !isAuthenticated() && (
-                <SignInSide/>
-                )
-            }
-=======
     const {message, newUser} = props
     console.log('newUser\n', newUser);
     
@@ -36,7 +20,6 @@ const Home = (props) => {
             {!isAuthenticated() && <SignInSide message = {message} newUser={newUser}/>}
 
 
->>>>>>> upstream/master
         </div>
     );
 

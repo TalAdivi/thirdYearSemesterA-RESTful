@@ -90,12 +90,6 @@ export default function OutlinedCard(props) {
                     allTasks.map((task, i) => (
                         <Grow in={true}>
 
-<<<<<<< HEAD
-                        
-                        <ListItem dense="true" key={i}>
-
-                            <NavLink exact to={"/home/chat/" + task.taskID} className={classes.navLinks}>
-=======
 
 
                             {/* <ListItem dense="true" key={i}> */}
@@ -104,7 +98,6 @@ export default function OutlinedCard(props) {
                                 <NavLink exact to={"/home/chat/" + task.taskID} className={classes.navLinks}>
 
                                     <Card className={classes.card} key={i}>
->>>>>>> upstream/master
 
                                         <CardContent>
 
@@ -124,12 +117,8 @@ export default function OutlinedCard(props) {
                                     </Card>
                                 </NavLink>
 
-<<<<<<< HEAD
-                        </ListItem>
-=======
                             </Box>
                             {/* </ListItem> */}
->>>>>>> upstream/master
                         </Grow>
                     ))
 

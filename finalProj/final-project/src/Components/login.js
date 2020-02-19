@@ -13,12 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SocialImg from '../Images/successfully-network-event-001.jpg'
-<<<<<<< HEAD
-import {GoogleAuth, GoogleOut, isAuthenticated} from '../Authentication/googleAuth';
-=======
 import {GoogleAuth, GoogleOut, isAuthenticated, Here4uSigunup} from '../Authentication/googleAuth';
 import history from '../Authentication/history';
->>>>>>> upstream/master
 
 // function Copyright() {
 //     return (
@@ -67,34 +63,6 @@ const useStyles = makeStyles(theme => ({
     }
 
 }));
-<<<<<<< HEAD
-
-export default function SignInSide() {
-    const classes = useStyles();
-
-    return (
-        <Grid container component="main" className={classes.root}>
-            <CssBaseline />
-            <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                <div className={classes.paper}>
-                    <Box display="flex">
-                    <Typography component="h1" variant="h2" className={classes.spaceBottom}>
-
-                        Here4U
-          </Typography>
-                    </Box>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5" className={classes.spaceBottom}>
-                        Sign in via Google
-          </Typography>
-
-          {
-              isAuthenticated() ?  <GoogleOut/> :  <GoogleAuth/>
-          }
-=======
 
 export default function SignInSide(props) {
     const classes = useStyles();
@@ -127,7 +95,6 @@ export default function SignInSide(props) {
               // isAuthenticated() ?   history.replace(path) :  <GoogleAuth/>
           }
 
->>>>>>> upstream/master
           
                 </div>
             </Grid>

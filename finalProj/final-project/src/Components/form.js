@@ -2,46 +2,24 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography'
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Chip from '@material-ui/core/Chip';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { blue } from '@material-ui/core/colors';
-import Link from '@material-ui/core/Link';
-import Divider from '@material-ui/core/Divider';
-import Subln from './__showSubInFormJustToRemmber'
-import Alert from '@material-ui/lab/Alert';
+import CompanyTab from './companyList'
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+import { Redirect } from 'react-router-dom'
 
 
-
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles(theme => ({
     root: {
         '& > *': {
             padding: theme.spacing(3, 2)
         },
-    },
-
-    flex: {
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '15px'
-    },
-    topicWindow: {
-        width: '30%',
-        height: '300px',
-        borderRight: '1px solid grey'
-    },
-    chatWindow: {
-        width: '70%',
-        height: '300px',
-        padding: "20px"
-    },
-    chatBox: {
-        width: '100%'
     },
     button: {
         width: '20%',
@@ -51,46 +29,47 @@ const useStyles = makeStyles(theme => ({
     padding: {
         paddingLeft: "8px"
     },
-    textBubble: {
-        minWidth: "100%",
-        minHeight: "7ex",
-        borderRadius: "15px"
-    },
-    divider: {
-        padding: "1px 16px"
-    },
+
 }));
 
 
-// every time we type, we change the state via ChangeTextValue, and because of that we reRender the component and will see all things be4 the return ? ? 
 export default function Form() {
+    const [titleValue, changeTitleValue] = React.useState('');
+    const [descValue, changeDescValue] = React.useState('');
+    const [companyValue, changecCompanyValue] = React.useState('');
+    const [taskIdValue, changecTaskIdValue] = React.useState('');
+    const [openSucsses, setOpenSucsses] = React.useState(false);
+    const [openNotSucsses, setOpenNotSucsses] = React.useState(false);
+    const [eventButton, setEvent] = React.useState(false);
+    const classes = useStyles();
 
     async function addTask(title, company, description) {
         try {
 
-            const response = await fetch(`http://localhost:3000/Help4U/task/add`, {
+             const response = await fetch(`http://localhost:3000/Help4U/task/add`, {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/json',
                 }),
                 mode: 'cors',
                 body: JSON.stringify({
-                    "userID": 305171159,
-                    "userName": "tomertest",
+                    "userID": localStorage.getItem('user_id'),
+                    "userName": localStorage.getItem('user_name'),
                     "companyID": company,
                     "title": title,
                     "selectedSubject": "response.googleId",
-                    "chat": [{ "from": "tomertest", "message": description }],
+                    "chat": [{ "from": localStorage.getItem('user_name'), "message": description }],
                 })
             }).then(response => response.json());
             if (response.status == 200 && response.data != null) {
-                console.log("response\n", response);
-                // setalrt
-                // return(<Alert severity="success">This is a success alert — check it out!</Alert>)
-              }
-// localStorage.getItem
-//user
-          
+                console.log("data",response.data.taskID);
+                changecTaskIdValue(response.data.taskID);
+                handleClickSucsses();
+
+            }
+            else {
+                handleClickNotSucsses();
+            }
         }
         catch (e) {
             console.log('inside catch', e.message);
@@ -98,13 +77,34 @@ export default function Form() {
         }
     }
 
-    const [titleValue, changeTitleValue] = React.useState('');
-    const [descValue, changeDescValue] = React.useState('');
-    const [companyValue, changecCompanyValue] = React.useState('');
-    const classes = useStyles();
+    const handleClickSucsses = () => {
+        setOpenSucsses(true);
+    };
+
+    const handleClickNotSucsses = () => {
+        setOpenNotSucsses(true);
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSucsses(false);
+        setEvent(true);
+        
+    };
+    const handleNotSucssesClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenNotSucsses(false);
+    
+    };
+    
 
     return (
         <div >
+           
             <Paper variant="outlined" className={classes.root} >
                 <Grid container spacing={0}>
                     <Grid
@@ -130,7 +130,7 @@ export default function Form() {
                                 </Grid>
                                 <Grid item>
                                     <Typography style={{ margin: "15px", fontSize: "20px" }}>Company</Typography>
-                                    <Typography style={{ margin: "15px" }}><Subln parentCallback={changecCompanyValue} /></Typography>
+                                    <Typography style={{ margin: "15px" }}><CompanyTab parentCallback={changecCompanyValue} /></Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -162,14 +162,26 @@ export default function Form() {
                         className={classes.button}
                         onClick={() => {
                             addTask(titleValue, companyValue, descValue);
-                          
-                        }}
+                        }
+                    }
                     >
                         SUBMIT
                     </Button>
-
+                    <div className={classes.root}>
+                        <Snackbar open={openSucsses} autoHideDuration={6000} onClose={handleClose}>
+                            <Alert onClose={handleClose} severity="success">
+                            Your task has been successfully added !</Alert>
+                        </Snackbar>
+                        <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose}>
+                        <Alert onClose={handleNotSucssesClose} severity="error">There is a problem , Try again and fill all the fields !</Alert>
+                        </Snackbar>
+                    </div>
                 </Grid>
             </Paper>
+
+            {   //+taskIdValue
+                eventButton ? <Redirect to={"/home/chat/"} />  : ""
+            }
         </div>
     )
 }

@@ -2,19 +2,12 @@ import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import Typography from '@material-ui/core/Typography';
 // import { createBrowserHistory } from 'history';
-<<<<<<< HEAD
-=======
-import axios from 'axios';
->>>>>>> upstream/master
 import history from './history'
 
 let isUser = false;
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> upstream/master
 const successGoogle = (response) => {
 
     // need to understand if user is admin or client and the continue !!!!!!
@@ -69,12 +62,8 @@ const successGoogle = (response) => {
             // return res
 
         } catch (e) {
-<<<<<<< HEAD
-            console.log('inside catch');
-=======
             console.log('inside catch', e.message);
             history.replace('/error')
->>>>>>> upstream/master
 
             return e.message;
         }
@@ -99,14 +88,6 @@ const setSession = (response, isAdmin) => {
 
 
     // let expiresAt = JSON.stringify(10000 + new Date().getTime());
-<<<<<<< HEAD
-
-    localStorage.setItem('access_token', response.tokenObj.access_token);
-    localStorage.setItem('id_token', response.tokenObj.id_token);
-    localStorage.setItem('expires_at', expiresAt);
-    localStorage.setItem('isAdmin', isAdmin)
-    localStorage.setItem('user_name',response.Rt.Ad)
-=======
     console.log('response.tokenObj.access_token\n', response.uc.access_token);
 
     // localStorage.setItem('access_token', response.uc.access_token);
@@ -115,20 +96,12 @@ const setSession = (response, isAdmin) => {
     localStorage.setItem('isAdmin', isAdmin);
     localStorage.setItem('user_name', response.Rt.Ad);
     localStorage.setItem('user_id',response.googleId);
->>>>>>> upstream/master
     // navigate to the home route
 
 }
 
 const logout = () => {
     // Clear access token and ID token from local storage
-<<<<<<< HEAD
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('id_token');
-    localStorage.removeItem('expires_at');
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('user_name');
-=======
     // localStorage.removeItem('access_token');
     // localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
@@ -136,7 +109,6 @@ const logout = () => {
     localStorage.removeItem('user_name');
     localStorage.removeItem('user_id');
 
->>>>>>> upstream/master
     // navigate to the home route
     history.replace('/');
 }
@@ -148,8 +120,6 @@ const isAuthenticated = () => {
     return new Date().getTime() < expiresAt;
 }
 
-<<<<<<< HEAD
-=======
 const signupUser = (response) => {
 
     async function signup() {
@@ -182,7 +152,6 @@ const signupUser = (response) => {
 
 }
 
->>>>>>> upstream/master
 
 
 
@@ -192,11 +161,7 @@ const failGoogle = (response) => {
 }
 
 const GoogleAuth = (props) => {
-<<<<<<< HEAD
-    const message = "Loginnn"
-=======
     const { message } = props
->>>>>>> upstream/master
 
     return (
         <>
@@ -218,13 +183,6 @@ const GoogleAuth = (props) => {
 
 }
 
-<<<<<<< HEAD
-const GoogleOut = () => {
-    return (
-        <>
-            <Typography component="h5" variant="h6" style={{ marginBottom: "50px" }}>
-                you already logged in, please logout to continue
-=======
 const GoogleOut = (props) => {
     const { message } = props
     return (
@@ -232,25 +190,19 @@ const GoogleOut = (props) => {
             <Typography component="h5" variant="h6" style={{ marginBottom: "50px" }}>
                 {/* you already logged in, please logout to continue */}
                 {message}
->>>>>>> upstream/master
 
             </Typography>
             <GoogleLogout
                 clientId="838325310419-ink7dovlmgeoff0urhtdk16boctkqra8.apps.googleusercontent.com"
                 buttonText="Logout"
                 onLogoutSuccess={logout}
-<<<<<<< HEAD
-=======
                 onFailure={failGoogle}
->>>>>>> upstream/master
             >
             </GoogleLogout>
         </>
     )
 }
 
-<<<<<<< HEAD
-=======
 const Here4uSigunup = (props) => {
     const { message } = props
     console.log('inside here4uSignin');
@@ -276,7 +228,6 @@ const Here4uSigunup = (props) => {
 
 }
 
->>>>>>> upstream/master
 
 
 
@@ -286,10 +237,6 @@ export {
     isAuthenticated,
     logout,
     GoogleOut,
-<<<<<<< HEAD
-    isUser
-=======
     isUser,
     Here4uSigunup
->>>>>>> upstream/master
 }

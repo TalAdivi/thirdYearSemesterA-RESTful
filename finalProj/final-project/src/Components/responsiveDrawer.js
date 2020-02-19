@@ -27,7 +27,7 @@ import Chat from "../Components/chat";
 import Task from "../Components/task";
 import ComposeChart from '../Components/composed-chart';
 import Grid from '@material-ui/core/Grid';
-
+import Form from "../Components/form"
 import Store from "./store";
 import Dashboard from "./dashboard";
 
@@ -148,18 +148,11 @@ function ResponsiveDrawer(props) {
             {/* <div className={classes.toolbar} /> */}
             <Divider />
             <List>
-<<<<<<< HEAD
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text} >
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />} </ListItemIcon>
-                        <NavLink exact to={text} className = {classes.navLinks}>
-=======
                 {linksArr.map((obj, index) => (
                     <ListItem button key={obj.name} >
                         {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />} </ListItemIcon> */}
                         <ListItemIcon> {obj.icon} </ListItemIcon>
                         <NavLink exact to={`/${obj.name.toLowerCase()}`} className={classes.navLinks}>
->>>>>>> upstream/master
 
                             <ListItemText primary={obj.name} />
                         </NavLink>
@@ -251,6 +244,7 @@ function ResponsiveDrawer(props) {
                     <Grid item xs={8}   >
                         <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
                         <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
+                        <Route path="/home/create"  > <Form /> </Route>
                     </Grid>
                     <Grid item xs={4}>
 

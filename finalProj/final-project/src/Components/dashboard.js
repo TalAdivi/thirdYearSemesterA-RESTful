@@ -86,22 +86,6 @@ export default function Dashboard() {
                         alignItems="center"
                     >
                         {/* <Typography variant="h4" component="h4">Chat app </Typography> */}
-<<<<<<< HEAD
-                        <Grid xs={12} >
-
-                            <Grid container justify="space-between" spacing={2} >
-                                <Grid item>
-                                <Typography variant="h5" component="h6" gutterBottom  style={{ margin: "15px" }}> {task.title} </Typography>
-                                <Typography variant="body2"  gutterBottom style={{ margin: "15px" }}> {`${task.selectedSubject}`} </Typography>
-                                </Grid>
-                                <Grid item>
-
-                                <Typography variant='body1' gutterBottom style={{ margin: "15px" }}> {`Talking with: ${localStorage.getItem("isAdmin") ?   task.userName : task.companyID}`} </Typography>
-                                </Grid>
-                                <Grid item>
-
-                                    3
-=======
                         {/* <Grid xs={12} > */}
 
                             <Grid container  spacing={2} >
@@ -115,28 +99,10 @@ export default function Dashboard() {
                                 </Grid>
                                 <Grid item lg={4}>
                                     
->>>>>>> upstream/master
                                 </Grid>
                             </Grid>
 
                             <Grid container justify="space-between" spacing={2} >
-<<<<<<< HEAD
-                                <Grid item>
-
-                                <Typography variant='body1' gutterBottom style={{ margin: "15px" }}> Open at: { taskDate} </Typography>
-                                </Grid>
-                                <Grid item>
-
-                                    5
-                                </Grid>
-                                <Grid item>
-
-                                    <StatusSelect />
-                                </Grid>
-                            </Grid>
-
-                        </Grid>
-=======
                                 <Grid item lg={4}>
 
                                 <Typography variant='body1' gutterBottom style={{ margin: "15px" }}> Open at: { taskDate} </Typography>
@@ -153,7 +119,6 @@ export default function Dashboard() {
                             </Grid>
 
                         {/* </Grid> */}
->>>>>>> upstream/master
 
                         
                         {/* <br>dsd</br> */}
@@ -161,10 +126,7 @@ export default function Dashboard() {
   
                     </Grid>
                 </Grid>
-<<<<<<< HEAD
-=======
                 
->>>>>>> upstream/master
                 <Divider className={classes.divider}/>
 
 
