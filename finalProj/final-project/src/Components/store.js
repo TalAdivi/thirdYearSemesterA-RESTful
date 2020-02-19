@@ -14,7 +14,7 @@ function sendChatAction(value) {
 
 
 // need to bring the name if the sender... 
-let user = localStorage.getItem('user_name');
+let user = sessionStorage.getItem('user_name');
 let currTask;
 
 
@@ -22,13 +22,10 @@ export default function Store(props) {
 
     const { tasks } = props;
 
-    // const resultt = React.useContext(queryRes);
-
     const [chats, setChats] = React.useState([]);
     const [toTask, setToTask] = React.useState(false);
     const [task, setTask] = React.useState([]);
-    // const [task, setTask] = React.useState();
-    // const [redirect, setRedirect] = React.useState(false)
+ 
 
 
 
