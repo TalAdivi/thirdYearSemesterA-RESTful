@@ -1639,6 +1639,9 @@
     "@babel/runtime" "^7.4.4"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> upstream/master
 "@material-ui/lab@^4.0.0-alpha.43":
   version "4.0.0-alpha.43"
   resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.43.tgz#4bc673924cf1922750d70adcbb71414d3c18ff23"
@@ -1650,6 +1653,9 @@
     prop-types "^15.7.2"
     react-is "^16.8.0"
 
+<<<<<<< HEAD
+=======
+>>>>>>> upstream/master
 =======
 >>>>>>> upstream/master
 "@material-ui/styles@^4.9.0":
