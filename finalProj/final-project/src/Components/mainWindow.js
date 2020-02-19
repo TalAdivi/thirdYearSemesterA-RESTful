@@ -6,6 +6,7 @@ import ResponsoveDrawer from "./responsiveDrawer";
 import ChartBar from "../Components/chartBar";
 import Chat from "../Components/chat";
 import Task from "../Components/task";
+import Form from "../Components/form";
 import ComposeChart from '../Components/composed-chart';
 
 
@@ -34,6 +35,7 @@ const MainWindow = props => {
             catch (e) {
                 console.log(e);
             }
+
     
             if (res.status == 200 && res.data != null ) {
     
@@ -59,6 +61,7 @@ const MainWindow = props => {
                     
                         <Route exact path="/home"  > <Task allTasks = {allUsersTasks} /> </Route>
                         <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
+                        <Route path="/home/Send email"  > <Form/> </Route>
                         {/* another option to show chart from Bit */}
                         {/* <Route exact path="/" component={ComposeChart}  /> */}
 

@@ -82,7 +82,7 @@ function ResponsiveDrawer(props) {
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem button key={text} >
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />} </ListItemIcon>
-                        <NavLink exact to="/" className = {classes.navLinks}>
+                        <NavLink exact to={text} className = {classes.navLinks}>
 
                         <ListItemText primary={text}/> 
                         </NavLink>

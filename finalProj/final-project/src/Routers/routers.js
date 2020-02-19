@@ -31,7 +31,6 @@ const ReactRouter = () => {
 
             <Route path ="/home" component={() => isAuthenticated() ? <MainWindow/> : <Home/> } />
 
-
             {/* <Route  */}
 
         </div>
