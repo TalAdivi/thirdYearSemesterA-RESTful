@@ -192,11 +192,7 @@ export default function Form() {
             </Paper>
 
             {   //+taskIdValue
-<<<<<<< HEAD
-                eventButton ? <Redirect to={"/home/"} />  : ""
-=======
                 eventButton ? <Redirect to={"/home/"} /> : ""
->>>>>>> upstream/master
             }
         </div>
     )

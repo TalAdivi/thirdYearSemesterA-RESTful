@@ -295,15 +295,11 @@ function ResponsiveDrawer(props) {
                         </Grid>
                         <Grid item xs={4}>
 
-<<<<<<< HEAD
-                            <ComposeChart />
-=======
                         <ComposeChart allTasks={allUsersTasks} />
                         {/* <ComposeChart allTasks={allUsersTasks} /> */}
                         {/* <PieSeries/> */}
                         {/* <PieChart></PieChart> */}
                             
->>>>>>> upstream/master
                         </Grid>
                     </Grid>
 
