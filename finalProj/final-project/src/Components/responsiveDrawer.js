@@ -33,10 +33,6 @@ import Form from "../Components/form"
 import Store from "./store";
 import Dashboard from "./dashboard";
 
-// import Contacts from "./contacts";
-// import MyPieChart from "./myPieChart" ;
-
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -132,30 +128,8 @@ function ResponsiveDrawer(props) {
 
             if (res.status == 200 && res.data != null) {
 
-
                 // let tasks = res.data;
                 setAllUsersTasks(res.data)
-
-
-
-                // let tasks = res.data;
-                setAllUsersTasks(res.data)
-
-
-
-                // let tasks = res.data;
-                setAllUsersTasks(res.data)
-
-
-
-                // let tasks = res.data;
-                setAllUsersTasks(res.data)
-
-
-
-                // let tasks = res.data;
-                setAllUsersTasks(res.data)
-
 
             }
         }
@@ -259,60 +233,14 @@ function ResponsiveDrawer(props) {
                         {profile}
 
 
-
                         {sideBarCreator}
                     </Drawer>
                 </Hidden>
-
-                        {sideBarCreator}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                    >
-                        
-
-
-                        {profile}
-
-
-                        {sideBarCreator}
-                    </Drawer>
-                </Hidden>
-
-                        {sideBarCreator}
-                    </Drawer>
-                </Hidden>
-
             </nav>
             <main className={classes.content}>
 
                 <div className={classes.toolbar} />
 
-
-                    <Grid container spacing={2}>
-                        <Grid item xs={8}   >
-                            <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
-                            <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
-                            <Route path="/home/tasks"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-                            {/* <Route path="/home/contacts"  > <Contacts /> </Route> */}
-                            <Route path="/home/create"  > <Form /> </Route>
-                        </Grid>
-                        <Grid item xs={4}>
-
-                        <ComposeChart allTasks={allUsersTasks} />
-                        {/* <ComposeChart allTasks={allUsersTasks} /> */}
-                        {/* <PieSeries/> */}
-                        {/* <PieChart></PieChart> */}
-                            
-                        </Grid>
-                    </Grid>
-                {/* </Grid> */}
 
                 <Grid container spacing={2}>
                     <Grid item xs={8}   >

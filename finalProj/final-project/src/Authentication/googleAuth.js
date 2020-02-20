@@ -94,20 +94,10 @@ const setSession = (response, isAdmin) => {
 
     // localStorage.setItem('access_token', response.uc.access_token);
     // localStorage.setItem('id_token', response.uc.id_token);
-
-    sessionStorage.setItem('expires_at', expiresAt);
-    sessionStorage.setItem('isAdmin', isAdmin);
-    sessionStorage.setItem('user_name', response.Rt.Ad);
-    sessionStorage.setItem('user_id',response.googleId);
-    sessionStorage.setItem('profile_img',response.Rt.kL + '')
-    // sessionStorage.setItem('access_token',response.Rt.kL + '')
-    
-
     localStorage.setItem('expires_at', expiresAt);
     localStorage.setItem('isAdmin', isAdmin);
     localStorage.setItem('user_name', response.Rt.Ad);
     localStorage.setItem('user_id',response.googleId);
-
     // navigate to the home route
 
 }
