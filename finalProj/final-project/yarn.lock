@@ -1639,8 +1639,11 @@
     "@babel/runtime" "^7.4.4"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> parent of 72b819e... update merge
 "@material-ui/lab@^4.0.0-alpha.43":
   version "4.0.0-alpha.43"
   resolved "https://registry.yarnpkg.com/@material-ui/lab/-/lab-4.0.0-alpha.43.tgz#4bc673924cf1922750d70adcbb71414d3c18ff23"
