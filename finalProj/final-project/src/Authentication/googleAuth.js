@@ -110,11 +110,10 @@ const logout = () => {
     // Clear access token and ID token from local storage
     // localStorage.removeItem('access_token');
     // localStorage.removeItem('id_token');
-    sessionStorage.removeItem('expires_at');
-    sessionStorage.removeItem('isAdmin');
-    sessionStorage.removeItem('user_name');
-    sessionStorage.removeItem('user_id');
-    sessionStorage.removeItem('profile_img');
+    localStorage.removeItem('expires_at');
+    localStorage.removeItem('isAdmin');
+    localStorage.removeItem('user_name');
+    localStorage.removeItem('user_id');
 
     // navigate to the home route
     history.replace('/');
@@ -123,7 +122,7 @@ const logout = () => {
 const isAuthenticated = () => {
     // Check whether the current time is past the
     // access token's expiry time
-    let expiresAt = JSON.parse(sessionStorage.getItem('expires_at'));
+    let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
 }
 
@@ -155,7 +154,6 @@ const signupUser = (response) => {
         }
     }
 
-    // add check if user exist!!!!!!!!
     signup()
 
 }
@@ -191,26 +189,6 @@ const GoogleAuth = (props) => {
 
 }
 
-// const GoogleOut = (props) => {
-//     const { message } = props
-//     return (
-//         <>
-//             <Typography component="h5" variant="h6" style={{ marginBottom: "50px" }}>
-//                 {/* you already logged in, please logout to continue */}
-//                 {message}
-
-//             </Typography>
-//             <GoogleLogout
-//                 clientId="838325310419-ink7dovlmgeoff0urhtdk16boctkqra8.apps.googleusercontent.com"
-//                 buttonText="Logout"
-//                 onLogoutSuccess={logout}
-//                 onFailure={failGoogle}
-//             >
-//             </GoogleLogout>
-//         </>
-//     )
-// }
-
 const GoogleOut = (props) => {
     const { message } = props
     return (
@@ -225,7 +203,6 @@ const GoogleOut = (props) => {
                 buttonText="Logout"
                 onLogoutSuccess={logout}
                 onFailure={failGoogle}
-                
             >
             </GoogleLogout>
         </>
