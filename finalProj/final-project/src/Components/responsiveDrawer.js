@@ -32,8 +32,11 @@ import Grid from '@material-ui/core/Grid';
 import Form from "../Components/form"
 import Store from "./store";
 import Dashboard from "./dashboard";
+<<<<<<< HEAD
 // import Contacts from "./contacts";
 // import MyPieChart from "./myPieChart" ;
+=======
+>>>>>>> parent of 72b819e... update merge
 
 const drawerWidth = 240;
 
@@ -129,10 +132,17 @@ function ResponsiveDrawer(props) {
             }
 
             if (res.status == 200 && res.data != null) {
+<<<<<<< HEAD
 
                 // let tasks = res.data;
                 setAllUsersTasks(res.data)
 
+=======
+
+                // let tasks = res.data;
+                setAllUsersTasks(res.data)
+
+>>>>>>> parent of 72b819e... update merge
             }
         }
 
@@ -218,6 +228,7 @@ function ResponsiveDrawer(props) {
                         }}
                     >
                         blablaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+<<<<<<< HEAD
                         {sideBarCreator}
                     </Drawer>
                 </Hidden>
@@ -238,11 +249,34 @@ function ResponsiveDrawer(props) {
                         {sideBarCreator}
                     </Drawer>
                 </Hidden>
+=======
+                        {sideBarCreator}
+                    </Drawer>
+                </Hidden>
+                <Hidden xsDown implementation="css">
+                    <Drawer
+                        classes={{
+                            paper: classes.drawerPaper,
+                        }}
+                        variant="permanent"
+                        open
+                    >
+                        
+
+
+                        {profile}
+
+
+                        {sideBarCreator}
+                    </Drawer>
+                </Hidden>
+>>>>>>> parent of 72b819e... update merge
             </nav>
             <main className={classes.content}>
 
                 <div className={classes.toolbar} />
 
+<<<<<<< HEAD
                     <Grid container spacing={2}>
                         <Grid item xs={8}   >
                             <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
@@ -261,6 +295,20 @@ function ResponsiveDrawer(props) {
                         </Grid>
                     </Grid>
                 {/* </Grid> */}
+=======
+
+                <Grid container spacing={2}>
+                    <Grid item xs={8}   >
+                        <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
+                        <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
+                        <Route path="/home/create"  > <Form /> </Route>
+                    </Grid>
+                    <Grid item xs={4}>
+
+                        <ComposeChart />
+                    </Grid>
+                </Grid>
+>>>>>>> parent of 72b819e... update merge
 
 
 

@@ -94,6 +94,7 @@ const setSession = (response, isAdmin) => {
 
     // localStorage.setItem('access_token', response.uc.access_token);
     // localStorage.setItem('id_token', response.uc.id_token);
+<<<<<<< HEAD
     
     sessionStorage.setItem('expires_at', expiresAt);
     sessionStorage.setItem('isAdmin', isAdmin);
@@ -102,6 +103,12 @@ const setSession = (response, isAdmin) => {
     sessionStorage.setItem('profile_img',response.Rt.kL + '')
     // sessionStorage.setItem('access_token',response.Rt.kL + '')
     
+=======
+    localStorage.setItem('expires_at', expiresAt);
+    localStorage.setItem('isAdmin', isAdmin);
+    localStorage.setItem('user_name', response.Rt.Ad);
+    localStorage.setItem('user_id',response.googleId);
+>>>>>>> parent of 72b819e... update merge
     // navigate to the home route
 
 }
