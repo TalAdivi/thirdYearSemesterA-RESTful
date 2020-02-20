@@ -1408,7 +1408,11 @@
   resolved "https://registry.yarnpkg.com/@devexpress/dx-core/-/dx-core-2.4.1.tgz#c371ee814c17ee11808cadf6c599487ee290a1d5"
   integrity sha512-ZRFcg5YDsNpd8PbCbswiVvY+V0HePgNW2DkRhpbQPApF2ZT2OGnVVHB9uoOmzsfPNqvK/wR/qLUnLs7FTkV4AA==
 
+<<<<<<< HEAD
 "@devexpress/dx-react-chart-material-ui@^2.4.1":
+=======
+"@devexpress/dx-react-chart-material-ui@^2.3.2":
+>>>>>>> upstream/master
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@devexpress/dx-react-chart-material-ui/-/dx-react-chart-material-ui-2.4.1.tgz#beb3f77996604afa7eb8096be6e61bd34742caf0"
   integrity sha512-PVEa64hkMeRsfgVvO5jlPYQb7y+A2UmaOWRMkbm8gbQiOdocUspRShNQqkOx1wLS7OREAC44MxufAhfbVA64jA==

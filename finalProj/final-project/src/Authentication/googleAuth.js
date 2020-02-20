@@ -41,6 +41,8 @@ const successGoogle = (response) => {
 
                 if (user.data === true) {
                     isAdmin = true;
+                    // admin only fetch and update ...
+
                 }
 
                 setSession(response, isAdmin);
@@ -98,6 +100,7 @@ const setSession = (response, isAdmin) => {
     sessionStorage.setItem('user_name', response.Rt.Ad);
     sessionStorage.setItem('user_id',response.googleId);
     sessionStorage.setItem('profile_img',response.Rt.kL + '')
+    // sessionStorage.setItem('access_token',response.Rt.kL + '')
     
     // navigate to the home route
 

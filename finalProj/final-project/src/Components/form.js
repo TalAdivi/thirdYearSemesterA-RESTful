@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import CompanyTab from './companyList'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import Box from '@material-ui/core/box';
 import { Redirect } from 'react-router-dom'
 
 
@@ -29,6 +30,13 @@ const useStyles = makeStyles(theme => ({
     padding: {
         paddingLeft: "8px"
     },
+    title: {
+        margin: "10px",
+        width:'200px'
+    },
+    company: {
+        marginBottom: '10px'
+    }
 
 }));
 
@@ -46,7 +54,7 @@ export default function Form() {
     async function addTask(title, company, description) {
         try {
 
-             const response = await fetch(`http://localhost:3000/Help4U/task/add`, {
+            const response = await fetch(`http://localhost:3000/Help4U/task/add`, {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/json',
@@ -61,7 +69,7 @@ export default function Form() {
                 })
             }).then(response => response.json());
             if (response.status == 200 && response.data != null) {
-                console.log("data",response.data.taskID);
+                console.log("data", response.data.taskID);
                 changecTaskIdValue(response.data.taskID);
                 handleClickSucsses();
 
@@ -90,32 +98,33 @@ export default function Form() {
         }
         setOpenSucsses(false);
         setEvent(true);
-        
+
     };
     const handleNotSucssesClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
         }
         setOpenNotSucsses(false);
-    
+
     };
-    
+
 
     return (
         <div >
-           
+
             <Paper variant="outlined" className={classes.root} >
-                <Grid container spacing={0}>
-                    <Grid
+                {/* <Grid container spacing={0}> */}
+                    {/* <Grid
                         container
                         direction="row"
                         justify="center"
                         alignItems="center"
-                    >
-                        <Grid xs={12} >
-                            <Grid container justify="space-between" spacing={0} >
-                                <Grid item>
-                                    <Typography style={{ margin: "15px" }}> <TextField
+                    > */}
+                        {/* <Grid xs={12} > */}
+                            {/* <Grid container justify="space-between" spacing={0} > */}
+                                {/* <Grid item> */}
+                                    <Typography className={classes.title}> 
+                                    <TextField
                                         required
                                         id="Title"
                                         name="Title"
@@ -124,17 +133,20 @@ export default function Form() {
                                         onChange={e => {
                                             changeTitleValue(e.target.value);
                                         }}
-                                    /> </Typography>
+                                    /> 
+                                    </Typography>
 
-                                </Grid>
-                                <Grid item>
-                                    <Typography style={{ margin: "15px", fontSize: "20px" }}>Company</Typography>
-                                    <Typography style={{ margin: "15px" }}><CompanyTab parentCallback={changecCompanyValue} /></Typography>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Grid>
+                                {/* </Grid> */}
+
+                                <Box mx="auto" >
+                                    <Typography align='center' className={classes.company} >Company</Typography>
+                                      <CompanyTab parentCallback={changecCompanyValue} />    
+                                </Box>
+
+                            {/* </Grid> */}
+                        {/* </Grid> */}
+                    {/* </Grid> */}
+                {/* </Grid> */}
                 <div style={{ margin: "15px" }}>
                     {
                         <TextField
@@ -142,11 +154,12 @@ export default function Form() {
                             label="Description"
                             multiline
                             rows="10"
-                            variant="filled"
+                            variant="outlined"
                             fullWidth
                             onChange={e => {
                                 changeDescValue(e.target.value);
                             }}
+                            // color='primary'
                         />
                     }
                 </div>
@@ -162,24 +175,28 @@ export default function Form() {
                         onClick={() => {
                             addTask(titleValue, companyValue, descValue);
                         }
-                    }
+                        }
                     >
                         SUBMIT
                     </Button>
                     <div className={classes.root}>
                         <Snackbar open={openSucsses} autoHideDuration={6000} onClose={handleClose}>
                             <Alert onClose={handleClose} severity="success">
-                            Your task has been successfully added !</Alert>
+                                Your task has been successfully added !</Alert>
                         </Snackbar>
                         <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose}>
-                        <Alert onClose={handleNotSucssesClose} severity="error">There is a problem , Try again and fill all the fields !</Alert>
+                            <Alert onClose={handleNotSucssesClose} severity="error">There is a problem , Try again and fill all the fields !</Alert>
                         </Snackbar>
                     </div>
                 </Grid>
             </Paper>
 
             {   //+taskIdValue
+<<<<<<< HEAD
                 eventButton ? <Redirect to={"/home/"} />  : ""
+=======
+                eventButton ? <Redirect to={"/home/"} /> : ""
+>>>>>>> upstream/master
             }
         </div>
     )
