@@ -34,8 +34,11 @@ import Store from "./store";
 import Dashboard from "./dashboard";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import Contacts from "./contacts";
 // import MyPieChart from "./myPieChart" ;
+=======
+>>>>>>> parent of 72b819e... update merge
 =======
 >>>>>>> parent of 72b819e... update merge
 =======
@@ -137,10 +140,17 @@ function ResponsiveDrawer(props) {
             if (res.status == 200 && res.data != null) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                 // let tasks = res.data;
                 setAllUsersTasks(res.data)
 
+=======
+
+                // let tasks = res.data;
+                setAllUsersTasks(res.data)
+
+>>>>>>> parent of 72b819e... update merge
 =======
 
                 // let tasks = res.data;
@@ -240,6 +250,7 @@ function ResponsiveDrawer(props) {
                         blablaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 72b819e... update merge
                         {sideBarCreator}
@@ -264,6 +275,8 @@ function ResponsiveDrawer(props) {
                 </Hidden>
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 72b819e... update merge
                         {sideBarCreator}
                     </Drawer>
                 </Hidden>
@@ -284,6 +297,9 @@ function ResponsiveDrawer(props) {
                         {sideBarCreator}
                     </Drawer>
                 </Hidden>
+<<<<<<< HEAD
+>>>>>>> parent of 72b819e... update merge
+=======
 >>>>>>> parent of 72b819e... update merge
 =======
 >>>>>>> parent of 72b819e... update merge
@@ -292,6 +308,7 @@ function ResponsiveDrawer(props) {
 
                 <div className={classes.toolbar} />
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                     <Grid container spacing={2}>
@@ -317,6 +334,9 @@ function ResponsiveDrawer(props) {
 =======
 
 >>>>>>> parent of 72b819e... update merge
+=======
+
+>>>>>>> parent of 72b819e... update merge
                 <Grid container spacing={2}>
                     <Grid item xs={8}   >
                         <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
@@ -329,6 +349,9 @@ function ResponsiveDrawer(props) {
                     </Grid>
                 </Grid>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 72b819e... update merge
+=======
 >>>>>>> parent of 72b819e... update merge
 =======
 >>>>>>> parent of 72b819e... update merge

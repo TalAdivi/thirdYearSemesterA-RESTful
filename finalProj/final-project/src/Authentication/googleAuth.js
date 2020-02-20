@@ -96,6 +96,7 @@ const setSession = (response, isAdmin) => {
     // localStorage.setItem('id_token', response.uc.id_token);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     sessionStorage.setItem('expires_at', expiresAt);
     sessionStorage.setItem('isAdmin', isAdmin);
@@ -107,11 +108,16 @@ const setSession = (response, isAdmin) => {
 =======
 =======
 >>>>>>> parent of 72b819e... update merge
+=======
+>>>>>>> parent of 72b819e... update merge
     localStorage.setItem('expires_at', expiresAt);
     localStorage.setItem('isAdmin', isAdmin);
     localStorage.setItem('user_name', response.Rt.Ad);
     localStorage.setItem('user_id',response.googleId);
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of 72b819e... update merge
+=======
 >>>>>>> parent of 72b819e... update merge
 =======
 >>>>>>> parent of 72b819e... update merge
