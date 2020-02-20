@@ -11,6 +11,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import Avatar from '@material-ui/core/Avatar';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -32,6 +33,8 @@ import Grid from '@material-ui/core/Grid';
 import Form from "../Components/form"
 import Store from "./store";
 import Dashboard from "./dashboard";
+import Contacts from "./contacts";
+// import MyPieChart from "./myPieChart" ;
 
 const drawerWidth = 240;
 
@@ -68,7 +71,11 @@ const useStyles = makeStyles(theme => ({
 
     navLinks: {
         textDecorationLine: 'none',
+        color: 'unset'
         // padding: 20
+    },
+    avatar: {
+        margin: 'auto'
     }
 }));
 
@@ -102,43 +109,54 @@ function ResponsiveDrawer(props) {
     ];
 
     const profile = (
-        <Box mx="auto" mt='10px'>
-            <Avatar alt="Adivi Sharp" src="../images/successfully-network-event-001.jpg" />
-        <Typography style={{marginTop:"20px"} }>
-            Tal Adivi
-        </Typography>
+        <Box mx="auto" mt='15px'>
+            <Avatar alt={sessionStorage.getItem('user_name')} src={sessionStorage.getItem('profile_img')} className={classes.avatar} />
+            <Box my="20px">
+                <Typography>
+                    {sessionStorage.getItem('user_name')}
+                </Typography>
+            </Box>
         </Box>
-    ) 
-    
-
+    )
 
     useEffect(() => {
 
         async function fetchChatDetails() {
-
+            let queryUrl = ''
+            JSON.parse(sessionStorage.getItem('isAdmin')) ? queryUrl = `http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}` : queryUrl = `http://localhost:3000/Help4U/task/company/${sessionStorage.getItem('company_name')}`
 
             try {
-                res = await fetch(`http://localhost:3000/Help4U/task/user/${localStorage.getItem('user_id')}`).then(res => res.json())
+                res = await fetch(`http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}`).then(res => res.json())
                 // queryRes = React.createContext(res);
                 console.log('res MAIN WINDOW\n', res);
+
+                if (res.status == 200 && res.data !== null) {
+                    setAllUsersTasks(res.data)
+                }
+
+                if (res.status == 200 && res.data === null) {
+                    setAllUsersTasks([])
+                }
+
+                if (res.status == 500) {
+                    // maybe DB error, reload and try again
+                    window.location.reload();
+                }
             }
             catch (e) {
-                console.log(e);
+                //if fetch fail, reload and try again 
+                window.location.reload();
             }
 
-            if (res.status == 200 && res.data != null) {
-
-                // let tasks = res.data;
-                setAllUsersTasks(res.data)
-
-            }
         }
+
+        parseInt(sessionStorage.getItem('user_id'))
 
         fetchChatDetails();
 
-        console.log("localStorage.getItem('isAdmin')\n", typeof localStorage.getItem('isAdmin'));
+        console.log("sessionStorage.getItem('isAdmin')\n", typeof sessionStorage.getItem('isAdmin'));
 
-        JSON.parse(localStorage.getItem('isAdmin')) ? setLinksArry(adminLinksArr) : setLinksArry(userLinksArr);
+        JSON.parse(sessionStorage.getItem('isAdmin')) ? setLinksArry(adminLinksArr) : setLinksArry(userLinksArr);
 
     }, []);
 
@@ -151,18 +169,19 @@ function ResponsiveDrawer(props) {
             <Divider />
             <List>
                 {linksArr.map((obj, index) => (
-                    <ListItem button key={obj.name} >
-                        {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />} </ListItemIcon> */}
-                        <ListItemIcon> {obj.icon} </ListItemIcon>
-                        <NavLink exact to={`/${obj.name.toLowerCase()}`} className={classes.navLinks}>
+                    <NavLink exact to={obj.name.toLowerCase() === 'home' ? `/home` : `/home/${obj.name.toLowerCase()}`} className={classes.navLinks}>
+                        <ListItem button key={obj.name} >
+                            {/* <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />} </ListItemIcon> */}
+                            <ListItemIcon> {obj.icon} </ListItemIcon>
+                            {/* <NavLink exact to={`/home/${obj.name.toLowerCase()}`} className={classes.navLinks}> */}
 
                             <ListItemText primary={obj.name} />
-                        </NavLink>
 
-                    </ListItem>
+                        </ListItem>
+                    </NavLink>
                 ))}
             </List>
-            <Divider />
+            {/* <Divider />
             <List>
                 {['All mail', 'Trash', 'Spam'].map((text, index) => (
                     <ListItem button key={text}>
@@ -170,7 +189,7 @@ function ResponsiveDrawer(props) {
                         <ListItemText primary={text} />
                     </ListItem>
                 ))}
-            </List>
+            </List> */}
         </div>
     );
 
@@ -179,85 +198,116 @@ function ResponsiveDrawer(props) {
         <div className={classes.root}>
 
             <CssBaseline />
+            <Box width='15%'>
+                <AppBar position="fixed" className={classes.appBar}>
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="start"
+                            onClick={handleDrawerToggle}
+                            className={classes.menuButton}
+                        >
+                            <MenuIcon />
+                        </IconButton>
 
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        className={classes.menuButton}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Here4U POC
-          </Typography>
-          
-                </Toolbar>
-            </AppBar>
-            <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                
-                <Hidden smUp implementation="css">
-                    
-                    <Drawer
-                        container={container}
-                        variant="temporary"
-                        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                    >
-                        blablaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        <Grid
+                            container
+                            direction="row"
+                            justify="space-between"
+                            alignItems="center"
+                        >
+                            <Grid>
+
+                                <Typography variant="h6" noWrap>
+                                    Here4U POC
+                            </Typography>
+                            </Grid>
+
+
+                            <Grid alignContent='center'>
+                                <NavLink exact to='/' className={classes.navLinks}>
+                                    <Box style={{ margin: '8px' }}>
+                                        <ExitToAppIcon fontSize='large' />
+
+                                    </Box>
+                                    <Typography>
+                                        Logout
+                        </Typography>
+                                </NavLink>
+
+                            </Grid>
+
+                        </Grid>
+                    </Toolbar>
+                </AppBar>
+                <nav className={classes.drawer} aria-label="mailbox folders">
+                    {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+
+                    <Hidden smUp implementation="css">
+
+                        <Drawer
+                            container={container}
+                            variant="temporary"
+                            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                            open={mobileOpen}
+                            onClose={handleDrawerToggle}
+                            classes={{
+                                paper: classes.drawerPaper,
+                            }}
+                            ModalProps={{
+                                keepMounted: true, // Better open performance on mobile.
+                            }}
+                        >
+                            blablaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                         {sideBarCreator}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                    >
-                        
+                        </Drawer>
+                    </Hidden>
+                    <Hidden xsDown implementation="css">
+                        <Drawer
+                            classes={{
+                                paper: classes.drawerPaper,
+                            }}
+                            variant="permanent"
+                            open
+                        >
+                            {profile}
+                            {/* {alert(true)} */}
 
+                            {sideBarCreator}
+                        </Drawer>
+                    </Hidden>
+                </nav>
 
-                        {profile}
-
-
-                        {sideBarCreator}
-                    </Drawer>
-                </Hidden>
-            </nav>
+            </Box>
             <main className={classes.content}>
+                <Box width='85%'>
 
-                <div className={classes.toolbar} />
+                    <div className={classes.toolbar} />
 
+                    <Grid container spacing={2}>
+                        <Grid item xs={8}   >
+                            <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
+                            <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
+                            <Route path="/home/tasks"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
+                            <Route path="/home/contacts"  > <Contacts /> </Route>
+                            <Route path="/home/create"  > <Form /> </Route>
+                        </Grid>
+                        <Grid item xs={4}>
 
-                <Grid container spacing={2}>
-                    <Grid item xs={8}   >
-                        <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-                        <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
-                        <Route path="/home/create"  > <Form /> </Route>
+                        <ComposeChart allTasks={allUsersTasks} />
+                        {/* <ComposeChart allTasks={allUsersTasks} /> */}
+                        {/* <PieSeries/> */}
+                        {/* <PieChart></PieChart> */}
+                            
+                        </Grid>
                     </Grid>
-                    <Grid item xs={4}>
-
-                        <ComposeChart />
-                    </Grid>
-                </Grid>
 
 
 
-                {/* {props.children} */}
+                    {/* {props.children} */}
 
+                </Box>
             </main>
         </div>
 
