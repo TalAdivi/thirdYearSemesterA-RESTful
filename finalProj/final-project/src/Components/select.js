@@ -54,7 +54,15 @@ export default function StatusSelect(props) {
 
             try {
                 res = await fetch(`http://localhost:3000/Help4U/task/update/${taskID}`, {
-                    method: 'PUT'
+                    method: 'PUT',
+                    mode: 'cors',
+                    headers: new Headers({
+                        'Content-Type': 'application/json; charset=utf-8',
+                    }),
+                    body: JSON.stringify({
+                        google_id: sessionStorage.getItem('user_id'),
+                        access_token: sessionStorage.getItem('access_token')
+                    })
                 })
                     .then(res => res.json())
                 // queryRes = React.createContext(res);
@@ -77,12 +85,20 @@ export default function StatusSelect(props) {
     
                 if (res.status == 500) {
                     // maybe DB error, reload and try again
-                    window.location.reload();
+                    alert('something went work, page refreshing...')
+                    setInterval(() => {
+                        window.location.reload() ;
+                        
+                    }, 4000);
                 }
             }
             catch (e) {
                 //if fetch fail, reload and try again 
-                window.location.reload();
+                alert('something went work, page refreshing...')
+                setInterval(() => {
+                    window.location.reload() ;
+                    
+                }, 4000);
             }
 
    

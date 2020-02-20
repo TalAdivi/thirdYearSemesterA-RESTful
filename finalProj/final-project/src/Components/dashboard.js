@@ -102,8 +102,7 @@ export default function Dashboard() {
                                 <Typography variant="body2" gutterBottom style={{ margin: "15px" }}> {`${task.selectedSubject}`} </Typography>
                             </Grid>
                             <Grid item lg={4}>
-
-                                <Typography variant='h6' align='center' gutterBottom style={{ margin: "15px", paddingTop: "15px" }}> {`Talking with:${sessionStorage.getItem("isAdmin") ? task.userName : task.companyID}`} </Typography>
+                                <Typography variant='h6' align='center' gutterBottom style={{ margin: "15px", paddingTop: "15px" }}> {`Talking with:${JSON.parse(sessionStorage.getItem("isAdmin")) ? task.userName : task.companyID}`} </Typography>
                             </Grid>
                             <Grid item lg={4}>
                             </Grid>
@@ -118,7 +117,8 @@ export default function Dashboard() {
                             </Grid>
                             <Grid item lg={4} >
                                 <Typography align='center'>
-                                    { task.status == 'Active' && <StatusSelect taskID={task.taskID} />}
+                                    { task.status == 'Active' && JSON.parse(sessionStorage.getItem("isAdmin")) && <StatusSelect taskID={task.taskID} />}
+                                    {!JSON.parse(sessionStorage.getItem("isAdmin")) && ("Status: " + task.status)}
                                 </Typography>
                             </Grid>
                         </Grid>

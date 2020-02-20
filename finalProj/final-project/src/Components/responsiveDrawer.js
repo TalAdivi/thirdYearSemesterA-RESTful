@@ -28,7 +28,7 @@ import Chat from "../Components/chat";
 import Task from "../Components/task";
 import ComposeChart from '../Components/composed-chart';
 import Grid from '@material-ui/core/Grid';
-
+import MyPieChart from './myPieChart';
 
 import Form from "../Components/form"
 import Store from "./store";
@@ -97,6 +97,7 @@ function ResponsiveDrawer(props) {
     // let linksArr = []
     const userLinksArr = [
         { 'name': 'Home', 'icon': <HomeIcon /> },
+        { 'name': 'Tasks', 'icon': <ViewListIcon /> },
         { 'name': 'Create', 'icon': <ListAltIcon /> },
         // { 'name': 'Task Chat', 'icon': <MailIcon /> },
     ];
@@ -121,38 +122,78 @@ function ResponsiveDrawer(props) {
 
     useEffect(() => {
 
-        async function fetchChatDetails() {
-            let queryUrl = ''
-            JSON.parse(sessionStorage.getItem('isAdmin')) ? queryUrl = `http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}` : queryUrl = `http://localhost:3000/Help4U/task/company/${sessionStorage.getItem('company_name')}`
+        const errorHandling = (res) => {
+            if (res.status == 200 && res.data !== null) {
+                setAllUsersTasks(res.data)
+            }
 
+            if (res.status == 200 && res.data === null) {
+                setAllUsersTasks([])
+            }
+
+            if (res.status == 500) {
+                // maybe DB error, reload and try again
+                alert('something went work, page refreshing...')
+                setInterval(() => {
+                    window.location.reload() ;
+                    
+                }, 4000);
+            }
+        }
+
+        async function fetchUserTasks() {
+ 
             try {
-                res = await fetch(`http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}`).then(res => res.json())
+                res = await fetch(`https://mern-finalproj-api.herokuapp.com/Help4U/task/user/${sessionStorage.getItem('user_id')}`)
+                .then(res => res.json())
                 // queryRes = React.createContext(res);
-                console.log('res MAIN WINDOW\n', res);
-
-                if (res.status == 200 && res.data !== null) {
-                    setAllUsersTasks(res.data)
-                }
-
-                if (res.status == 200 && res.data === null) {
-                    setAllUsersTasks([])
-                }
-
-                if (res.status == 500) {
-                    // maybe DB error, reload and try again
-                    window.location.reload();
-                }
+                console.log('res MAIN WINDOW USER\n', res);
+                errorHandling(res)
+              
             }
             catch (e) {
                 //if fetch fail, reload and try again 
-                window.location.reload();
+                alert('something went work, page refreshing...')
+                setInterval(() => {
+                    window.location.reload() ;
+                    
+                }, 4000);
             }
 
         }
 
-        parseInt(sessionStorage.getItem('user_id'))
+        async function fetchCompanyTasks() {
+            try {
+                res = await fetch(`http://localhost:3000/Help4U/task/company/${sessionStorage.getItem('company_name')}`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: new Headers({
+                        'Content-Type': 'application/json; charset=utf-8',
+                    }),
+                    body: JSON.stringify({
+                        google_id: sessionStorage.getItem('user_id'),
+                        access_token: sessionStorage.getItem('access_token')
+                    })
+                })
+                
+                .then(res => res.json())
+                // queryRes = React.createContext(res);
+                console.log('res MAIN WINDOW ADMIN\n', res);
+                errorHandling(res)
+            }
+            catch (e) {
+                //if fetch fail, reload and try again 
+                alert('something went work, page refreshing...')
+                setInterval(() => {
+                    window.location.reload() ;
+                    
+                }, 4000);
+            }
 
-        fetchChatDetails();
+        }
+        // fetchUserTasks();
+
+        JSON.parse(sessionStorage.getItem('isAdmin')) ? fetchCompanyTasks() : fetchUserTasks()
 
         console.log("sessionStorage.getItem('isAdmin')\n", typeof sessionStorage.getItem('isAdmin'));
 
@@ -290,15 +331,21 @@ function ResponsiveDrawer(props) {
                             <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
                             <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
                             <Route path="/home/tasks"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-                            <Route path="/home/contacts"  > <Contacts /> </Route>
+                            <Route path="/home/contacts"  > <Contacts allTasks={allUsersTasks}/> </Route>
                             <Route path="/home/create"  > <Form /> </Route>
                         </Grid>
                         <Grid item xs={4}>
 
                         <ComposeChart allTasks={allUsersTasks} />
+                        {/* <Route path="/home"> */}
+
+                             <MyPieChart allTasks={allUsersTasks}/>
+                             
+                              {/* </Route> */}
                         {/* <ComposeChart allTasks={allUsersTasks} /> */}
                         {/* <PieSeries/> */}
                         {/* <PieChart></PieChart> */}
+                        
                             
                         </Grid>
                     </Grid>

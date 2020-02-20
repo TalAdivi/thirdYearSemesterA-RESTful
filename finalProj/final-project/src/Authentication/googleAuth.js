@@ -4,9 +4,7 @@ import Typography from '@material-ui/core/Typography';
 // import { createBrowserHistory } from 'history';
 import history from './history'
 
-let isUser = false;
-
-
+// https://mern-finalproj-api.herokuapp.com
 
 const successGoogle = (response) => {
 
@@ -15,14 +13,9 @@ const successGoogle = (response) => {
 
     // check if user is admin or customer
     async function checkIfUserExist() {
-        console.log('inside checifuser');
-
 
         try {
-            // setSession(response, true);
-            // history.replace('/home');
-
-            const user = await fetch(`http://localhost:3000/Help4U/user/check`, {
+            const user = await fetch(`https://mern-finalproj-api.herokuapp.com/Help4U/user/check`, {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=utf-8',
@@ -37,15 +30,25 @@ const successGoogle = (response) => {
 
             // use exist, see if Admin or user
             if (user.status === 200 && user.data !== null) {
-                let isAdmin = false;
+                // update admin access token
+                if (user.data.admin == true) {
+                    let update = await fetch(`http://localhost:3000/Help4U/user/update`, {
+                        method: 'PUT',
+                        mode: 'cors',
+                        headers: new Headers({
+                            'Content-Type': 'application/json; charset=utf-8',
+                        }),
+                        body: JSON.stringify({
+                            google_id: response.googleId,
+                            access_token: response.uc.access_token
+                        })
+                    })
+                        .then(update => update.json())
 
-                if (user.data === true) {
-                    isAdmin = true;
-                    // admin only fetch and update ...
-
+                        console.log('update\n',update);
+                        
                 }
-
-                setSession(response, isAdmin);
+                setSession(response, user.data);
                 history.replace('/home');
                 return;
             }
@@ -72,49 +75,40 @@ const successGoogle = (response) => {
 
     };
 
-    checkIfUserExist();
-
-
-
-
-
-
+    checkIfUserExist()
 }
 
-const setSession = (response, isAdmin) => {
+const setSession = (response, userData) => {
 
     // session is available for 1h
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify((response.tokenObj.expires_in * 1000) + new Date().getTime());
     console.log("response.tokenObj.expires_in\n", response.tokenObj.expires_in);
 
-
-    // let expiresAt = JSON.stringify(10000 + new Date().getTime());
     console.log('response.tokenObj.access_token\n', response.uc.access_token);
-
-    // localStorage.setItem('access_token', response.uc.access_token);
-    // localStorage.setItem('id_token', response.uc.id_token);
-    
     sessionStorage.setItem('expires_at', expiresAt);
-    sessionStorage.setItem('isAdmin', isAdmin);
+    sessionStorage.setItem('isAdmin', userData.admin);
     sessionStorage.setItem('user_name', response.Rt.Ad);
-    sessionStorage.setItem('user_id',response.googleId);
-    sessionStorage.setItem('profile_img',response.Rt.kL + '')
-    // sessionStorage.setItem('access_token',response.Rt.kL + '')
-    
+    sessionStorage.setItem('user_id', response.googleId);
+    sessionStorage.setItem('profile_img', response.Rt.kL)
+    sessionStorage.setItem('company_name',userData.company )
+    sessionStorage.setItem('access_token', response.uc.access_token);
+
+
+
     // navigate to the home route
 
 }
 
 const logout = () => {
-    // Clear access token and ID token from local storage
-    // localStorage.removeItem('access_token');
-    // localStorage.removeItem('id_token');
+
     sessionStorage.removeItem('expires_at');
     sessionStorage.removeItem('isAdmin');
     sessionStorage.removeItem('user_name');
     sessionStorage.removeItem('user_id');
     sessionStorage.removeItem('profile_img');
+    sessionStorage.removeItem('company_name');
+    sessionStorage.removeItem('access_token');
 
     // navigate to the home route
     history.replace('/');
@@ -132,7 +126,7 @@ const signupUser = (response) => {
     async function signup() {
         try {
 
-            const user = await fetch(`http://localhost:3000/Help4U/user/create`, {
+            const user = await fetch(`https://mern-finalproj-api.herokuapp.com/Help4U/user/create`, {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/json; charset=utf-8',
@@ -145,7 +139,7 @@ const signupUser = (response) => {
 
             console.log("newUser\n", user);
 
-            setSession(response,false)
+            setSession(response, false)
 
             history.replace('/home')
         }
@@ -156,6 +150,7 @@ const signupUser = (response) => {
     }
 
     // add check if user exist!!!!!!!!
+
     signup()
 
 }
@@ -178,9 +173,6 @@ const GoogleAuth = (props) => {
             </Typography>
             <GoogleLogin
                 clientId="838325310419-ink7dovlmgeoff0urhtdk16boctkqra8.apps.googleusercontent.com"
-                // render={renderProps => (
-                //     <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
-                // )}
                 buttonText="Login"
                 onSuccess={successGoogle}
                 onFailure={failGoogle}
@@ -190,26 +182,6 @@ const GoogleAuth = (props) => {
     )
 
 }
-
-// const GoogleOut = (props) => {
-//     const { message } = props
-//     return (
-//         <>
-//             <Typography component="h5" variant="h6" style={{ marginBottom: "50px" }}>
-//                 {/* you already logged in, please logout to continue */}
-//                 {message}
-
-//             </Typography>
-//             <GoogleLogout
-//                 clientId="838325310419-ink7dovlmgeoff0urhtdk16boctkqra8.apps.googleusercontent.com"
-//                 buttonText="Logout"
-//                 onLogoutSuccess={logout}
-//                 onFailure={failGoogle}
-//             >
-//             </GoogleLogout>
-//         </>
-//     )
-// }
 
 const GoogleOut = (props) => {
     const { message } = props
@@ -225,7 +197,7 @@ const GoogleOut = (props) => {
                 buttonText="Logout"
                 onLogoutSuccess={logout}
                 onFailure={failGoogle}
-                
+
             >
             </GoogleLogout>
         </>
@@ -235,7 +207,7 @@ const GoogleOut = (props) => {
 const Here4uSigunup = (props) => {
     const { message } = props
     console.log('inside here4uSignin');
-    
+
 
     return (
         <>
@@ -244,9 +216,6 @@ const Here4uSigunup = (props) => {
             </Typography>
             <GoogleLogin
                 clientId="838325310419-ink7dovlmgeoff0urhtdk16boctkqra8.apps.googleusercontent.com"
-                // render={renderProps => (
-                //     <button onClick={renderProps.onClick} disabled={renderProps.disabled}>This is my custom Google button</button>
-                // )}
                 buttonText="Signin via Google"
                 onSuccess={signupUser}
                 onFailure={failGoogle}
@@ -266,6 +235,5 @@ export {
     isAuthenticated,
     logout,
     GoogleOut,
-    isUser,
     Here4uSigunup
 }
