@@ -28,10 +28,13 @@ import Chat from "../Components/chat";
 import Task from "../Components/task";
 import ComposeChart from '../Components/composed-chart';
 import Grid from '@material-ui/core/Grid';
+
+
 import Form from "../Components/form"
 import Store from "./store";
 import Dashboard from "./dashboard";
 import Contacts from "./contacts";
+// import MyPieChart from "./myPieChart" ;
 
 const drawerWidth = 240;
 
@@ -288,23 +291,16 @@ function ResponsiveDrawer(props) {
                             <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
                             <Route path="/home/tasks"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
                             <Route path="/home/contacts"  > <Contacts /> </Route>
+                            <Route path="/home/create"  > <Form /> </Route>
                         </Grid>
                         <Grid item xs={4}>
 
-<<<<<<< HEAD
-                <Grid container spacing={2}>
-                    <Grid item xs={8}   >
-                        <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-                        <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
-                        <Route path="/home/create"  > <Form /> </Route>
-                    </Grid>
-                    <Grid item xs={4}>
-
-                        <ComposeChart />
-=======
-                            <ComposeChart />
+                        <ComposeChart allTasks={allUsersTasks} />
+                        {/* <ComposeChart allTasks={allUsersTasks} /> */}
+                        {/* <PieSeries/> */}
+                        {/* <PieChart></PieChart> */}
+                            
                         </Grid>
->>>>>>> upstream/master
                     </Grid>
 
 
