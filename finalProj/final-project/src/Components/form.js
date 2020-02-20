@@ -57,7 +57,6 @@ export default function Form() {
                     "userName": localStorage.getItem('user_name'),
                     "companyID": company,
                     "title": title,
-                    "selectedSubject": "response.googleId",
                     "chat": [{ "from": localStorage.getItem('user_name'), "message": description }],
                 })
             }).then(response => response.json());
@@ -180,7 +179,7 @@ export default function Form() {
             </Paper>
 
             {   //+taskIdValue
-                eventButton ? <Redirect to={"/home/chat/"} />  : ""
+                eventButton ? <Redirect to={"/home/"} />  : ""
             }
         </div>
     )

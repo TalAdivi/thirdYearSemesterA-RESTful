@@ -291,20 +291,8 @@ function ResponsiveDrawer(props) {
                         </Grid>
                         <Grid item xs={4}>
 
-<<<<<<< HEAD
-                <Grid container spacing={2}>
-                    <Grid item xs={8}   >
-                        <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-                        <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
-                        <Route path="/home/create"  > <Form /> </Route>
-                    </Grid>
-                    <Grid item xs={4}>
-
-                        <ComposeChart />
-=======
                             <ComposeChart />
                         </Grid>
->>>>>>> upstream/master
                     </Grid>
 
 
