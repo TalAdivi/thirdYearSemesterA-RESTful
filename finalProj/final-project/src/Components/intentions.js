@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import CompanyTab from './companyList'
+import SubjectTab from './subkectsList'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/box';
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         margin: "10px",
-        width:'200px'
+        width: '200px'
     },
     company: {
         marginBottom: '10px'
@@ -113,40 +113,22 @@ export default function Form() {
         <div >
 
             <Paper variant="outlined" className={classes.root} >
-                {/* <Grid container spacing={0}> */}
-                    {/* <Grid
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    > */}
-                        {/* <Grid xs={12} > */}
-                            {/* <Grid container justify="space-between" spacing={0} > */}
-                                {/* <Grid item> */}
-                                    <Typography className={classes.title}> 
-                                    <TextField
-                                        required
-                                        id="Title"
-                                        name="Title"
-                                        label="Title"
-                                        fullWidth
-                                        onChange={e => {
-                                            changeTitleValue(e.target.value);
-                                        }}
-                                    /> 
-                                    </Typography>
-
-                                {/* </Grid> */}
-
-                                <Box mx="auto" >
-                                    <Typography align='center' className={classes.company} >Company</Typography>
-                                      <CompanyTab parentCallback={changecCompanyValue} />    
-                                </Box>
-
-                            {/* </Grid> */}
-                        {/* </Grid> */}
-                    {/* </Grid> */}
-                {/* </Grid> */}
+                <Typography className={classes.title}>
+                    <TextField
+                        required
+                        id="Title"
+                        name="Title"
+                        label="Title"
+                        fullWidth
+                        onChange={e => {
+                            changeTitleValue(e.target.value);
+                        }}
+                    />
+                </Typography>
+                <Box mx="auto" >
+                    <Typography align='center' className={classes.company} >SUBJECTS</Typography>
+                    <SubjectTab parentCallback={changecCompanyValue} />
+                </Box>
                 <div style={{ margin: "15px" }}>
                     {
                         <TextField
@@ -159,7 +141,6 @@ export default function Form() {
                             onChange={e => {
                                 changeDescValue(e.target.value);
                             }}
-                            // color='primary'
                         />
                     }
                 </div>

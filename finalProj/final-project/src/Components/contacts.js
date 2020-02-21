@@ -14,8 +14,8 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, active, completed, subjects) {
+  return { name, active, completed, subjects };
 }
 
 const rows = [
@@ -25,19 +25,61 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
+let active=[];
+let completed=[];
+let sumCompleted=1;
+let sumActive=1;
+let i=0;
 
-export default function SimpleTable() {
+function data(props) {
+  let setID = new Set();
+  let setName = new Set();
+  props.allTasks.map(task => {
+    setID.add(task.userID)
+    setName.add(task.userName)
+  })
+
+  for (let userID of setID) {
+    props.allTasks.map(task => {
+      if(task.status== "Completed" && task.userID==userID){
+        completed[i]=sumCompleted;
+        sumCompleted++;
+      }
+      if(task.status== "Acitve" && task.userID==userID){
+        active.push(sumActive);
+        sumActive++;
+      }
+       
+    })
+    i++;
+    sumCompleted=1;
+    sumActive=1;
+  }
+  i=0;
+  console.log("active",active)
+  for (let name of setName){
+    rows.push(createData(name, active[i], completed[i], 24))
+    i++;
+  }
+   
+
+
+}
+
+
+
+export default function SimpleTable(props) {
   const classes = useStyles();
-
+  data(props);
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+            <TableCell>Client</TableCell>
+            <TableCell align="center">Tasks active</TableCell>
+            <TableCell align="center">Tasks completed</TableCell>
+            <TableCell align="center">Subjects</TableCell>
             {/* <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
           </TableRow>
         </TableHead>
@@ -47,9 +89,9 @@ export default function SimpleTable() {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="center">{row.active}</TableCell>
+              <TableCell align="center">{row.completed}</TableCell>
+              <TableCell align="center">{row.subjects}</TableCell>
               {/* <TableCell align="right">{row.protein}</TableCell> */}
             </TableRow>
           ))}
@@ -58,3 +100,4 @@ export default function SimpleTable() {
     </TableContainer>
   );
 }
+

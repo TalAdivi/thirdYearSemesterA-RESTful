@@ -122,8 +122,8 @@ function ResponsiveDrawer(props) {
     useEffect(() => {
 
         async function fetchChatDetails() {
-            let queryUrl = ''
-            JSON.parse(sessionStorage.getItem('isAdmin')) ? queryUrl = `http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}` : queryUrl = `http://localhost:3000/Help4U/task/company/${sessionStorage.getItem('company_name')}`
+            // let queryUrl = ''
+            // JSON.parse(sessionStorage.getItem('isAdmin')) ? queryUrl = `http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}` : queryUrl = `http://localhost:3000/Help4U/task/company/${sessionStorage.getItem('company_name')}`
 
             try {
                 res = await fetch(`http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}`).then(res => res.json())
@@ -290,7 +290,7 @@ function ResponsiveDrawer(props) {
                             <Route exact path="/home"  > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
                             <Route path="/home/chat"  > <Chat allTasks={allUsersTasks} /> </Route>
                             <Route path="/home/tasks"  > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-                            <Route path="/home/contacts"  > <Contacts /> </Route>
+                            <Route path="/home/contacts"  > <Contacts allTasks={allUsersTasks}/> </Route>
                             <Route path="/home/create"  > <Form /> </Route>
                         </Grid>
                         <Grid item xs={4}>
