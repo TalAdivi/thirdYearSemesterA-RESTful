@@ -18,51 +18,43 @@ function createData(name, active, completed, subjects) {
   return { name, active, completed, subjects };
 }
 
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-let active=[];
-let completed=[];
-let sumCompleted=1;
-let sumActive=1;
-let i=0;
+const rows = [];
 
-function data(props) {
-  let setID = new Set();
-  let setName = new Set();
+function analysData(props) {
+  let myMap = new Map();
+  let userSubjects=[];
   props.allTasks.map(task => {
-    setID.add(task.userID)
-    setName.add(task.userName)
+    userSubjects=[];
+   let obj=myMap.get(task.userID);
+    if(obj==undefined) {
+      userSubjects.push(task.selectedSubject);
+      console.log("first",userSubjects.length)
+      if(task.status == 'Active') {
+        myMap.set(task.userID, { name: task.userName, active : 1, completed: 0,subjects:userSubjects})
+      }
+      else if(task.status == 'Completed')
+        myMap.set(task.userID, { name: task.userName, active : 0, completed: 1,subjects:userSubjects})
+    } 
+    else {
+      console.log("sec",task.selectedSubject)
+      if(task.status=='Active'){
+        obj.active += 1
+      }
+      else if(task.status=='Completed'){
+        obj.completed += 1
+        
+      }
+      
+      else if(userSubjects.find(task.selectedSubject) == undefined){
+        userSubjects.push(task.selectedSubject);
+        console.log("sec",userSubjects.length)
+        obj.subjects = userSubjects;
+      }
+    }
   })
-
-  for (let userID of setID) {
-    props.allTasks.map(task => {
-      if(task.status== "Completed" && task.userID==userID){
-        completed[i]=sumCompleted;
-        sumCompleted++;
-      }
-      if(task.status== "Acitve" && task.userID==userID){
-        active.push(sumActive);
-        sumActive++;
-      }
-       
-    })
-    i++;
-    sumCompleted=1;
-    sumActive=1;
-  }
-  i=0;
-  console.log("active",active)
-  for (let name of setName){
-    rows.push(createData(name, active[i], completed[i], 24))
-    i++;
-  }
-   
-
+  myMap.forEach(user=>{
+    rows.push(createData(user.name, user.active,user.completed,user.subjects))
+  })
 
 }
 
@@ -70,7 +62,7 @@ function data(props) {
 
 export default function SimpleTable(props) {
   const classes = useStyles();
-  data(props);
+  analysData(props);
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -80,7 +72,6 @@ export default function SimpleTable(props) {
             <TableCell align="center">Tasks active</TableCell>
             <TableCell align="center">Tasks completed</TableCell>
             <TableCell align="center">Subjects</TableCell>
-            {/* <TableCell align="right">Protein&nbsp;(g)</TableCell> */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -92,7 +83,6 @@ export default function SimpleTable(props) {
               <TableCell align="center">{row.active}</TableCell>
               <TableCell align="center">{row.completed}</TableCell>
               <TableCell align="center">{row.subjects}</TableCell>
-              {/* <TableCell align="right">{row.protein}</TableCell> */}
             </TableRow>
           ))}
         </TableBody>
