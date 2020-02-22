@@ -1,36 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Dashboard from "./Components/dashboard";
-import Store from "./Components/store"
-import ResponsiveDrawer from "./Components/responsiveDrawer";
-import MainWindow from "./Components/mainWindow";
-
+import React from 'react'
+import logo from './logo.svg'
+import './App.css'
+import Dashboard from './Components/dashboard'
+import Store from './Components/store'
+import ResponsiveDrawer from './Components/responsiveDrawer'
+import MainWindow from './Components/mainWindow'
 
 /**   clip:
  *    https://youtu.be/hiiaHyhhwBU?t=1930
- * 
+ *
  *    material UI
  *    https://material-ui.com/
- * 
- * 
- * 
+ *
+ *
+ *
  */
 
-function App() {
-
+function App () {
   return (
-    // <div className="App">
+  // <div className="App">
 
-      {/* <ResponsiveDrawer>
+    {/* <ResponsiveDrawer>
         <Store>
           <Dashboard />
         </Store>
       </ResponsiveDrawer> */}
     // </div>
 
-    // <MainWindow/>
-  );
+  // <MainWindow/>
+  )
 }
 
-export default App;
+export default App
