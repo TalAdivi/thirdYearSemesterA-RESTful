@@ -1,28 +1,28 @@
-const model = require('../models/companySchema');
+const nlpAlgorithm = require('../nlp');
 
-async function getCompanies(req, res) {
+function addIntentions(req, res) {
     try {
-        const data = await model.getAll();
-        if (data.length == 0) {
+        const data = nlpAlgorithm.trainAlgo(req.body.text,req.body.subject);
+        if (data == true) {
             res.status(200).json({
                 status:200,
-                message: "No companies was found",
-                action: "Read",
-                data: null
+                message: "success",
+                action: "Create",
+                data: data
             });
         } else {
             res.status(200).json({
                 status:200,
                 message: "success",
-                action: "Read",
-                data: data //array of companies
+                action: "Create",
+                data: data 
             })
         }
     } catch (err) {
         res.status(500).json({
             status:500,
             message: err.message,
-            action: "Read",
+            action: "Create",
             data: null
         })
     }
@@ -30,5 +30,5 @@ async function getCompanies(req, res) {
 
 
 module.exports = {
-    getCompanies
+    addIntentions
 };

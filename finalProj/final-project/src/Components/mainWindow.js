@@ -1,34 +1,23 @@
-import React, { useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { Route } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-import ResponsoveDrawer from "./responsiveDrawer";
-import ChartBar from "../Components/chartBar";
-import Chat from "../Components/chat";
-import Task from "../Components/task";
-import Form from "../Components/form";
-import ComposeChart from '../Components/composed-chart';
-
-
-
-
-let res;
-let queryRes;
-
-
+import React, { useEffect } from 'react'
+import Grid from '@material-ui/core/Grid'
+import { Route } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import ResponsoveDrawer from './responsiveDrawer'
+import ChartBar from '../Components/chartBar'
+import Chat from '../Components/chat'
+import Task from '../Components/task'
+import Form from '../Components/form'
+import ComposeChart from '../Components/composed-chart'
 const MainWindow = props => {
+  // const [allTasks, setAllTasks] = React.useState([])
 
-    // const [allTasks, setAllTasks] = React.useState([])
+  return (
+    <div >
+      <ResponsoveDrawer>
 
-    
-
-    return (
-        <div >
-            <ResponsoveDrawer>
-
-            </ResponsoveDrawer>
-        </div>
-    )
+      </ResponsoveDrawer>
+    </div>
+  )
 }
 
 //  <Grid container spacing={2}>
@@ -45,9 +34,7 @@ const MainWindow = props => {
 // <Grid item xs={4}>
 //     another option to show chart from Bit
 //     <ComposeChart />
-// </Grid> 
+// </Grid>
 //  </Grid>
 
-
-
-export default MainWindow;
+export default MainWindow
