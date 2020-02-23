@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 // import PieChart from 'react-minimal-pie-chart'
-// import PieChart from 'react-minimal-pie-chart'
+import PieChart from 'react-minimal-pie-chart'
 import { Box } from '@material-ui/core'
 
 const useStyles = makeStyles({
@@ -59,7 +59,7 @@ export default function MyPieChart (props) {
 
     <Paper variant="outlined" >
       <Box margin={2}>
-        {/* <PieChart
+        <PieChart
         //   data={dataMock}
         //   label={({ data, dataIndex }) =>
         //     Math.round(data[dataIndex].percentage) + '%'
@@ -100,7 +100,7 @@ export default function MyPieChart (props) {
             100,
             100
           ]}
-        /> */}
+        />
       </Box>
 
     </Paper>

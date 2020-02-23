@@ -29,7 +29,9 @@ import MySideBar from './mySideBar'
 import Profile from './profile'
 import Logout from './logout'
 import MyPieChart from './myPieChart'
+import Loader from './loader'
 
+// https://mern-finalproj-api.herokuapp.com
 const drawerWidth = 240
 
 const useStyles = makeStyles(theme => ({
@@ -103,9 +105,9 @@ function ResponsiveDrawer (props) {
       }
     }
 
-    async function fetchUserTasks() {
+    async function fetchUserTasks () {
       try {
-        res = await fetch(`http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}`)
+        res = await fetch(`https://mern-finalproj-api.herokuapp.com/Help4U/task/user/${sessionStorage.getItem('user_id')}`)
           .then(res => res.json())
         fetchHandler(res)
       } catch (e) {
@@ -117,17 +119,17 @@ function ResponsiveDrawer (props) {
       }
     }
 
-    async function fetchCompanyTasks() {
+    async function fetchCompanyTasks () {
       try {
         // add to request admins access token
-        res = await fetch(`http://localhost:3000/Help4U/task/company/${sessionStorage.getItem('company_name')}`, {
+        res = await fetch(`https://mern-finalproj-api.herokuapp.com/Help4U/task/company/${sessionStorage.getItem('company_name')}`, {
           method: 'GET',
           mode: 'cors',
           headers: new Headers({
             'Content-Type': 'application/json; charset=utf-8',
             google_id: sessionStorage.getItem('user_id'),
             access_token: sessionStorage.getItem('access_token')
-          }),
+          })
         })
           .then(res => res.json())
         fetchHandler(res)
@@ -143,7 +145,7 @@ function ResponsiveDrawer (props) {
   }, [])
 
   if (allUsersTasks == null) {
-    return <div> loading</div>
+    return <Loader/>
   } else {
     return (
       <div className={classes.root}>
@@ -193,9 +195,9 @@ function ResponsiveDrawer (props) {
                 <Route exact path="/home" > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
                 <Route path="/home/chat" > <Chat allTasks={allUsersTasks} setAllUsersTasks = {setAllUsersTasks} /> </Route>
                 <Route path="/home/tasks" > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-                <Route path="/home/contacts" >{JSON.parse(sessionStorage.getItem('isAdmin'))  ? <Contacts allTasks={allUsersTasks} />  : <NotAllowPage/>}</Route>
-                <Route path="/home/create" >{JSON.parse(sessionStorage.getItem('isAdmin'))  ?  <NotAllowPage/>  : <Form />} </Route>
-                <Route path="/home/train subject" > <Intentions /> </Route>
+                <Route path="/home/contacts" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <Contacts allTasks={allUsersTasks} /> : <NotAllowPage/>}</Route>
+                <Route path="/home/create" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <NotAllowPage/> : <Form />} </Route>
+                <Route path="/home/train subject" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <Intentions/> : <NotAllowPage/>}  </Route>
               </Grid>
               <Grid item md={4}>
                 <ComposeChart allTasks={allUsersTasks} />
@@ -214,4 +216,3 @@ ResponsiveDrawer.propTypes = {
 }
 
 export default ResponsiveDrawer
-

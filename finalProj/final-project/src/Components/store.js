@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Loader from './loader'
 import io from 'socket.io-client'
 export const CTX = React.createContext()
 
@@ -39,9 +40,10 @@ export default function Store (props) {
     getCurrTask()
   }, [])
 
-
   if (!socket) {
-    socket = io(':3000')
+    socket = io('https://mern-finalproj-api.herokuapp.com/', {
+      transports: ['websocket']
+    })
     socket.on('chat message', function (message, from) {
       setChat(prevChats => ([
         ...prevChats, {
@@ -53,7 +55,7 @@ export default function Store (props) {
   }
 
   if (currTask === null) {
-    return <div>Loading...</div>
+    return <Loader/>
   } else {
     return (
       <CTX.Provider value={{ chat, sendChatAction, currTask }}>

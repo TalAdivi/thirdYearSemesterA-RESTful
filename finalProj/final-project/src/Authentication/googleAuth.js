@@ -24,7 +24,7 @@ const successGoogle = (response) => {
       if (user.status === 200 && user.data !== null) {
         // update admin access token - only for admin API requests
         if (user.data.admin == true) {
-          const update = await fetch('http://localhost:3000/Help4U/user/update', {
+          const update = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/user/update', {
             method: 'PUT',
             mode: 'cors',
             headers: new Headers({
@@ -100,7 +100,7 @@ const isAuthenticated = () => {
 const signupUser = (response) => {
   async function signup () {
     try {
-      const user = await fetch('http://localhost:3000/Help4U/user/create', {
+      const user = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/user/create', {
         method: 'POST',
         headers: new Headers({
           'Content-Type': 'application/json; charset=utf-8'
