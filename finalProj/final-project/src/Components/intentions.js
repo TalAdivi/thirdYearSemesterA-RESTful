@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import SubjectTab from './subkectsList'
+import SubjectTab from './subjectsList'
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/box';
@@ -19,7 +19,7 @@ function Alert(props) {
 const useStyles = makeStyles(theme => ({
     root: {
         '& > *': {
-            padding: theme.spacing(3, 2)
+            padding: theme.spacing(1, 2)
         },
     },
     button: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
         margin: "10px",
         width: '200px'
     },
-    company: {
+    subject: {
         marginBottom: '10px'
     }
 
@@ -43,51 +43,41 @@ const useStyles = makeStyles(theme => ({
 
 export default function Form() {
     const [titleValue, changeTitleValue] = React.useState('');
-    const [descValue, changeDescValue] = React.useState('');
-    const [companyValue, changecCompanyValue] = React.useState('');
-    const [taskIdValue, changecTaskIdValue] = React.useState('');
+    const [subjectValue, changecsubjectValue] = React.useState('');
     const [openSucsses, setOpenSucsses] = React.useState(false);
     const [openNotSucsses, setOpenNotSucsses] = React.useState(false);
     const [eventButton, setEvent] = React.useState(false);
     const classes = useStyles();
 
-    async function addTask(title, company, description) {
+    async function addIntention(title, subject) {
         try {
-
-            const response = await fetch(`http://localhost:3000/Help4U/task/add`, {
+            const response = await fetch(`https://mern-finalproj-api.herokuapp.com/Help4U/intentions`, {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/json',
                 }),
                 mode: 'cors',
                 body: JSON.stringify({
-                    "userID": sessionStorage.getItem('user_id'),
-                    "userName": sessionStorage.getItem('user_name'),
-                    "companyID": company,
-                    "title": title,
-                    "chat": [{ "from": sessionStorage.getItem('user_name'), "message": description }],
+                    text: title,
+                    subject: subject,
+                    google_id: sessionStorage.getItem('user_id'),
+                    access_token: sessionStorage.getItem('access_token')
                 })
             }).then(response => response.json());
-            if (response.status == 200 && response.data != null) {
-                console.log("data", response.data.taskID);
-                changecTaskIdValue(response.data.taskID);
+            if (response.status == 200 && response.data != null && response.data != false) {
                 handleClickSucsses();
-
             }
             else {
                 handleClickNotSucsses();
             }
         }
         catch (e) {
-            console.log('inside catch', e.message);
             return e.message;
         }
     }
-
     const handleClickSucsses = () => {
         setOpenSucsses(true);
     };
-
     const handleClickNotSucsses = () => {
         setOpenNotSucsses(true);
     };
@@ -108,17 +98,18 @@ export default function Form() {
 
     };
 
-
     return (
         <div >
-
+            
             <Paper variant="outlined" className={classes.root} >
+            {<img src="https://img.icons8.com/doodle/48/000000/smart-.png"/>} 
+                <Typography  > Here you can improve the classification of intentions by inserting a title and choosing a subject to classify </Typography>
                 <Typography className={classes.title}>
                     <TextField
                         required
                         id="Title"
                         name="Title"
-                        label="Title"
+                        label="TITLE"
                         fullWidth
                         onChange={e => {
                             changeTitleValue(e.target.value);
@@ -126,25 +117,9 @@ export default function Form() {
                     />
                 </Typography>
                 <Box mx="auto" >
-                    <Typography align='center' className={classes.company} >SUBJECTS</Typography>
-                    <SubjectTab parentCallback={changecCompanyValue} />
+                    <Typography align='center' className={classes.subject} >SUBJECT</Typography>
+                    <SubjectTab parentCallback={changecsubjectValue} />
                 </Box>
-                <div style={{ margin: "15px" }}>
-                    {
-                        <TextField
-                            id="filled-multiline-static"
-                            label="Description"
-                            multiline
-                            rows="10"
-                            variant="outlined"
-                            fullWidth
-                            onChange={e => {
-                                changeDescValue(e.target.value);
-                            }}
-                        />
-                    }
-                </div>
-
                 <Grid
                     container
                     direction="row"
@@ -154,25 +129,24 @@ export default function Form() {
                     <Button variant="contained"
                         className={classes.button}
                         onClick={() => {
-                            addTask(titleValue, companyValue, descValue);
+                            addIntention(titleValue, subjectValue);
                         }
                         }
                     >
-                        SUBMIT
+                        TRAIN
                     </Button>
                     <div className={classes.root}>
-                        <Snackbar open={openSucsses} autoHideDuration={6000} onClose={handleClose}>
+                        <Snackbar open={openSucsses} autoHideDuration={4000} onClose={handleClose}>
                             <Alert onClose={handleClose} severity="success">
-                                Your task has been successfully added !</Alert>
+                                You success to improve the classification !</Alert>
                         </Snackbar>
-                        <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose}>
-                            <Alert onClose={handleNotSucssesClose} severity="error">There is a problem , Try again and fill all the fields !</Alert>
+                        <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose} autoHideDuration={4000}>
+                            <Alert severity="error">There is a problem , Try again and fill all the fields !</Alert>
                         </Snackbar>
                     </div>
                 </Grid>
             </Paper>
-
-            {   //+taskIdValue
+            {
                 eventButton ? <Redirect to={"/home"} /> : ""
             }
         </div>

@@ -6,8 +6,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Loader from '../Components/loader'
+
 
 
 let res;
@@ -56,19 +56,16 @@ const useStyles = makeStyles(theme => ({
 export default function ScrollableTabsButtonAuto(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [subjects, setsubjects] = React.useState([])
-  const [open, setOpen] = React.useState(true);
+  const [subjects, setsubjects] = React.useState(null)
   let currentSubject = "";
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     currentSubject = subjects[newValue].name;
-    console.log("currnet", currentSubject)
     sendData(currentSubject);
   };
 
   const sendData = (currentSubject) => {
-    console.log("currnetsend", currentSubject)
     props.parentCallback(currentSubject);
   };
 
@@ -82,17 +79,17 @@ export default function ScrollableTabsButtonAuto(props) {
       }
       if (res.status == 200 && res.data != null) {
         setsubjects(res.data);
-        setOpen(false)
       }
     }
     initsubjects();
   }, []);
 
+  if (subjects == null) {
+    return <Loader />;
+  }
+  else{
   return (
     <div className={classes.root}>
-        <Backdrop className={classes.backdrop} open={open} >
-            <CircularProgress color="inherit" />
-          </Backdrop>
       <AppBar position="static" color="white">
         <Tabs
           value={value}
@@ -112,4 +109,5 @@ export default function ScrollableTabsButtonAuto(props) {
       </AppBar>
     </div>
   );
+   }
 }

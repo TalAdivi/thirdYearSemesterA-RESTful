@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -7,109 +7,100 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
+import Snackbar from '@material-ui/core/Snackbar';
+import Loader from '../Components/loader'
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650
-  }
+  },
 })
 
-<<<<<<< HEAD
-function createData(name, active, completed, subjects) {
-  return { name, active, completed, subjects };
-}
-
-const rows = [];
-
-function analysData(props) {
-  let myMap = new Map();
-  let userSubjects=[];
-  props.allTasks.map(task => {
-    userSubjects=[];
-   let obj=myMap.get(task.userID);
-    if(obj==undefined) {
-      userSubjects.push(task.selectedSubject);
-      console.log("first",userSubjects.length)
-      if(task.status == 'Active') {
-        myMap.set(task.userID, { name: task.userName, active : 1, completed: 0,subjects:userSubjects})
-      }
-      else if(task.status == 'Completed')
-        myMap.set(task.userID, { name: task.userName, active : 0, completed: 1,subjects:userSubjects})
-    } 
-    else {
-      console.log("sec",task.selectedSubject)
-      if(task.status=='Active'){
-        obj.active += 1
-      }
-      else if(task.status=='Completed'){
-        obj.completed += 1
-        
-      }
-      
-      else if(userSubjects.find(task.selectedSubject) == undefined){
-        userSubjects.push(task.selectedSubject);
-        console.log("sec",userSubjects.length)
-        obj.subjects = userSubjects;
-      }
-    }
-  })
-  myMap.forEach(user=>{
-    rows.push(createData(user.name, user.active,user.completed,user.subjects))
-  })
-
-}
-
-=======
-function createData (name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein }
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9)
-]
-
-export default function SimpleTable () {
-  const classes = useStyles()
->>>>>>> upstream/master
-
-
 export default function SimpleTable(props) {
+  const { allTasks } = props
   const classes = useStyles();
-  analysData(props);
-  return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Client</TableCell>
-            <TableCell align="center">Tasks active</TableCell>
-            <TableCell align="center">Tasks completed</TableCell>
-            <TableCell align="center">Subjects</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="center">{row.active}</TableCell>
-              <TableCell align="center">{row.completed}</TableCell>
-              <TableCell align="center">{row.subjects}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-<<<<<<< HEAD
-  );
-}
+  const [rows, setRows] = useState([]);
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+    desc: ''
+  });
+  const { vertical, horizontal, open } = state;
 
-=======
-  )
+  const handleHover = newState => () => {
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+
+  useEffect(() => {
+    analysData(allTasks)
+  },[allTasks]);
+
+  const analysData = (allTasks) => {
+    let myMap = new Map();
+    let array = [];
+    allTasks.map(task => {
+      let obj = myMap.get(task.userID);
+      if (obj == undefined) {
+        task.status == 'Active' ? myMap.set(task.userID, { name: task.userName, active: 1, completed: 0, subjects: [task.selectedSubject + ' '] })
+          : myMap.set(task.userID, { name: task.userName, active: 0, completed: 1, subjects: [task.selectedSubject + ' '] });
+      }
+      else {
+        task.status == 'Active' ? obj.active += 1 : obj.completed += 1;
+        if (obj.subjects.indexOf(task.selectedSubject + ' ') == -1) {
+          obj.subjects.push(task.selectedSubject + ' ');
+        }
+      }
+    })
+    myMap.forEach(user => {
+      array.push({ name: user.name, active: user.active, completed: user.completed, len: user.subjects.length, subjects: user.subjects })
+    })
+    if(array.length!=0){
+      setRows(array)
+    }
+
+  }
+
+  if (rows.length == 0) {
+    return <Loader />
+  }
+  else {
+    return (
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell align="center">Tasks active</TableCell>
+              <TableCell align="center">Tasks completed</TableCell>
+              <TableCell align="center">Subjects</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                </TableCell>
+                <TableCell align="center">{row.active}</TableCell>
+                <TableCell align="center">{row.completed}</TableCell>
+                <TableCell style={{ cursor: "help" }} onMouseOver={handleHover({ vertical: 'top', horizontal: 'center', desc: row.subjects })} onMouseLeave={handleClose} align="center">{row.len}</TableCell>
+                <Snackbar
+                  anchorOrigin={{ vertical, horizontal }}
+                  key={`${vertical},${horizontal}`}
+                  open={open}
+                  message={state.desc}
+                />
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
 }
->>>>>>> upstream/master

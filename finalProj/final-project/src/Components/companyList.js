@@ -6,11 +6,9 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-import Backdrop from '@material-ui/core/Backdrop'
-import CircularProgress from '@material-ui/core/CircularProgress'
+import Loader from '../Components/loader'
 
-let res
-function TabPanel (props) {
+function TabPanel(props) {
   const { children, value, index, ...other } = props
   return (
     <Typography
@@ -32,7 +30,7 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired
 }
 
-function a11yProps (index) {
+function a11yProps(index) {
   return {
     id: `scrollable-auto-tab-${index}`,
     'aria-controls': `scrollable-auto-tabpanel-${index}`
@@ -44,24 +42,20 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     width: '100%',
     backgroundColor: theme.palette.background.paper
-  },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#b9cdd3'
   }
+
 }))
 
-export default function ScrollableTabsButtonAuto (props) {
+export default function ScrollableTabsButtonAuto(props) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
-  const [companies, setCompanies] = React.useState([])
-  const [open, setOpen] = React.useState(true)
+  const [companies, setCompanies] = React.useState(null)
   let currentCompany = ''
+  let res;
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
     currentCompany = companies[newValue].name
-    console.log('currnet', currentCompany)
     sendData(currentCompany)
   }
 
@@ -71,7 +65,7 @@ export default function ScrollableTabsButtonAuto (props) {
   }
 
   useEffect(() => {
-    async function initCompanies () {
+    async function initCompanies() {
       try {
         res = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/companies').then(res => res.json())
       } catch (e) {
@@ -79,34 +73,34 @@ export default function ScrollableTabsButtonAuto (props) {
       }
       if (res.status == 200 && res.data != null) {
         setCompanies(res.data)
-        setOpen(false)
       }
     }
     initCompanies()
   }, [])
 
-  return (
-    <div className={classes.root}>
-      <Backdrop className={classes.backdrop} open={open} >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <AppBar position="static" color="white">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-        >
 
-          {companies.map((name, index) => (
-            <Tab label={name.name} {...a11yProps({ index })} />
-
-          ))}
-        </Tabs>
-      </AppBar>
-    </div>
-  )
+  if (companies == null) {
+    return <Loader />;
+  }
+  else {
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" color="white">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
+          >
+            {companies.map((name, index) => (
+              <Tab label={name.name} {...a11yProps({ index })} />
+            ))}
+          </Tabs>
+        </AppBar>
+      </div>
+    )
+  }
 }
