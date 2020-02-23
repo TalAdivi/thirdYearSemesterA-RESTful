@@ -6,12 +6,12 @@ export const CTX = React.createContext()
 let socket
 
 export default function Store (props) {
-  const { allTasks } = props
-  let oneTask
+  const { allTasks, setAllUsersTasks } = props
+  let oneTask = null
   // let disconnected = false
-  const [chat, setChat] = React.useState([])
+  const [chat, setChat] = React.useState(null)
   // const [toTask, setToTask] = React.useState(false)
-  const [currTask, setCurrTask] = React.useState(1)
+  const [currTask, setCurrTask] = React.useState(null)
 
   function sendChatAction (value, currTaskChat) {
     socket.emit('chat message', value.message, value.from, currTask.taskID, chat)
@@ -39,37 +39,6 @@ export default function Store (props) {
     getCurrTask()
   }, [])
 
-  useEffect(() => {
-    return () => {
-      console.log('inside unMount!')
-      if (currTask !== null) {
-        socket.emit('disconnect')
-      }
-    }
-  })
-
-  // every time chats state changed, we send to server the updated state
-  // when user disconnect the updated state of chat will be at the server anyway
-  // useEffect(() => {
-  //   socket.emit('update chat', chat)
-  // }, [chat])
-
-  // if socket is not exist, we catch 'chat message' event and initializing chat state
-  // if (!socket) {
-  //   socket = io(':3000')
-  //   socket.on('chat message', function (message, from) {
-  //     setChat(prevChat => ([
-  //       ...prevChat,
-  //       {
-  //         from: from,
-  //         message: message
-  //       }
-  //     ]))
-  //     console.log('currTask\n', currTask)
-  //   })
-
-  //   // socket.on('disconnected successfully', () => disconnected = true)
-  // }
 
   if (!socket) {
     socket = io(':3000')

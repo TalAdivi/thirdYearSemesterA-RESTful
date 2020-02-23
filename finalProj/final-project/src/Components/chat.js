@@ -5,7 +5,7 @@ import Dashboard from './dashboard'
 const Chat = (props) => {
   return (
     <div >
-      <Store allTasks = {props.allTasks}>
+      <Store allTasks = {props.allTasks} setAllUsersTasks = {props.setAllUsersTasks}>
         <Dashboard/>
       </Store>
     </div>

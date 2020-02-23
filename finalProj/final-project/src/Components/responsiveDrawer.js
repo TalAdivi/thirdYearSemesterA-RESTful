@@ -191,7 +191,7 @@ function ResponsiveDrawer (props) {
             <Grid container spacing={2}>
               <Grid item md={8} >
                 <Route exact path="/home" > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
-                <Route path="/home/chat" > <Chat allTasks={allUsersTasks} /> </Route>
+                <Route path="/home/chat" > <Chat allTasks={allUsersTasks} setAllUsersTasks = {setAllUsersTasks} /> </Route>
                 <Route path="/home/tasks" > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
                 <Route path="/home/contacts" > <Contacts allTasks={allUsersTasks} /> </Route>
                 <Route path="/home/create" > <Form /> </Route>
