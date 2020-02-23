@@ -62,19 +62,16 @@ export default function Form () {
           userName: sessionStorage.getItem('user_name'),
           companyID: company,
           title: title,
-          selectedSubject: 'response.googleId',
           chat: [{ from: sessionStorage.getItem('user_name'), message: description }]
         })
       }).then(response => response.json())
       if (response.status == 200 && response.data != null) {
-        console.log('data', response.data.taskID)
         changecTaskIdValue(response.data.taskID)
         handleClickSucsses()
       } else {
         handleClickNotSucsses()
       }
     } catch (e) {
-      console.log('inside catch', e.message)
       return e.message
     }
   }
@@ -103,47 +100,29 @@ export default function Form () {
 
   return (
     <div >
-
       <Paper variant="outlined" className={classes.root} >
-        {/* <Grid container spacing={0}> */}
-        {/* <Grid
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    > */}
-        {/* <Grid xs={12} > */}
-        {/* <Grid container justify="space-between" spacing={0} > */}
-        {/* <Grid item> */}
         <Typography className={classes.title}>
           <TextField
             required
             id="Title"
             name="Title"
-            label="Title"
+            label="TITLE"
             fullWidth
             onChange={e => {
               changeTitleValue(e.target.value)
             }}
           />
         </Typography>
-
-        {/* </Grid> */}
-
         <Box mx="auto" >
-          <Typography align='center' className={classes.company} >Company</Typography>
+          <Typography align='center' className={classes.company} >COMPANY</Typography>
           <CompanyTab parentCallback={changecCompanyValue} />
         </Box>
-
-        {/* </Grid> */}
-        {/* </Grid> */}
-        {/* </Grid> */}
-        {/* </Grid> */}
         <div style={{ margin: '15px' }}>
           {
             <TextField
+              required
               id="filled-multiline-static"
-              label="Description"
+              label="DESCRIPTION"
               multiline
               rows="10"
               variant="outlined"
@@ -151,7 +130,6 @@ export default function Form () {
               onChange={e => {
                 changeDescValue(e.target.value)
               }}
-              // color='primary'
             />
           }
         </div>
@@ -172,19 +150,19 @@ export default function Form () {
                         SUBMIT
           </Button>
           <div className={classes.root}>
-            <Snackbar open={openSucsses} autoHideDuration={6000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="success">
+            <Snackbar open={openSucsses} autoHideDuration={4000} onClose={handleClose}>
+              <Alert  severity="success">
                                 Your task has been successfully added !</Alert>
             </Snackbar>
-            <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose}>
-              <Alert onClose={handleNotSucssesClose} severity="error">There is a problem , Try again and fill all the fields !</Alert>
+            <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose} autoHideDuration={4000}>
+              <Alert severity="error">There is a problem , Try again and fill all the fields !</Alert>
             </Snackbar>
           </div>
         </Grid>
       </Paper>
 
-      { // +taskIdValue
-        eventButton ? <Redirect to={'/home/'} /> : ''
+      { 
+        eventButton ? <Redirect to={'/home'} /> : ''
       }
     </div>
   )

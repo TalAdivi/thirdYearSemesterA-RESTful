@@ -18,8 +18,10 @@ import Task from '../Components/task'
 import ComposeChart from '../Components/composed-chart'
 import Grid from '@material-ui/core/Grid'
 // import MyPieChart from './myPieChart'
-
+import NotAllowPage from '../Components/notAllow'
 import Form from '../Components/form'
+
+import Intentions from '../Components/intentions'
 import Store from './store'
 import Dashboard from './dashboard'
 import Contacts from './contacts'
@@ -101,7 +103,7 @@ function ResponsiveDrawer (props) {
       }
     }
 
-    async function fetchUserTasks () {
+    async function fetchUserTasks() {
       try {
         res = await fetch(`http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}`)
           .then(res => res.json())
@@ -115,19 +117,17 @@ function ResponsiveDrawer (props) {
       }
     }
 
-    async function fetchCompanyTasks () {
+    async function fetchCompanyTasks() {
       try {
         // add to request admins access token
         res = await fetch(`http://localhost:3000/Help4U/task/company/${sessionStorage.getItem('company_name')}`, {
-          method: 'POST',
+          method: 'GET',
           mode: 'cors',
           headers: new Headers({
-            'Content-Type': 'application/json; charset=utf-8'
-          }),
-          body: JSON.stringify({
+            'Content-Type': 'application/json; charset=utf-8',
             google_id: sessionStorage.getItem('user_id'),
             access_token: sessionStorage.getItem('access_token')
-          })
+          }),
         })
           .then(res => res.json())
         fetchHandler(res)
@@ -193,9 +193,9 @@ function ResponsiveDrawer (props) {
                 <Route exact path="/home" > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
                 <Route path="/home/chat" > <Chat allTasks={allUsersTasks} setAllUsersTasks = {setAllUsersTasks} /> </Route>
                 <Route path="/home/tasks" > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-                <Route path="/home/contacts" > <Contacts allTasks={allUsersTasks} /> </Route>
-                <Route path="/home/create" > <Form /> </Route>
-                <Route path="/home/train subject" > <div>blabla</div> </Route>
+                <Route path="/home/contacts" >{JSON.parse(sessionStorage.getItem('isAdmin'))  ? <Contacts allTasks={allUsersTasks} />  : <NotAllowPage/>}</Route>
+                <Route path="/home/create" >{JSON.parse(sessionStorage.getItem('isAdmin'))  ?  <NotAllowPage/>  : <Form />} </Route>
+                <Route path="/home/train subject" > <Intentions /> </Route>
               </Grid>
               <Grid item md={4}>
                 <ComposeChart allTasks={allUsersTasks} />
@@ -214,3 +214,4 @@ ResponsiveDrawer.propTypes = {
 }
 
 export default ResponsiveDrawer
+
