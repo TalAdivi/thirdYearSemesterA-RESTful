@@ -19,7 +19,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
       padding: theme.spacing(3, 2)
-    }
+    },
+    minHeight: '800px'
   },
 
   flex: {
@@ -58,60 +59,50 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-// every time we type, we change the state via ChangeTextValue, and because of that we reRender the component and will see all things be4 the return ? ?
+// every time we type, we change the state via ChangeTextValue
 export default function Dashboard () {
   const classes = useStyles()
   // CTX store
-  const { user, chats, sendChatAction, task } = React.useContext(CTX)
+  const { chat, sendChatAction, currTask } = React.useContext(CTX)
   const [textValue, changeTextValue] = React.useState('')
-  const [taskStatus, setTaskStatus] = React.useState('Active')
-  let taskDate = '' + task.datesend
+  // const [taskStatus, setTaskStatus] = React.useState('Active')
+  let taskDate = '' + currTask.datesend
+  const userName = sessionStorage.getItem('user_name')
   taskDate = taskDate.substring(0, 10)
-  // const [activeTopic, chageActiveTopic] = React.useState(topics[0]);
 
-  useEffect(() => {
-    console.log('blalba')
-  }, [taskStatus])
+  // useEffect(() => {
+  // }, [taskStatus])
 
   return (
     <div >
       {/* {task.status === 'Completed' ? setTaskStatus('Completed') : setTaskStatus('Active') } */}
-      {console.log('task.status\n', task.status)
-      }
       <Paper variant="outlined" className={classes.root} >
         <Grid container spacing={0} style={{ backgroundColor: '#F5F8FA' }}>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            {/* <Typography variant="h4" component="h4">Chat app </Typography> */}
-            {/* <Grid xs={12} > */}
-
+          <Grid container direction="row" justify="center" alignItems="center" >
             <Grid container spacing={2} >
               <Grid item lg={4}>
-                <Typography variant="h5" component="h6" gutterBottom style={{ margin: '15px' }}> {task.title} </Typography>
-                <Typography variant="body2" gutterBottom style={{ margin: '15px' }}> {`${task.selectedSubject}`} </Typography>
+                <Typography variant="h5" gutterBottom style={{ margin: '15px' }}> {currTask.title} </Typography>
+                <Typography variant="body2" gutterBottom style={{ margin: '15px' }}> {`${currTask.selectedSubject}`} </Typography>
               </Grid>
               <Grid item lg={4}>
-                <Typography variant='h6' align='center' gutterBottom style={{ margin: '15px', paddingTop: '15px' }}> {`Talking with:${JSON.parse(sessionStorage.getItem('isAdmin')) ? task.userName : task.companyID}`} </Typography>
+                <Typography variant='h6' align='center' gutterBottom style={{ margin: '15px', paddingTop: '15px' }}>
+                  {/* show the relevant name taking with */}
+                  {`Talking with:${JSON.parse(sessionStorage.getItem('isAdmin')) ? currTask.userName : currTask.companyID}`}
+                </Typography>
               </Grid>
-              <Grid item lg={4}>
-              </Grid>
+              {/* <Grid item lg={4}>
+              </Grid> */}
             </Grid>
 
             <Grid container justify="space-between" spacing={2} >
               <Grid item lg={4}>
-
                 <Typography variant='body1' gutterBottom style={{ margin: '15px' }}> Open at: {taskDate} </Typography>
-              </Grid>
-              <Grid item lg={4}>
               </Grid>
               <Grid item lg={4} >
                 <Typography align='center'>
-                  { task.status == 'Active' && JSON.parse(sessionStorage.getItem('isAdmin')) && <StatusSelect taskID={task.taskID} />}
-                  {!JSON.parse(sessionStorage.getItem('isAdmin')) && ('Status: ' + task.status)}
+                  {/* shows status selection only for admins and only for Active tasks */}
+                  { currTask.status === 'Active' && JSON.parse(sessionStorage.getItem('isAdmin')) && <StatusSelect taskID={currTask.taskID} />}
+                  {!JSON.parse(sessionStorage.getItem('isAdmin')) && ('Status: ' + currTask.status)}
                 </Typography>
               </Grid>
             </Grid>
@@ -123,10 +114,10 @@ export default function Dashboard () {
         <div className={classes.flex}>
           <div className={classes.chatWindow}>
             {
-              chats.map((chat, i) => (
+              chat.map((chat, i) => (
                 <div className={classes.flex} key={i}>
                   <Chip label={chat.from} style={{ marginRight: '10px' }} />
-                  <Paper className={classes.textBubble} variant="elevation" style={chat.from === user ? { backgroundColor: '#5c6bc0' } : { backgroundColor: '#7e57c2' }}>
+                  <Paper className={classes.textBubble} variant="elevation" style={chat.from === userName ? { backgroundColor: '#5c6bc0' } : { backgroundColor: '#7e57c2' }}>
                     <Typography variant='body1' gutterBottom style={{ margin: '15px', maxWidth: '100%' }}> {chat.message} </Typography>
                   </Paper>
                 </div>
@@ -137,13 +128,12 @@ export default function Dashboard () {
 
         {/* show text input and send button only for Active status, Completed doesn't need. */}
         {
-          task.status == 'Active' && <Grid container justify="space-between" spacing={0} >
+          currTask.status === 'Active' && <Grid container justify="space-between" spacing={0} >
             <Grid item xs={9}>
 
               <TextField
-                label="replay.."
+                label="reply.."
                 className={classes.chatBox}
-                // helperText="👨‍💻"
                 value={textValue}
                 onChange={e => {
                   changeTextValue(e.target.value)
@@ -151,22 +141,17 @@ export default function Dashboard () {
               />
             </Grid>
             <Grid item >
-
-              <Button variant="contained"
-                className={classes.button}
+              <Button variant="contained" className={classes.button}
                 onClick={() => {
-                  sendChatAction({ from: user, message: textValue }, chats)
+                  sendChatAction({ from: userName, message: textValue }, currTask.taskID, currTask.chat)
                   changeTextValue('')
                 }}
               >
-                            SEND
+                SEND
               </Button>
             </Grid>
-
           </Grid>
         }
-
-        {/* </div> */}
       </Paper>
 
     </div>

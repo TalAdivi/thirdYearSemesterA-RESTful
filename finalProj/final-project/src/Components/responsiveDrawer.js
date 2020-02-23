@@ -6,17 +6,6 @@ import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
 import Hidden from '@material-ui/core/Hidden'
 import IconButton from '@material-ui/core/IconButton'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import HomeIcon from '@material-ui/icons/Home'
-import ViewListIcon from '@material-ui/icons/ViewList'
-import ContactsIcon from '@material-ui/icons/Contacts'
-import Avatar from '@material-ui/core/Avatar'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListAltIcon from '@material-ui/icons/ListAlt'
 import Box from '@material-ui/core/box'
 import MailIcon from '@material-ui/icons/Mail'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -75,23 +64,19 @@ const useStyles = makeStyles(theme => ({
   navLinks: {
     textDecorationLine: 'none',
     color: 'unset'
-    // padding: 20
   },
   avatar: {
     margin: 'auto'
   }
 }))
 
-
-// send to db evrey  chat message 
+// send to db evrey  chat message
 function ResponsiveDrawer (props) {
   const { container } = props
-  let res
   const classes = useStyles()
   const theme = useTheme()
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [allUsersTasks, setAllUsersTasks] = React.useState(null)
-  // is state loaded...
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
@@ -99,47 +84,40 @@ function ResponsiveDrawer (props) {
 
   // what to show to client if fail
   useEffect(() => {
-    const errorHandling = (res) => {
-      
-      if (res.status == 200 && res.data !== null) {
-        console.log('be4 setAllusersTasks')
+    let res // will get server response
 
-        setAllUsersTasks(res.data)
+    const fetchHandler = (res) => {
+      // check if registered
+      if (res.status === 200) {
+        // data === null for new users
+        res.data !== null ? setAllUsersTasks(res.data) : setAllUsersTasks([])
       }
-
-      if (res.status == 200 && res.data === null) {
-        console.log('be4 setAllusersTasks')
-        setAllUsersTasks([])
-      }
-
-      if (res.status == 500) {
-        // maybe DB error, reload and try again
+      // maybe DB error, reload and try again
+      if (res.status === 500) {
         alert('something went work, page refreshing...')
         setInterval(() => {
           window.location.reload()
         }, 4000)
       }
-
     }
 
     async function fetchUserTasks () {
       try {
         res = await fetch(`http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}`)
           .then(res => res.json())
-        // queryRes = React.createContext(res);
-        console.log('res MAIN WINDOW USER\n', res)
-        errorHandling(res)
+        fetchHandler(res)
       } catch (e) {
         // if fetch fail, reload and try again
         alert('something went work, page refreshing...')
-        // setInterval(() => {
-        //   window.location.reload()
-        // }, 4000)
+        setInterval(() => {
+          window.location.reload()
+        }, 4000)
       }
     }
 
     async function fetchCompanyTasks () {
       try {
+        // add to request admins access token
         res = await fetch(`http://localhost:3000/Help4U/task/company/${sessionStorage.getItem('company_name')}`, {
           method: 'POST',
           mode: 'cors',
@@ -152,45 +130,33 @@ function ResponsiveDrawer (props) {
           })
         })
           .then(res => res.json())
-        console.log('res MAIN WINDOW ADMIN\n', res)
-        await errorHandling(res)
+        fetchHandler(res)
       } catch (e) {
         // if fetch fail, reload and try again
         alert('something went work, page refreshing...')
-        // setInterval(() => {
-        //   window.location.reload()
-        // }, 4000)
+        setInterval(() => {
+          window.location.reload()
+        }, 4000)
       }
     }
     JSON.parse(sessionStorage.getItem('isAdmin')) ? fetchCompanyTasks() : fetchUserTasks()
-
-    console.log("sessionStorage.getItem('isAdmin')\n", typeof sessionStorage.getItem('isAdmin'))
   }, [])
 
   if (allUsersTasks == null) {
     return <div> loading</div>
   } else {
     return (
-
       <div className={classes.root}>
-
         <CssBaseline />
         <Box width='15%'>
           <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                className={classes.menuButton}
-              >
+              <IconButton color="inherit" aria-label="open drawer" edge="start" onClick={handleDrawerToggle} className={classes.menuButton} >
                 <MenuIcon />
               </IconButton>
-
               <Grid container direction="row" justify="space-between" alignItems="center">
                 <Grid>
-                  <Typography variant="h6" noWrap> Here4U POC </Typography>
+                  <Typography variant="h6" noWrap> Here4U </Typography>
                 </Grid>
                 <Grid >
                   <Logout/>
@@ -199,45 +165,27 @@ function ResponsiveDrawer (props) {
             </Toolbar>
           </AppBar>
           <nav className={classes.drawer} aria-label="mailbox folders">
-
             <Hidden smUp implementation="css">
 
-              <Drawer
-                container={container}
-                variant="temporary"
-                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                open={mobileOpen}
+              <Drawer container={container} variant="temporary" anchor={theme.direction === 'rtl' ? 'right' : 'left'} open={mobileOpen}
                 onClose={handleDrawerToggle}
-                classes={{
-                  paper: classes.drawerPaper
-                }}
-                ModalProps={{
-                  keepMounted: true // Better open performance on mobile.
-                }}
+                classes={{ paper: classes.drawerPaper }}
+                ModalProps={{ keepMounted: true }} // Better open performance on mobile.
               >
                 <Profile/>
-
                 <MySideBar/>
               </Drawer>
             </Hidden>
             <Hidden xsDown implementation="css">
-              <Drawer
-                classes={{
-                  paper: classes.drawerPaper
-                }}
-                variant="permanent"
-                open
-              >
+              <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open >
                 <Profile/>
                 <MySideBar/>
               </Drawer>
             </Hidden>
           </nav>
-
         </Box>
         <main className={classes.content}>
           <Box width='85%'>
-
             <div className={classes.toolbar} />
 
             <Grid container spacing={2}>
@@ -247,28 +195,16 @@ function ResponsiveDrawer (props) {
                 <Route path="/home/tasks" > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
                 <Route path="/home/contacts" > <Contacts allTasks={allUsersTasks} /> </Route>
                 <Route path="/home/create" > <Form /> </Route>
+                <Route path="/home/train subject" > <div>blabla</div> </Route>
               </Grid>
               <Grid item md={4}>
-
                 <ComposeChart allTasks={allUsersTasks} />
-                {/* <Route path="/home"> */}
-
                 <MyPieChart allTasks={allUsersTasks} ></MyPieChart>
-
-                {/* </Route> */}
-                {/* <ComposeChart allTasks={allUsersTasks} /> */}
-                {/* <PieSeries/> */}
-                {/* <PieChart></PieChart> */}
-
               </Grid>
             </Grid>
-
-            {/* {props.children} */}
-
           </Box>
         </main>
       </div>
-
     )
   }
 }
