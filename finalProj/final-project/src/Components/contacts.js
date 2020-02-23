@@ -10,15 +10,8 @@ import Paper from '@material-ui/core/Paper'
 import Snackbar from '@material-ui/core/Snackbar';
 import Loader from '../Components/loader'
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650
-  },
-})
-
 export default function SimpleTable(props) {
   const { allTasks } = props
-  const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [state, setState] = React.useState({
     open: false,
@@ -71,10 +64,10 @@ export default function SimpleTable(props) {
   }
   else {
     return (
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
+      <TableContainer component={Paper} >
+        <Table aria-label="simple table">
           <TableHead>
-            <TableRow>
+            <TableRow >
               <TableCell>Name</TableCell>
               <TableCell align="center">Tasks active</TableCell>
               <TableCell align="center">Tasks completed</TableCell>

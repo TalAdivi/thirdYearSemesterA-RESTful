@@ -22,12 +22,13 @@ export default function SimpleBackdrop() {
     }, []);
 
     const classes = useStyles();
-    let arr = [{name:"😀"},{name:"😝"},{name:"😜"},{name:"🤪"},{name:"😂"},{name:"🤷‍♂"},{name:"😇"},{name:"🤩"},{name:"🥳"},{name:"🙏🏽"}];
+    let arr = new Array(30);
+    arr = ["😀","😝","😜","🤪","😂","🤷‍♂","😇","🤩","🥳","🙏🏽"];
     return (
         <div>
             <Backdrop className={classes.backdrop} open={true}>
                 <CircularProgress color="inherit" />
-                <Typography style={{ margin: 10 }}>Loading.. {arr[seconds].name}
+                <Typography style={{ margin: 10 }}>Loading.. {arr[seconds]}
                 </Typography>
             </Backdrop>
         </div>

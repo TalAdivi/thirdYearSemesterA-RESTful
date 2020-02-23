@@ -29,7 +29,7 @@ import Task from '../Components/task'
 import ComposeChart from '../Components/composed-chart'
 import Grid from '@material-ui/core/Grid'
 // import MyPieChart from './myPieChart'
-
+import NotAllowPage from '../Components/notAllow'
 import Form from '../Components/form'
 
 import Intentions from '../Components/intentions'
@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function ResponsiveDrawer (props) {
+function ResponsiveDrawer(props) {
   const { container } = props
   let res
   const classes = useStyles()
@@ -118,7 +118,7 @@ function ResponsiveDrawer (props) {
       }
     }
 
-    async function fetchUserTasks () {
+    async function fetchUserTasks() {
       try {
         res = await fetch(`http://localhost:3000/Help4U/task/user/${sessionStorage.getItem('user_id')}`)
           .then(res => res.json())
@@ -134,18 +134,16 @@ function ResponsiveDrawer (props) {
       }
     }
 
-    async function fetchCompanyTasks () {
+    async function fetchCompanyTasks() {
       try {
         res = await fetch(`http://localhost:3000/Help4U/task/company/${sessionStorage.getItem('company_name')}`, {
-          method: 'POST',
+          method: 'GET',
           mode: 'cors',
           headers: new Headers({
-            'Content-Type': 'application/json; charset=utf-8'
-          }),
-          body: JSON.stringify({
+            'Content-Type': 'application/json; charset=utf-8',
             google_id: sessionStorage.getItem('user_id'),
             access_token: sessionStorage.getItem('access_token')
-          })
+          }),
         })
           .then(res => res.json())
         console.log('res MAIN WINDOW ADMIN\n', res)
@@ -186,7 +184,7 @@ function ResponsiveDrawer (props) {
                 <Typography variant="h6" noWrap> Here4U POC </Typography>
               </Grid>
               <Grid >
-                <Logout/>
+                <Logout />
               </Grid>
             </Grid>
           </Toolbar>
@@ -208,9 +206,9 @@ function ResponsiveDrawer (props) {
                 keepMounted: true // Better open performance on mobile.
               }}
             >
-              <Profile/>
+              <Profile />
 
-              <MySideBar/>
+              <MySideBar />
             </Drawer>
           </Hidden>
           <Hidden xsDown implementation="css">
@@ -221,8 +219,8 @@ function ResponsiveDrawer (props) {
               variant="permanent"
               open
             >
-              <Profile/>
-              <MySideBar/>
+              <Profile />
+              <MySideBar />
             </Drawer>
           </Hidden>
         </nav>
@@ -235,11 +233,11 @@ function ResponsiveDrawer (props) {
 
           <Grid container spacing={2}>
             <Grid item md={8} >
-              <Route exact path="/home" > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
+              <Route exact path="/home" ><Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
               <Route path="/home/chat" > <Chat allTasks={allUsersTasks} /> </Route>
               <Route path="/home/tasks" > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-              <Route path="/home/contacts" > <Contacts allTasks={allUsersTasks} /> </Route>
-              <Route path="/home/create" > <Form /> </Route>
+              <Route path="/home/contacts" >{JSON.parse(sessionStorage.getItem('isAdmin'))  ? <Contacts allTasks={allUsersTasks} />  : <NotAllowPage/>}</Route>
+              <Route path="/home/create" >{JSON.parse(sessionStorage.getItem('isAdmin'))  ?  <NotAllowPage/>  : <Form />} </Route>
               <Route path="/home/add" > <Intentions /> </Route>
             </Grid>
             <Grid item md={4}>

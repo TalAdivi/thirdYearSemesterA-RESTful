@@ -19,9 +19,10 @@ function Alert(props) {
 const useStyles = makeStyles(theme => ({
     root: {
         '& > *': {
-            padding: theme.spacing(1, 2)
+            padding: theme.spacing(2, 2)
         },
     },
+
     button: {
         width: '20%',
         marginTop: "14px",
@@ -36,12 +37,13 @@ const useStyles = makeStyles(theme => ({
     },
     subject: {
         marginBottom: '10px'
-    }
+    },
+
 
 }));
 
 
-export default function Form() {
+export default function Intentions() {
     const [titleValue, changeTitleValue] = React.useState('');
     const [subjectValue, changecsubjectValue] = React.useState('');
     const [openSucsses, setOpenSucsses] = React.useState(false);
@@ -102,8 +104,8 @@ export default function Form() {
         <div >
             
             <Paper variant="outlined" className={classes.root} >
-            {<img src="https://img.icons8.com/doodle/48/000000/smart-.png"/>} 
-                <Typography  > Here you can improve the classification of intentions by inserting a title and choosing a subject to classify </Typography>
+            {<img style={{float:"right"}} src="https://img.icons8.com/doodle/48/000000/smart-.png"/>} 
+                <Typography style={{fontSize:20}} >Here you can improve the classification of intentions by inserting a title and choosing a subject to classify </Typography>
                 <Typography className={classes.title}>
                     <TextField
                         required

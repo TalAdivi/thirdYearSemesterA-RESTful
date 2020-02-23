@@ -102,7 +102,7 @@ export default function ScrollableTabsButtonAuto(props) {
         >
         
           {subjects.map((name, index) => (
-            <Tab label={name.name} {...a11yProps({ index })} />
+            <Tab key={index} label={name.name} {...a11yProps({ index })} />
 
           ))}
         </Tabs>

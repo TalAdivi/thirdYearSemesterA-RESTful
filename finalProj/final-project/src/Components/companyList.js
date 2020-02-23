@@ -96,7 +96,7 @@ export default function ScrollableTabsButtonAuto(props) {
             aria-label="scrollable auto tabs example"
           >
             {companies.map((name, index) => (
-              <Tab label={name.name} {...a11yProps({ index })} />
+              <Tab key={index} label={name.name} {...a11yProps({ index })} />
             ))}
           </Tabs>
         </AppBar>
