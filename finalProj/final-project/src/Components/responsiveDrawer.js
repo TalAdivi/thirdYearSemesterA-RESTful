@@ -82,20 +82,25 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+
+// send to db evrey  chat message 
 function ResponsiveDrawer (props) {
   const { container } = props
   let res
   const classes = useStyles()
   const theme = useTheme()
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [allUsersTasks, setAllUsersTasks] = React.useState([])
+  const [allUsersTasks, setAllUsersTasks] = React.useState(null)
+  // is state loaded...
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
 
+  // what to show to client if fail
   useEffect(() => {
     const errorHandling = (res) => {
+      
       if (res.status == 200 && res.data !== null) {
         console.log('be4 setAllusersTasks')
 
@@ -114,6 +119,7 @@ function ResponsiveDrawer (props) {
           window.location.reload()
         }, 4000)
       }
+
     }
 
     async function fetchUserTasks () {
@@ -126,9 +132,9 @@ function ResponsiveDrawer (props) {
       } catch (e) {
         // if fetch fail, reload and try again
         alert('something went work, page refreshing...')
-        setInterval(() => {
-          window.location.reload()
-        }, 4000)
+        // setInterval(() => {
+        //   window.location.reload()
+        // }, 4000)
       }
     }
 
@@ -151,9 +157,9 @@ function ResponsiveDrawer (props) {
       } catch (e) {
         // if fetch fail, reload and try again
         alert('something went work, page refreshing...')
-        setInterval(() => {
-          window.location.reload()
-        }, 4000)
+        // setInterval(() => {
+        //   window.location.reload()
+        // }, 4000)
       }
     }
     JSON.parse(sessionStorage.getItem('isAdmin')) ? fetchCompanyTasks() : fetchUserTasks()
@@ -161,106 +167,110 @@ function ResponsiveDrawer (props) {
     console.log("sessionStorage.getItem('isAdmin')\n", typeof sessionStorage.getItem('isAdmin'))
   }, [])
 
-  return (
+  if (allUsersTasks == null) {
+    return <div> loading</div>
+  } else {
+    return (
 
-    <div className={classes.root}>
+      <div className={classes.root}>
 
-      <CssBaseline />
-      <Box width='15%'>
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
+        <CssBaseline />
+        <Box width='15%'>
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                className={classes.menuButton}
+              >
+                <MenuIcon />
+              </IconButton>
 
-            <Grid container direction="row" justify="space-between" alignItems="center">
-              <Grid>
-                <Typography variant="h6" noWrap> Here4U POC </Typography>
+              <Grid container direction="row" justify="space-between" alignItems="center">
+                <Grid>
+                  <Typography variant="h6" noWrap> Here4U POC </Typography>
+                </Grid>
+                <Grid >
+                  <Logout/>
+                </Grid>
               </Grid>
-              <Grid >
-                <Logout/>
-              </Grid>
-            </Grid>
-          </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer} aria-label="mailbox folders">
+            </Toolbar>
+          </AppBar>
+          <nav className={classes.drawer} aria-label="mailbox folders">
 
-          <Hidden smUp implementation="css">
+            <Hidden smUp implementation="css">
 
-            <Drawer
-              container={container}
-              variant="temporary"
-              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              ModalProps={{
-                keepMounted: true // Better open performance on mobile.
-              }}
-            >
-              <Profile/>
+              <Drawer
+                container={container}
+                variant="temporary"
+                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                classes={{
+                  paper: classes.drawerPaper
+                }}
+                ModalProps={{
+                  keepMounted: true // Better open performance on mobile.
+                }}
+              >
+                <Profile/>
 
-              <MySideBar/>
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              variant="permanent"
-              open
-            >
-              <Profile/>
-              <MySideBar/>
-            </Drawer>
-          </Hidden>
-        </nav>
-
-      </Box>
-      <main className={classes.content}>
-        <Box width='85%'>
-
-          <div className={classes.toolbar} />
-
-          <Grid container spacing={2}>
-            <Grid item md={8} >
-              <Route exact path="/home" > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
-              <Route path="/home/chat" > <Chat allTasks={allUsersTasks} /> </Route>
-              <Route path="/home/tasks" > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
-              <Route path="/home/contacts" > <Contacts allTasks={allUsersTasks} /> </Route>
-              <Route path="/home/create" > <Form /> </Route>
-            </Grid>
-            <Grid item md={4}>
-
-              <ComposeChart allTasks={allUsersTasks} />
-              {/* <Route path="/home"> */}
-
-              <MyPieChart allTasks={allUsersTasks} ></MyPieChart>
-
-              {/* </Route> */}
-              {/* <ComposeChart allTasks={allUsersTasks} /> */}
-              {/* <PieSeries/> */}
-              {/* <PieChart></PieChart> */}
-
-            </Grid>
-          </Grid>
-
-          {/* {props.children} */}
+                <MySideBar/>
+              </Drawer>
+            </Hidden>
+            <Hidden xsDown implementation="css">
+              <Drawer
+                classes={{
+                  paper: classes.drawerPaper
+                }}
+                variant="permanent"
+                open
+              >
+                <Profile/>
+                <MySideBar/>
+              </Drawer>
+            </Hidden>
+          </nav>
 
         </Box>
-      </main>
-    </div>
+        <main className={classes.content}>
+          <Box width='85%'>
 
-  )
+            <div className={classes.toolbar} />
+
+            <Grid container spacing={2}>
+              <Grid item md={8} >
+                <Route exact path="/home" > <Task allTasks={allUsersTasks} activeOnly={true} /> </Route>
+                <Route path="/home/chat" > <Chat allTasks={allUsersTasks} /> </Route>
+                <Route path="/home/tasks" > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
+                <Route path="/home/contacts" > <Contacts allTasks={allUsersTasks} /> </Route>
+                <Route path="/home/create" > <Form /> </Route>
+              </Grid>
+              <Grid item md={4}>
+
+                <ComposeChart allTasks={allUsersTasks} />
+                {/* <Route path="/home"> */}
+
+                <MyPieChart allTasks={allUsersTasks} ></MyPieChart>
+
+                {/* </Route> */}
+                {/* <ComposeChart allTasks={allUsersTasks} /> */}
+                {/* <PieSeries/> */}
+                {/* <PieChart></PieChart> */}
+
+              </Grid>
+            </Grid>
+
+            {/* {props.children} */}
+
+          </Box>
+        </main>
+      </div>
+
+    )
+  }
 }
 
 ResponsiveDrawer.propTypes = {

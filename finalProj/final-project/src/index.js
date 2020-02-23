@@ -12,8 +12,8 @@ import GoogleAuth from './Authentication/googleAuth'
 //     console.log(response);
 // }
 
-const whyDidYouRender = require('@welldone-software/why-did-you-render')
-whyDidYouRender(React)
+// const whyDidYouRender = require('@welldone-software/why-did-you-render')
+// whyDidYouRender(React)
 ReactDOM.render(
 //     <GoogleLogin
 //     clientId="838325310419-ink7dovlmgeoff0urhtdk16boctkqra8.apps.googleusercontent.com"

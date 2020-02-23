@@ -39,18 +39,18 @@ export default function MyPieChart (props) {
 
   useEffect(() => {
     countRatio(allTasks)
-    console.log('allTasks\n', allTasks)
+    // console.log('allTasks\n', allTasks)
   })
 
   const countRatio = (allTaskss) => {
-    console.log('insideCountRatio\n')
+    // console.log('insideCountRatio\n')
 
-    allTaskss.map((oneTask, i) => {
-      console.log('oneTask.status\n', oneTask.status)
+    allTaskss.forEach((oneTask, i) => {
+      // console.log('oneTask.status\n', oneTask.status)
       oneTask.status === 'Active' ? dataMock[1].value += 1 : dataMock[0].value += 1
     })
 
-    console.log('dataMock[1].value\n', dataMock[1].value)
+    // console.log('dataMock[1].value\n', dataMock[1].value)
     setDataArr(allTasks)
     // setData(dataMock)
   }

@@ -51,19 +51,19 @@ export default function Form () {
 
   async function addTask (title, company, description) {
     try {
-      const response = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/task/add', {
+      const response = await fetch('http://localhost:3000/Help4U/task/add', {
         method: 'POST',
         headers: new Headers({
           'Content-Type': 'application/json'
         }),
         mode: 'cors',
         body: JSON.stringify({
-          userID: localStorage.getItem('user_id'),
-          userName: localStorage.getItem('user_name'),
+          userID: sessionStorage.getItem('user_id'),
+          userName: sessionStorage.getItem('user_name'),
           companyID: company,
           title: title,
           selectedSubject: 'response.googleId',
-          chat: [{ from: localStorage.getItem('user_name'), message: description }]
+          chat: [{ from: sessionStorage.getItem('user_name'), message: description }]
         })
       }).then(response => response.json())
       if (response.status == 200 && response.data != null) {

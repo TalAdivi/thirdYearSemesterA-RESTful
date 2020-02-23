@@ -56,8 +56,8 @@ export default function Store (props) {
   useEffect(() => {
     return () => {
       console.log('inside unMount!')
-
       socket.emit('disconnect')
+
     }
   })
 
