@@ -11,7 +11,7 @@ import MuiAlert from '@material-ui/lab/Alert'
 import Box from '@material-ui/core/box'
 import { Redirect } from 'react-router-dom'
 
-function Alert (props) {
+function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
@@ -39,17 +39,17 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-export default function Form () {
+export default function Form(props) {
   const [titleValue, changeTitleValue] = React.useState('')
   const [descValue, changeDescValue] = React.useState('')
   const [companyValue, changecCompanyValue] = React.useState('')
   const [taskIdValue, changecTaskIdValue] = React.useState('')
   const [openSucsses, setOpenSucsses] = React.useState(false)
   const [openNotSucsses, setOpenNotSucsses] = React.useState(false)
-  const [eventButton, setEvent] = React.useState(false)
+  const [redirectEvent, setRedirectEvent] = React.useState(false)
   const classes = useStyles()
-
-  async function addTask (title, company, description) {
+  const { allTasks } = props;
+  async function addTask(title, company, description) {
     try {
       const response = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/task/add', {
         method: 'POST',
@@ -67,12 +67,17 @@ export default function Form () {
       }).then(response => response.json())
       if (response.status == 200 && response.data != null) {
         changecTaskIdValue(response.data.taskID)
+        allTasks.push(response.data);
         handleClickSucsses()
       } else {
         handleClickNotSucsses()
       }
     } catch (e) {
-      return e.message
+      // if fetch fail, reload and try again
+      alert('something went work, page refreshing...')
+      setInterval(() => {
+        window.location.reload()
+      }, 4000)
     }
   }
 
@@ -88,8 +93,7 @@ export default function Form () {
     if (reason === 'clickaway') {
       return
     }
-    setOpenSucsses(false)
-    setEvent(true)
+    setRedirectEvent(true)
   }
   const handleNotSucssesClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -147,12 +151,12 @@ export default function Form () {
             }
             }
           >
-                        SUBMIT
+            SUBMIT
           </Button>
           <div className={classes.root}>
             <Snackbar open={openSucsses} autoHideDuration={4000} onClose={handleClose}>
-              <Alert  severity="success">
-                                Your task has been successfully added !</Alert>
+              <Alert severity="success">
+                Your task has been successfully added !</Alert>
             </Snackbar>
             <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose} autoHideDuration={4000}>
               <Alert severity="error">There is a problem , Try again and fill all the fields !</Alert>
@@ -160,9 +164,8 @@ export default function Form () {
           </div>
         </Grid>
       </Paper>
-
-      { 
-        eventButton ? <Redirect to={'/home'} /> : ''
+      {
+        redirectEvent ? <Redirect to={`/home/chat/${taskIdValue}`} /> : ''
       }
     </div>
   )

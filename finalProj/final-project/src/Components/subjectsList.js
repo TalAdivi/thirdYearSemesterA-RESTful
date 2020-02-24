@@ -75,7 +75,11 @@ export default function ScrollableTabsButtonAuto(props) {
         res = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/subjects').then(res => res.json())
       }
       catch (e) {
-        console.log(e);
+        // if fetch fail, reload and try again
+        alert('something went work, page refreshing...')
+        setInterval(() => {
+          window.location.reload()
+        }, 4000)
       }
       if (res.status == 200 && res.data != null) {
         setsubjects(res.data);
@@ -87,27 +91,27 @@ export default function ScrollableTabsButtonAuto(props) {
   if (subjects == null) {
     return <Loader />;
   }
-  else{
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" color="white">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
-        >
-        
-          {subjects.map((name, index) => (
-            <Tab key={index} label={name.name} {...a11yProps({ index })} />
+  else {
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" color="white">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="scrollable"
+            scrollButtons="auto"
+            aria-label="scrollable auto tabs example"
+          >
 
-          ))}
-        </Tabs>
-      </AppBar>
-    </div>
-  );
-   }
+            {subjects.map((name, index) => (
+              <Tab key={index} label={name.name} {...a11yProps({ index })} />
+
+            ))}
+          </Tabs>
+        </AppBar>
+      </div>
+    );
+  }
 }

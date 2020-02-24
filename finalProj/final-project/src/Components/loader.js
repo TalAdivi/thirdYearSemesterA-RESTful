@@ -17,7 +17,7 @@ export default function SimpleBackdrop () {
   useEffect(() => {
     const interval = setInterval(() => {
       setSeconds(seconds => seconds + 1)
-    }, 300)
+    }, 400)
     return () => clearInterval(interval)
   }, [])
 

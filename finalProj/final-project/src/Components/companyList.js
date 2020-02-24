@@ -60,7 +60,6 @@ export default function ScrollableTabsButtonAuto(props) {
   }
 
   const sendData = (currentCompany) => {
-    console.log('currnetsend', currentCompany)
     props.parentCallback(currentCompany)
   }
 
@@ -69,7 +68,11 @@ export default function ScrollableTabsButtonAuto(props) {
       try {
         res = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/companies').then(res => res.json())
       } catch (e) {
-        console.log(e)
+        // if fetch fail, reload and try again
+        alert('something went work, page refreshing...')
+        setInterval(() => {
+          window.location.reload()
+        }, 4000)
       }
       if (res.status == 200 && res.data != null) {
         setCompanies(res.data)
