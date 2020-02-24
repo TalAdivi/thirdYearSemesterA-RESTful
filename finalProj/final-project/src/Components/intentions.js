@@ -11,7 +11,7 @@ import MuiAlert from '@material-ui/lab/Alert'
 import Box from '@material-ui/core/box'
 import { Redirect } from 'react-router-dom'
 
-function Alert (props) {
+function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-export default function Intentions () {
+export default function Intentions() {
   const [titleValue, changeTitleValue] = React.useState('')
   const [subjectValue, changecsubjectValue] = React.useState('')
   const [openSucsses, setOpenSucsses] = React.useState(false)
@@ -48,7 +48,7 @@ export default function Intentions () {
   const [eventButton, setEvent] = React.useState(false)
   const classes = useStyles()
 
-  async function addIntention (title, subject) {
+  async function addIntention(title, subject) {
     try {
       const response = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/intentions', {
         method: 'POST',
@@ -69,7 +69,11 @@ export default function Intentions () {
         handleClickNotSucsses()
       }
     } catch (e) {
-      return e.message
+      // if fetch fail, reload and try again
+      alert('something went work, page refreshing...')
+      setInterval(() => {
+        window.location.reload()
+      }, 4000)
     }
   }
   const handleClickSucsses = () => {
@@ -97,7 +101,7 @@ export default function Intentions () {
     <div >
 
       <Paper variant="outlined" className={classes.root} >
-        {<img style={{ float: 'right' }} src="https://img.icons8.com/doodle/48/000000/smart-.png"/>}
+        {<img style={{ float: 'right' }} src="https://img.icons8.com/doodle/48/000000/smart-.png" />}
         <Typography style={{ fontSize: 20 }} >Here you can improve the classification of intentions by inserting a title and choosing a subject to classify </Typography>
         <Typography className={classes.title}>
           <TextField
@@ -128,12 +132,12 @@ export default function Intentions () {
             }
             }
           >
-                        TRAIN
+            TRAIN
           </Button>
           <div className={classes.root}>
             <Snackbar open={openSucsses} autoHideDuration={4000} onClose={handleClose}>
               <Alert onClose={handleClose} severity="success">
-                                You success to improve the classification !</Alert>
+                You success to improve the classification !</Alert>
             </Snackbar>
             <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose} autoHideDuration={4000}>
               <Alert severity="error">There is a problem , Try again and fill all the fields !</Alert>

@@ -11,7 +11,7 @@ import MuiAlert from '@material-ui/lab/Alert'
 import Box from '@material-ui/core/box'
 import { Redirect } from 'react-router-dom'
 
-function Alert (props) {
+function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-export default function Form (props) {
+export default function Form(props) {
   const [titleValue, changeTitleValue] = React.useState('')
   const [descValue, changeDescValue] = React.useState('')
   const [companyValue, changecCompanyValue] = React.useState('')
@@ -49,7 +49,7 @@ export default function Form (props) {
   const [redirectEvent, setRedirectEvent] = React.useState(false)
   const classes = useStyles()
   const { allTasks } = props;
-  async function addTask (title, company, description) {
+  async function addTask(title, company, description) {
     try {
       const response = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/task/add', {
         method: 'POST',
@@ -73,7 +73,11 @@ export default function Form (props) {
         handleClickNotSucsses()
       }
     } catch (e) {
-      return e.message
+      // if fetch fail, reload and try again
+      alert('something went work, page refreshing...')
+      setInterval(() => {
+        window.location.reload()
+      }, 4000)
     }
   }
 
@@ -147,12 +151,12 @@ export default function Form (props) {
             }
             }
           >
-                        SUBMIT
+            SUBMIT
           </Button>
           <div className={classes.root}>
             <Snackbar open={openSucsses} autoHideDuration={4000} onClose={handleClose}>
-              <Alert  severity="success">
-                                Your task has been successfully added !</Alert>
+              <Alert severity="success">
+                Your task has been successfully added !</Alert>
             </Snackbar>
             <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose} autoHideDuration={4000}>
               <Alert severity="error">There is a problem , Try again and fill all the fields !</Alert>
@@ -160,7 +164,7 @@ export default function Form (props) {
           </div>
         </Grid>
       </Paper>
-      { 
+      {
         redirectEvent ? <Redirect to={`/home/chat/${taskIdValue}`} /> : ''
       }
     </div>
