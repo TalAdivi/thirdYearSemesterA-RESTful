@@ -19,15 +19,16 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-function Alert (props) {
+function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
-export default function StatusSelect (props) {
-  const { taskID } = props
+export default function StatusSelect(props) {
+  const { taskID, parentTasks ,parnetSet } = props
   const classes = useStyles()
   const [status, setStatus] = React.useState('Active')
   const [openSucsses, setOpenSucsses] = React.useState(false)
+  const [openNotSucsses, setOpenNotSucsses] = React.useState(false)
   const [redirect, setRedirect] = React.useState(false)
 
   const handleClickSucsses = () => {
@@ -38,16 +39,24 @@ export default function StatusSelect (props) {
     if (reason === 'clickaway') {
       return
     }
-    console.log('on clost fire!!')
     setOpenSucsses(false)
+    setRedirect(true)
+  }
+  const handleNotSucssesClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpenNotSucsses(false)
+  }
+  const handleClickNotSucsses = () => {
+    setOpenNotSucsses(true)
   }
 
-  const handleChange = event => {
-    console.log('bla')
 
+  const handleChange = event => {
     setStatus(event.target.value)
     let res
-    async function changeStatus () {
+    async function changeStatus() {
       try {
         res = await fetch(`https://mern-finalproj-api.herokuapp.com/Help4U/task/update/${taskID}`, {
           method: 'PUT',
@@ -61,31 +70,17 @@ export default function StatusSelect (props) {
           })
         })
           .then(res => res.json())
-        // queryRes = React.createContext(res);
-        console.log('res MAIN WINDOW\n', res)
-
         if (res.status == 200 && res.data !== null) {
+          parnetSet(parentTasks => parentTasks.map(data => data.taskID !== taskID ? data : res.data));
+          // parnetSet(parentTasks => parentTasks.map(data => data.taskID !== taskID ? data : { ...data, chat: res.chat }));
+
           handleClickSucsses()
-
-          setInterval(() => {
-            setRedirect(true)
-          }, 2000)
         }
-
-        if (res.status == 200 && res.data === null) {
-          // wired bugs can get here
-          setRedirect(true)
-          // message to user no task with this id
+        else {
+          handleClickNotSucsses()
         }
-
-        if (res.status == 500) {
-          // maybe DB error, reload and try again
-          alert('something went work, page refreshing...')
-          setInterval(() => {
-            window.location.reload()
-          }, 4000)
-        }
-      } catch (e) {
+      }
+         catch (e) {
         // if fetch fail, reload and try again
         alert('something went work, page refreshing...')
         setInterval(() => {
@@ -93,7 +88,6 @@ export default function StatusSelect (props) {
         }, 4000)
       }
     }
-
     changeStatus()
   }
 
@@ -108,7 +102,7 @@ export default function StatusSelect (props) {
   return (
     <FormControl className={classes.formControl}>
       <InputLabel shrink id="demo-simple-select-placeholder-label-label">
-                Status
+        Status
       </InputLabel>
       <Select
         labelId="demo-simple-select-placeholder-label-label"
@@ -122,13 +116,15 @@ export default function StatusSelect (props) {
         <MenuItem value={'Active'}>Active</MenuItem>
         <MenuItem value={'Complete'}>Complete</MenuItem>
       </Select>
-      <Snackbar open={openSucsses} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
-                        Your task has been successfully added !</Alert>
+      <Snackbar open={openSucsses} autoHideDuration={4000} onClose={handleClose}>
+        <Alert severity="success">
+          Task Status updated successfully !</Alert>
       </Snackbar>
-
+      <Snackbar open={openNotSucsses} onClose={handleNotSucssesClose} autoHideDuration={4000}>
+        <Alert severity="error">There is a problem , Try again !</Alert>
+      </Snackbar>
       {/* when change the status of a task, go back to home page */}
-      {redirect ? <Redirect to="/home"/> : ''}
+      {redirect ? <Redirect to="/home" /> : ''}
     </FormControl>
   )
 }

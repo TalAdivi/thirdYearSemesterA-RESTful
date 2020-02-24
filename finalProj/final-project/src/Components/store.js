@@ -58,7 +58,7 @@ export default function Store (props) {
     return <Loader/>
   } else {
     return (
-      <CTX.Provider value={{ chat, sendChatAction, currTask }}>
+      <CTX.Provider value={{ chat, sendChatAction, currTask ,allTasks,setAllUsersTasks}}>
         {props.children}
       </CTX.Provider>
     )

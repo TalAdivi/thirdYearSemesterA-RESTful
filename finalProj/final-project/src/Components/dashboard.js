@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
 export default function Dashboard () {
   const classes = useStyles()
   // CTX store
-  const { chat, sendChatAction, currTask } = React.useContext(CTX)
+  const { chat, sendChatAction, currTask,allTasks ,setAllUsersTasks} = React.useContext(CTX)
   const [textValue, changeTextValue] = React.useState('')
   // const [taskStatus, setTaskStatus] = React.useState('Active')
   let taskDate = '' + currTask.datesend
@@ -101,7 +101,7 @@ export default function Dashboard () {
               <Grid item lg={4} >
                 <Typography align='center'>
                   {/* shows status selection only for admins and only for Active tasks */}
-                  { currTask.status === 'Active' && JSON.parse(sessionStorage.getItem('isAdmin')) && <StatusSelect taskID={currTask.taskID} />}
+                  { currTask.status === 'Active' && JSON.parse(sessionStorage.getItem('isAdmin')) && <StatusSelect taskID={currTask.taskID} parentTasks={allTasks} parnetSet={setAllUsersTasks}/>}
                   {!JSON.parse(sessionStorage.getItem('isAdmin')) && ('Status: ' + currTask.status)}
                 </Typography>
               </Grid>
