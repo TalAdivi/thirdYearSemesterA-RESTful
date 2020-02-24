@@ -71,9 +71,7 @@ export default function StatusSelect(props) {
         })
           .then(res => res.json())
         if (res.status == 200 && res.data !== null) {
-          parnetSet(parentTasks => parentTasks.map(data => data.taskID !== taskID ? data : res.data));
-          // parnetSet(parentTasks => parentTasks.map(data => data.taskID !== taskID ? data : { ...data, chat: res.chat }));
-
+          parnetSet(parentTasks => parentTasks.map(task => task.taskID !== taskID ? task : res.data));
           handleClickSucsses()
         }
         else {
