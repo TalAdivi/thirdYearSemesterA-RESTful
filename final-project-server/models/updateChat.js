@@ -11,8 +11,6 @@ const taskModel = require('./taskSchema');
 async function updateChatFromSocket(taskID, chat) {
 
     // partialReq created like this because we want to keep using the same structure of the original req object (that came from the API request)
-    console.log('updateChatFromSocket --- chat = ', chat)
-    console.log('updateChatFromSocket --- taskID = ', taskID)
     let partialReq = {
         taskID,
         body : {

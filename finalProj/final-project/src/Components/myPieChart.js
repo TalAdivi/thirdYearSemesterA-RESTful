@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     minWidth: 650
   },
   PieChart: {
-    margin: '10px'
+    marginTop: '10px'
   }
 })
 const dataMock = [
@@ -33,7 +33,7 @@ const defaultLabelStyle = {
 
 export default function MyPieChart (props) {
   const { allTasks } = props
-  const classes = useStyles
+  const classes = useStyles()
 
   const [dataArr, setDataArr] = useState([])
 
@@ -57,20 +57,9 @@ export default function MyPieChart (props) {
 
   return (
 
-    <Paper variant="outlined" >
+    <Paper variant="outlined" className={classes.PieChart}>
       <Box margin={2}>
         <PieChart
-        //   data={dataMock}
-        //   label={({ data, dataIndex }) =>
-        //     Math.round(data[dataIndex].percentage) + '%'
-
-          //   }
-          //   labelStyle={defaultLabelStyle}
-          //   lengthAngle={-360}
-          //   animate
-          //   lineWidth={10}
-          //   className={classes.PieChart}
-
           animate={false}
           animationDuration={500}
           animationEasing="ease-out"
@@ -80,7 +69,6 @@ export default function MyPieChart (props) {
           //   label
           label={({ data, dataIndex }) =>
             Math.round(data[dataIndex].percentage) + '%'
-
           }
           labelPosition={50}
           labelStyle={{
@@ -102,7 +90,6 @@ export default function MyPieChart (props) {
           ]}
         />
       </Box>
-
     </Paper>
 
   )

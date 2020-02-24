@@ -38,19 +38,31 @@ export default function Store (props) {
     }
 
     getCurrTask()
-  }, [])
+  })
+
+  useEffect(() => {
+    return () => {
+      console.log('unmount!')
+    }
+  })
 
   if (!socket) {
     socket = io('https://mern-finalproj-api.herokuapp.com/', {
       transports: ['websocket']
     })
     socket.on('chat message', function (message, from) {
-      setChat(prevChats => ([
-        ...prevChats, {
-          from: from,
-          message: message
-        }])
-      )
+      // oneTask.chat.push({
+      //   from: from,
+      //   message: message
+      // })
+
+      setCurrTask(prevTask => ({ ...prevTask, chat: prevTask.chat.push({ from: from, message: message }) }))
+      // setChat(prevChats => ([
+      //   ...prevChats, {
+      //     from: from,
+      //     message: message
+      //   }])
+      // )
     })
   }
 
