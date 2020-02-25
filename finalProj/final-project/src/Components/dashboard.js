@@ -175,13 +175,15 @@ import { blue } from '@material-ui/core/colors'
 import Link from '@material-ui/core/Link'
 import Divider from '@material-ui/core/Divider'
 import StatusSelect from './select'
+import GridList from '@material-ui/core/GridList'
+import GridListTile from '@material-ui/core/GridListTile'
 
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
       padding: theme.spacing(3, 2)
     },
-    minHeight: '800px'
+    minHeight: '500px'
   },
 
   flex: {
@@ -196,9 +198,10 @@ const useStyles = makeStyles(theme => ({
   },
   chatWindow: {
     width: '70%',
-    height: '300px',
+    minHeight: '300px',
     padding: '20px'
   },
+
   chatBox: {
     width: '100%'
   },
@@ -276,10 +279,11 @@ export default function Dashboard () {
           <div className={classes.chatWindow}>
             {
               chat.map((chat, i) => (
-                <div className={classes.flex} key={i}>
-                  <Chip label={chat.from} style={{ marginRight: '10px' }} />
-                  <Paper className={classes.textBubble} variant="elevation" style={chat.from === userName ? { backgroundColor: '#5c6bc0' } : { backgroundColor: '#7e57c2' }}>
-                    <Typography variant='body1' gutterBottom style={{ margin: '15px', maxWidth: '100%' }}> {chat.message} </Typography>
+
+                <div className = {classes.flex} key = {i}>
+                  <Chip label = {chat.from} style = {{ marginRight: '10px' }} />
+                  <Paper className = {classes.textBubble} variant = "elevation" style = {chat.from === userName ? { backgroundColor: '#5c6bc0' } : { backgroundColor: '#7e57c2' }}>
+                    <Typography variant = 'body1' gutterBottom style = {{ margin: '15px', maxWidth: '100%' }}> {chat.message} </Typography>
                   </Paper>
                 </div>
               ))
