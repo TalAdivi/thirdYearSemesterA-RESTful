@@ -8,8 +8,9 @@ import TextField from '@material-ui/core/TextField'
 import CompanyTab from './companyList'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
-import Box from '@material-ui/core/box'
 import { Redirect } from 'react-router-dom'
+import Box from '@material-ui/core/box'
+
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
@@ -35,8 +36,7 @@ const useStyles = makeStyles(theme => ({
   },
   company: {
     marginBottom: '10px'
-  }
-
+  } ,
 }))
 
 export default function Form(props) {
@@ -104,6 +104,7 @@ export default function Form(props) {
 
   return (
     <div >
+       <Box mx="auto">
       <Paper variant="outlined" className={classes.root} >
         <Typography className={classes.title}>
           <TextField
@@ -167,6 +168,7 @@ export default function Form(props) {
       {
         redirectEvent ? <Redirect to={`/home/chat/${taskIdValue}`} /> : ''
       }
+      </Box>
     </div>
   )
 }

@@ -40,7 +40,7 @@ export default function MyPieChart (props) {
   useEffect(() => {
     countRatio(allTasks)
     // console.log('allTasks\n', allTasks)
-  })
+  },[allTasks])
 
   const countRatio = (allTaskss) => {
     // console.log('insideCountRatio\n')
@@ -56,7 +56,7 @@ export default function MyPieChart (props) {
   }
 
   return (
-
+<Box mx="auto" >
     <Paper variant="outlined" >
       <Box margin={2}>
         <PieChart
@@ -104,6 +104,6 @@ export default function MyPieChart (props) {
       </Box>
 
     </Paper>
-
+    </Box>
   )
 }

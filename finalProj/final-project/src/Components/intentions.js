@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
       padding: theme.spacing(2, 2)
     }
   },
-
   button: {
     width: '20%',
     marginTop: '14px',
@@ -36,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   subject: {
     marginBottom: '10px'
-  }
+  },
 
 }))
 
@@ -98,6 +97,7 @@ export default function Intentions() {
   }
 
   return (
+    <Box mx="auto" >
     <div >
 
       <Paper variant="outlined" className={classes.root} >
@@ -149,5 +149,6 @@ export default function Intentions() {
         eventButton ? <Redirect to={'/home'} /> : ''
       }
     </div>
+    </Box>
   )
 }

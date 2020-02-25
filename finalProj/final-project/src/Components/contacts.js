@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import Snackbar from '@material-ui/core/Snackbar';
 import Loader from '../Components/loader'
+import Box from '@material-ui/core/box'
 
 export default function SimpleTable(props) {
   const { allTasks } = props
@@ -64,6 +65,7 @@ export default function SimpleTable(props) {
   }
   else {
     return (
+      <Box mx="auto" >
       <TableContainer component={Paper} >
         <Table aria-label="simple table">
           <TableHead>
@@ -94,6 +96,7 @@ export default function SimpleTable(props) {
           </TableBody>
         </Table>
       </TableContainer>
+      </Box>
     );
   }
 }
