@@ -189,7 +189,7 @@ const useStyles = makeStyles(theme => ({
   flex: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: '15px'
+    marginBottom: '15px',
   },
   topicWindow: {
     width: '30%',
@@ -198,8 +198,9 @@ const useStyles = makeStyles(theme => ({
   },
   chatWindow: {
     width: '70%',
-    minHeight: '300px',
+    maxHeight: '300px',
     padding: '20px'
+
   },
 
   chatBox: {
@@ -275,7 +276,7 @@ export default function Dashboard () {
 
         <Divider className={classes.divider} />
 
-        <div className={classes.flex}>
+        <div className={classes.flex} style={{overflow: 'auto'}}>
           <div className={classes.chatWindow}>
             {
               chat.map((chat, i) => (
