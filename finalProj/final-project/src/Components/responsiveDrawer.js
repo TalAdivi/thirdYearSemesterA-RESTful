@@ -178,7 +178,7 @@ function ResponsiveDrawer (props) {
                 <MySideBar/>
               </Drawer>
             </Hidden>
-            <Hidden xsDown implementation="css">
+            <Hidden  xsDown implementation="css">
               <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open >
                 <Profile/>
                 <MySideBar/>
@@ -196,7 +196,7 @@ function ResponsiveDrawer (props) {
                 <Route path="/home/chat" > <Chat allTasks={allUsersTasks} setAllUsersTasks = {setAllUsersTasks} /> </Route>
                 <Route path="/home/tasks" > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
                 <Route path="/home/contacts" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <Contacts allTasks={allUsersTasks} /> : <NotAllowPage/>}</Route>
-                <Route path="/home/create" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <NotAllowPage/> : <Form  allTasks={allUsersTasks}/>} </Route>
+                <Route path="/home/create" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <NotAllowPage/> : <Form allTasks={allUsersTasks} setAllUsersTasks = {setAllUsersTasks}/>} </Route>
                 <Route path="/home/train subject" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <Intentions/> : <NotAllowPage/>}  </Route>
               </Grid>
               <Grid item md={4}>

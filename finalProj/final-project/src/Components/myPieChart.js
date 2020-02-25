@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography'
 // import PieChart from 'react-minimal-pie-chart'
 import PieChart from 'react-minimal-pie-chart'
 import { Box } from '@material-ui/core'
+import { render } from 'react-dom'
 
 const useStyles = makeStyles({
   table: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 })
 const dataMock = [
   { title: 'Completed', value: 0, color: '#2ED47A' },
-  { title: 'Active', value: 0, color: '#FFB946' }, ,
+  { title: 'Active', value: 0, color: '#FFB946' }
 ]
 
 const defaultLabelStyle = {
@@ -38,20 +39,23 @@ export default function MyPieChart (props) {
   const [dataArr, setDataArr] = useState([])
 
   useEffect(() => {
-    countRatio(allTasks)
+    countRatio()
     // console.log('allTasks\n', allTasks)
-  })
+  }, [allTasks])
 
-  const countRatio = (allTaskss) => {
+  const countRatio = () => {
     // console.log('insideCountRatio\n')
+    dataArr.length = 0
+    dataArr.push({ title: 'Completed', value: 0, color: '#2ED47A' },
+      { title: 'Active', value: 0, color: '#FFB946' })
 
-    allTaskss.forEach((oneTask, i) => {
+    allTasks.forEach((oneTask, i) => {
       // console.log('oneTask.status\n', oneTask.status)
-      oneTask.status === 'Active' ? dataMock[1].value += 1 : dataMock[0].value += 1
+      oneTask.status === 'Active' ? dataArr[1].value += 1 : dataArr[0].value += 1
+      // parnetSet(parentTasks => parentTasks.map(task => task.taskID !== taskID ? task : res.data))
     })
-
+    setDataArr((p) => p.map(a => a))
     // console.log('dataMock[1].value\n', dataMock[1].value)
-    setDataArr(allTasks)
     // setData(dataMock)
   }
 
@@ -65,7 +69,7 @@ export default function MyPieChart (props) {
           animationEasing="ease-out"
           cx={50}
           cy={50}
-          data={dataMock}
+          data={dataArr}
           //   label
           label={({ data, dataIndex }) =>
             Math.round(data[dataIndex].percentage) + '%'

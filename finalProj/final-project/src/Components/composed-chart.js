@@ -44,11 +44,10 @@ const stacks = [
 
 // const tooltip =
 
-
 // delete state
 export default function ComposedChart (props) {
-  const [chartData, setChartData] = useState([''])
-  const [targetItem, setTargetItem] = useState()
+  const [chartData, setChartData] = useState([])
+  // const [targetItem, setTargetItem] = useState()
 
   const { allTasks } = props
 
@@ -56,23 +55,16 @@ export default function ComposedChart (props) {
     const subMap = new Map()
 
     allTasks.forEach((oneTask) => {
-      // console.log('oneTask\n',oneTask);
-      if (subMap.has(oneTask.selectedSubject)) {
-        const ob = subMap.get(oneTask.selectedSubject)
+      const ob = subMap.get(oneTask.selectedSubject)
+      if (ob !== undefined) {
         oneTask.status === 'Completed' ? ob.C += 1 : ob.A += 1
-        setChartData(chartData => ([
-          ...chartData, ob
-
-        ]))
       } else {
         subMap.set(oneTask.selectedSubject, oneTask.status === 'Completed' ? { A: 0, C: 1, state: oneTask.selectedSubject } : { A: 1, C: 0, state: oneTask.selectedSubject })
-        const ob = subMap.get(oneTask.selectedSubject)
-        setChartData(chartData => ([
-          ...chartData, ob
-
-        ]))
       }
     })
+    // getting the values of map == the data for table
+    const values = Array.from(subMap.values())
+    setChartData(values)
     console.log('subMap!\n', subMap)
     console.log('chartData!\n', chartData)
   }
@@ -83,7 +75,7 @@ export default function ComposedChart (props) {
 
   useEffect(() => {
     calcSubjects()
-    console.log('chartProps\n', props)
+    // console.log('chartProps\n', props)
   }, [allTasks])
 
   return (
