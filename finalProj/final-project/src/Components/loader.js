@@ -28,7 +28,7 @@ export default function SimpleBackdrop () {
     <div>
       <Backdrop className={classes.backdrop} open={true}>
         <CircularProgress color="inherit" />
-        <Typography style={{ margin: 10 }}>Loading.. {arr[seconds]}
+        <Typography style={{ margin: 10 }}>Loading.. {arr[seconds % 10]}
         </Typography>
       </Backdrop>
     </div>
