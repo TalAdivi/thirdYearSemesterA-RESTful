@@ -16,7 +16,7 @@ export default function Store (props) {
   // const [toTask, setToTask] = React.useState(false)
   const [currTask, setCurrTask] = React.useState(null)
 
-  function sendChatAction (value, currTaskChat) {
+  function sendChatAction (value) {
     socket.emit('chat message', value.message, value.from, currTask.taskID, chat)
   }
 
@@ -41,6 +41,7 @@ export default function Store (props) {
       transports: ['websocket']
     })
 
+    //
     getCurrTask()
     socket.on('chat message', function (message, from) {
       setChat((prevChats) => {
@@ -61,6 +62,10 @@ export default function Store (props) {
         }))
         return f
       })
+    })
+
+    socket.on('DB not updated chat', function (message, from, errorMessage) {
+      alert(`message: ${message}\n from- ${from} didn't update at DB. error: ${errorMessage}`)
     })
 
     return () => {

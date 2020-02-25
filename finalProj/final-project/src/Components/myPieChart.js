@@ -55,8 +55,6 @@ export default function MyPieChart (props) {
       // parnetSet(parentTasks => parentTasks.map(task => task.taskID !== taskID ? task : res.data))
     })
     setDataArr((p) => p.map(a => a))
-    // console.log('dataMock[1].value\n', dataMock[1].value)
-    // setData(dataMock)
   }
 
   return (
