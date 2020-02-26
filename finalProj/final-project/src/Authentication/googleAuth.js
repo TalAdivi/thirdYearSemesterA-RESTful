@@ -137,9 +137,14 @@ const GoogleAuth = (props) => {
         onSuccess={successGoogle}
         onFailure={failGoogle}
         cookiePolicy={'single_host_origin'}
+        onRequest={onReq}
       />
     </>
   )
+}
+
+const onReq = () => {
+  console.log('onReq')
 }
 
 const GoogleOut = (props) => {

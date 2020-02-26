@@ -205,7 +205,7 @@ function ResponsiveDrawer (props) {
                 <MySideBar/>
               </Drawer>
             </Hidden>
-            <Hidden xsDown implementation="css">
+            <Hidden  xsDown implementation="css">
               <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open >
                 <Profile/>
                 <MySideBar/>
@@ -225,6 +225,10 @@ function ResponsiveDrawer (props) {
                 <Route path="/home/contacts" ><div className={classes.taskResponsive}>{JSON.parse(sessionStorage.getItem('isAdmin')) ? <Contacts allTasks={allUsersTasks} /> : <NotAllowPage/>}</div></Route>
                 <Route path="/home/create" ><div className={classes.taskResponsive}>{JSON.parse(sessionStorage.getItem('isAdmin')) ? <NotAllowPage/> : <Form  allTasks={allUsersTasks}/>} </div></Route>
                 <Route path="/home/train subject" ><div className={classes.taskResponsive}>{JSON.parse(sessionStorage.getItem('isAdmin')) ? <Intentions/> : <NotAllowPage/>} </div> </Route>
+                {/* <Route path="/home/tasks" > <Task allTasks={allUsersTasks} activeOnly={false} /> </Route>
+                <Route path="/home/contacts" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <Contacts allTasks={allUsersTasks} /> : <NotAllowPage/>}</Route>
+                <Route path="/home/create" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <NotAllowPage/> : <Form allTasks={allUsersTasks} setAllUsersTasks = {setAllUsersTasks}/>} </Route>
+                <Route path="/home/train subject" >{JSON.parse(sessionStorage.getItem('isAdmin')) ? <Intentions/> : <NotAllowPage/>}  </Route> */}
               </Grid>
               <Grid item md={4}>
                 {/* <ComposeChart allTasks={allUsersTasks} /><MyPieChart allTasks={allUsersTasks} ></MyPieChart> */}

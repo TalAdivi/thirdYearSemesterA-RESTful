@@ -114,7 +114,7 @@ export default function StatusSelect(props) {
         <MenuItem value={'Active'}>Active</MenuItem>
         <MenuItem value={'Complete'}>Complete</MenuItem>
       </Select>
-      <Snackbar open={openSucsses} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={openSucsses} autoHideDuration={2500} onClose={handleClose}>
         <Alert severity="success">
           Task Status updated successfully !</Alert>
       </Snackbar>

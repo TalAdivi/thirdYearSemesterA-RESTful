@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Loader from '../Components/loader'
 
-function TabPanel(props) {
+function TabPanel (props) {
   const { children, value, index, ...other } = props
   return (
     <Typography
@@ -30,7 +30,7 @@ TabPanel.propTypes = {
   value: PropTypes.any.isRequired
 }
 
-function a11yProps(index) {
+function a11yProps (index) {
   return {
     id: `scrollable-auto-tab-${index}`,
     'aria-controls': `scrollable-auto-tabpanel-${index}`
@@ -46,12 +46,12 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-export default function ScrollableTabsButtonAuto(props) {
+export default function ScrollableTabsButtonAuto (props) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
   const [companies, setCompanies] = React.useState(null)
   let currentCompany = ''
-  let res;
+  let res
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -64,7 +64,7 @@ export default function ScrollableTabsButtonAuto(props) {
   }
 
   useEffect(() => {
-    async function initCompanies() {
+    async function initCompanies () {
       try {
         res = await fetch('https://mern-finalproj-api.herokuapp.com/Help4U/companies').then(res => res.json())
       } catch (e) {
@@ -81,11 +81,9 @@ export default function ScrollableTabsButtonAuto(props) {
     initCompanies()
   }, [])
 
-
   if (companies == null) {
-    return <Loader />;
-  }
-  else {
+    return <Loader />
+  } else {
     return (
       <div className={classes.root}>
         <AppBar position="static" color="white">
