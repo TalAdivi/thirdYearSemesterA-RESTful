@@ -1,0 +1,5 @@
+{
+  "domain": "tal-adivi.auth0.com",
+  "clientId": "5TVFCiYQJqfoy59VwLhmKN4KiR1yDSbs",
+  "audience": "https://mern-finalproj-api.herokuapp.com"
+}
