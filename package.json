@@ -20,7 +20,7 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "eslint": "^6.7.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-jwt": "^5.3.1",
     "jwks-rsa": "^1.7.0",
     "mongoose": "^5.8.7",
